@@ -1,0 +1,53 @@
+body {
+  background: #fafafa;
+}
+
+#header {
+  color: #1a1a1a;
+}
+
+#left-wing {
+  color: #1a1a1a;
+}
+
+#right-wing {
+  color: #1a1a1a;
+}
+
+#typing-area, #theme-area {
+  background: #eaeaea;
+}
+
+#text-display {
+  color: #1a1a1a;
+}
+
+#input-field {
+  background: #fafafa;
+  color: #1a1a1a;
+}
+
+#input-field.wrong {
+  background: rgba(198, 38, 46, 0.3);
+}
+
+#redo-button {
+  background: #d4d4d4;
+  color: #1a1a1a;
+}
+
+#footer {
+  color: #1a1a1a;
+}
+
+.highlight {
+  color: #a56de2;
+}
+
+.correct {
+  color: #68b723;
+}
+
+.wrong {
+  color: #c6262e;
+}

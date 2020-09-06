@@ -5,6 +5,22 @@
  */
 
 module.exports = {
-  /* Your site config here */
-  plugins: [],
-}
+  siteMetadata: {
+    title: 'typenvibe',
+    description: 'Just type and vibe bruv',
+    siteUrl: 'https://typenvibe.netlify.app',
+  },
+  plugins: [
+    {
+      resolve: 'gatsby-alias-imports',
+      options: {
+        aliases: {
+          components: 'src/components',
+          pages: 'src/pages',
+          assets: 'src/assets',
+        },
+      },
+    },
+    'gatsby-plugin-react-helmet',
+  ],
+};

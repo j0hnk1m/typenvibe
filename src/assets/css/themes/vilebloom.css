@@ -1,0 +1,66 @@
+/*
+inspired by SA Vilebloom http://www.mechsupply.co.uk/product/sa-vilebloom
+yellow: #F6BD9D
+rose:   #FF808B
+pink:   #CD6C8F
+blue:   #34657F
+white:  #FFFFFF
+*/
+
+body {
+  background-color: #34657f;
+  background-image: linear-gradient(135deg, #34657f 50%, #cd6c8f 50%);
+  background-image: -webkit-linear-gradient(135deg, #cd6c8f 50%, #34657f 50%);
+  background-image: -moz-linear-gradient(135deg, #cd6c8f 50%, #34657f 50%);
+  background-image: -ms-linear-gradient(135deg, #cd6c8f 50%, #34657f 50%);
+}
+
+#header {
+  color: #ffffff;
+}
+
+#left-wing {
+  color: #ffffff;
+}
+
+#right-wing {
+  color: #ffffff;
+}
+
+#typing-area, #theme-area {
+  background: #f6bd9d;
+}
+
+#input-field {
+  background: #ffffff;
+  color: #34657f;
+}
+
+#input-field.wrong {
+  background: rgba(198, 38, 46, 0.3);
+}
+
+#redo-button {
+  background: #34657f;
+  color: #ffffff;
+}
+
+#text-display {
+  color: #cd6c8f;
+}
+
+#footer {
+  color: #ffffff;
+}
+
+.highlight {
+  color: #ffffff;
+}
+
+.correct {
+  color: #34657f;
+}
+
+.wrong {
+  color: #ff808b;
+}
