@@ -21,6 +21,13 @@ module.exports = {
         },
       },
     },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `data`,
+        path: `${__dirname}/src/assets/data/`,
+      },
+    },
     'gatsby-plugin-react-helmet',
   ],
 };

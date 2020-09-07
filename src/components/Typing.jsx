@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Head from './Head';
 import Stats from './Stats';
 
-const Typing = ({ lyrics }) => {
+const Typing = ({ lyrics, togglePlayback }) => {
   const wordList = lyrics.split(' ');
   const [wordListStatus, setWordListStatus] = useState([]);
 
@@ -33,8 +33,11 @@ const Typing = ({ lyrics }) => {
     if (!isActive && word2 === '') setCurWord('');
     setCurWordStatus(word1 === word2);
 
-    // Start the timer once the user has started typing
-    if (curWord !== '' && pos < wordList.length - 1) setIsActive(true);
+    // Start the song + timer once the user has started typing
+    if (curWord !== '' && pos < wordList.length - 1) {
+      setIsActive(true);
+      togglePlayback();
+    }
 
     // If user entered word (by pressing space), evaluate word
     if (word2.length > 0 && curWord.indexOf(' ') >= 0 && wordListStatus.length <= wordList.length) {
