@@ -17,8 +17,8 @@ const Boombox = ({ setSong, }) => {
       label: 'Dynamite',
     },
     {
-      value: 'dynamite_bts',
-      label: 'Halo',
+      value: 'blindingLights_weeknd',
+      label: 'Blinding Lights ',
     },
   ];
 
@@ -26,7 +26,7 @@ const Boombox = ({ setSong, }) => {
     <>
       <p>boombox</p>
       <Select options={songOptions} onChange={onSongSel} />
-      <p>{sel.value}</p>
+      <p>{sel.label}</p>
     </>
   );
 };

@@ -1,11 +1,37 @@
 import React, { useState, useEffect } from 'react';
 import Head from './Head';
 import Stats from './Stats';
+import Sound from 'react-sound'
+import Boombox from 'components/Boombox';
 
-const Typing = ({ lyrics, togglePlayback }) => {
+
+const Typing = () => {
+
+  const read_lyrics = (lyrics) => {
+    let rawFile = new XMLHttpRequest();
+    rawFile.open("GET", 'http://127.0.0.1:8887/blindingLights_weeknd/blindingLights_weeknd.txt', false);
+    console.log(rawFile);
+    rawFile.onreadystatechange = function () {
+      console.log(rawFile.responseText); 
+    }
+  }
+
+  read_lyrics("http://127.0.0.1:8887/blindingLights_weeknd/blindingLights_weeknd.lrc");
+  const test = 'http://127.0.0.1:8887/blindingLights_weeknd/blindingLights_weeknd.mp3'
+  const server = 'http://127.0.0.1:8887/'
+  const base_path = 'file:///Users/rishigundakaram/projects/typenvibe/data/';
+  const lyrics = "I'm at a payphone trying to call home";
+  // const audiofile = 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3';
+
+  // Music state
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [song, setSong] = useState('blindingLights_weeknd');
+  const audiofile = ''.concat(server, song, '/', song, '.mp3');
+
   const wordList = lyrics.split(' ');
-  const [wordListStatus, setWordListStatus] = useState([]);
 
+  // Typing state
+  const [wordListStatus, setWordListStatus] = useState([]);
   const [correctWordCount, setCorrectWordCount] = useState(0);
   const [seconds, setSeconds] = useState(0);
   const [isActive, setIsActive] = useState(false);
@@ -30,13 +56,14 @@ const Typing = ({ lyrics, togglePlayback }) => {
     // Compare the word you typed with the answer
     const word1 = wordList[pos];
     const word2 = curWord.trim();
-    if (!isActive && word2 === '') setCurWord('');
     setCurWordStatus(word1 === word2);
 
     // Start the song + timer once the user has started typing
-    if (curWord !== '' && pos < wordList.length - 1) {
+    if (word2 !== '' && pos < wordList.length) {
       setIsActive(true);
-      togglePlayback();
+      setIsPlaying(true);
+    } else {
+      setCurWord('');
     }
 
     // If user entered word (by pressing space), evaluate word
@@ -49,7 +76,10 @@ const Typing = ({ lyrics, togglePlayback }) => {
   }, [curWord]);
 
   useEffect(() => {
-    if (pos > wordList.length - 1) setIsActive(false);
+    if (pos > wordList.length - 1) {
+      setIsActive(false);
+      setIsPlaying(false);
+    }
   }, [pos]);
 
   // Runs a timer that updates every second
@@ -65,16 +95,26 @@ const Typing = ({ lyrics, togglePlayback }) => {
     return () => clearInterval(interval);
   }, [isActive, seconds]);
 
+  useEffect(() => {
+    console.log("RENDERED");
+  }, [])
+
   return (
     <>
       <Head />
+      <Boombox setSong={setSong} />
+      <Sound
+        // url="../assets/data/dynamite_bts/dynamite_bts.mp3"
+        url={`${audiofile}`}
+        playStatus={isPlaying ? Sound.status.PLAYING : Sound.status.PAUSED}
+      />
       <p>{isActive ? 'active' : 'not active'}</p>
       <p>time: {seconds}</p>
       <br />
 
       <div>
         <Stats
-          wpm={correctWordCount === 0 ? 'XX' : Math.round((correctWordCount / seconds)) * 60}
+          wpm={correctWordCount === 0 ? 'XX' : Math.round((correctWordCount / seconds) * 60)}
           acc={correctWordCount === 0 ? 'XX' : Math.round((correctWordCount / wordList.length) * 100)}
         />
 

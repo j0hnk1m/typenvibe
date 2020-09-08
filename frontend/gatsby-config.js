@@ -17,15 +17,8 @@ module.exports = {
         aliases: {
           components: 'src/components',
           pages: 'src/pages',
-          assets: 'src/assets',
+          styles: 'src/styles',
         },
-      },
-    },
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        name: `data`,
-        path: `${__dirname}/src/assets/data/`,
       },
     },
     'gatsby-plugin-react-helmet',
