@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet';
 import { useStaticQuery, graphql } from 'gatsby';
 
 const Head = ({ title }) => {
-  const data = useStaticQuery(graphql`
+  const query = useStaticQuery(graphql`
     query {
       site {
         siteMetadata {
@@ -17,8 +17,8 @@ const Head = ({ title }) => {
     <>
       {
         title === undefined
-          ? <Helmet title={`${data.site.siteMetadata.title}`} />
-          : <Helmet title={`${title} | ${data.site.siteMetadata.title}`} />
+          ? <Helmet title={`${query.site.siteMetadata.title}`} />
+          : <Helmet title={`${title} | ${query.site.siteMetadata.title}`} />
       }
     </>
   );

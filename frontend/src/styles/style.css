@@ -132,3 +132,8 @@ body, .header, .left-wing, .right-wing, .typing-area, .theme-area, .theme-center
   transition: all .4s ease-in-out 0s;
 
 }
+
+.react-switch {
+  vertical-align: middle;
+  margin-left: 4px;
+}

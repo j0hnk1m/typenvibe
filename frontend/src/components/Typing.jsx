@@ -1,121 +1,125 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setIsPlaying } from 'state/app';
 import Head from './Head';
 import Stats from './Stats';
-import Sound from 'react-sound'
-import Boombox from 'components/Boombox';
-
+import ReactPlayer from 'react-player';
 
 const Typing = () => {
+  // Global state
+  const curSong = useSelector((state) => state.app.curSong);
+  const curSongUrl = useSelector((state) => state.app.curSongUrl);
+  const isPlaying = useSelector((state) => state.app.isPlaying);
+  const typingMode = useSelector((state) => state.app.typingMode);
+  const lrcBasic = useSelector((state) => state.app.lrcBasic);
+  const lrcPunc = useSelector((state) => state.app.lrcPunc);
+  const lrcUpper = useSelector((state) => state.app.lrcUpper);
+  const lrcProper = useSelector((state) => state.app.lrcProper);
 
-  const read_lyrics = (lyrics) => {
-    let rawFile = new XMLHttpRequest();
-    rawFile.open("GET", 'http://127.0.0.1:8887/blindingLights_weeknd/blindingLights_weeknd.txt', false);
-    console.log(rawFile);
-    rawFile.onreadystatechange = function () {
-      console.log(rawFile.responseText); 
-    }
-  }
-
-  read_lyrics("http://127.0.0.1:8887/blindingLights_weeknd/blindingLights_weeknd.lrc");
-  const test = 'http://127.0.0.1:8887/blindingLights_weeknd/blindingLights_weeknd.mp3'
-  const server = 'http://127.0.0.1:8887/'
-  const base_path = 'file:///Users/rishigundakaram/projects/typenvibe/data/';
-  const lyrics = "I'm at a payphone trying to call home";
-  // const audiofile = 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3';
-
-  // Music state
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [song, setSong] = useState('blindingLights_weeknd');
-  const audiofile = ''.concat(server, song, '/', song, '.mp3');
-
-  const wordList = lyrics.split(' ');
+  // Lyrics depend on the typingMode set in settings
+  let lrc;
+  if (typingMode === 'basic') lrc = lrcBasic;
+  else if (typingMode === 'punc') lrc = lrcPunc;
+  else if (typingMode === 'upper') lrc = lrcUpper;
+  else lrc = lrcProper;
 
   // Typing state
+  const [linePos, setLinePos] = useState(0);
+  const [wordPos, setWordPos] = useState(0);
+  const [wordList, setWordList] = useState(lrc.length === 0 ? [] : lrc[0].text.split(' '));
   const [wordListStatus, setWordListStatus] = useState([]);
   const [correctWordCount, setCorrectWordCount] = useState(0);
+  const [typedWordCount, setTypedWordCount] = useState(0);
   const [seconds, setSeconds] = useState(0);
   const [isActive, setIsActive] = useState(false);
   const [curWord, setCurWord] = useState('');
-  const [pos, setPos] = useState(0);
-  const [curWordStatus, setCurWordStatus] = useState(true);
 
-  // Resets typing
+  const dispatch = useDispatch();
   const reset = () => {
-    setCurWord('');
-    setPos(0);
+    setLinePos(0);
+    setWordPos(0);
+    setWordList(lrc.length === 0 ? [] : lrc[0].text.split(' '));
     setWordListStatus([]);
     setCorrectWordCount(0);
+    setTypedWordCount(0);
     setSeconds(0);
     setIsActive(false);
+    setCurWord('');
+    dispatch(setIsPlaying(false));
   };
-
   const addWordListStatus = (newStatus) => setWordListStatus([...wordListStatus, newStatus]);
   const handleCurWordChange = (e) => setCurWord(e.target.value);
 
   useEffect(() => {
     // Compare the word you typed with the answer
-    const word1 = wordList[pos];
-    const word2 = curWord.trim();
-    setCurWordStatus(word1 === word2);
+    const actual = wordList[wordPos];
+    const typed = curWord.trim();
 
     // Start the song + timer once the user has started typing
-    if (word2 !== '' && pos < wordList.length) {
+    if (typed !== '' && wordPos < wordList.length) {
       setIsActive(true);
-      setIsPlaying(true);
+      dispatch(setIsPlaying(true));
     } else {
       setCurWord('');
     }
 
     // If user entered word (by pressing space), evaluate word
-    if (word2.length > 0 && curWord.indexOf(' ') >= 0 && wordListStatus.length <= wordList.length) {
+    if (typed.length > 0 && curWord.indexOf(' ') >= 0 && wordListStatus.length <= wordList.length) {
       setCurWord('');
-      addWordListStatus(word1 === word2);
-      if (word1 === word2) setCorrectWordCount(correctWordCount + 1);
-      setPos(pos + 1);
+      addWordListStatus(actual === typed);
+      setTypedWordCount(typedWordCount + 1);
+      if (actual === typed) setCorrectWordCount(correctWordCount + 1);
+      setWordPos(wordPos + 1);
     }
   }, [curWord]);
 
   useEffect(() => {
-    if (pos > wordList.length - 1) {
-      setIsActive(false);
-      setIsPlaying(false);
+    if (wordPos > wordList.length - 1) {
+      setWordPos(0);
+      setLinePos(linePos + 1);
     }
-  }, [pos]);
+  }, [wordPos]);
 
-  // Runs a timer that updates every second
+  useEffect(() => {
+    setWordList(lrc[linePos].text.split(' '));
+    setWordListStatus([]);
+    if (linePos > lrc.length - 1) reset();
+  }, [linePos]);
+
+  // Only when curSong changes (not on mount / initial render) does it reset
+  const didMountRef = useRef(false);
+  useEffect(() => {
+    if (didMountRef.current) reset();
+    else didMountRef.current = true;
+  }, [curSong]);
+
+  // Runs a timer that updates every half second
   useEffect(() => {
     let interval = null;
     if (isActive) {
       interval = setInterval(() => {
-        setSeconds(Math.round((seconds + 0.1 + Number.EPSILON) * 100) / 100);
-      }, 100);
+        setSeconds(Math.round((seconds + 0.5 + Number.EPSILON) * 100) / 100);
+      }, 500);
     } else if (!isActive && seconds !== 0) {
       clearInterval(interval);
     }
     return () => clearInterval(interval);
   }, [isActive, seconds]);
 
-  useEffect(() => {
-    console.log("RENDERED");
-  }, [])
-
   return (
     <>
       <Head />
-      <Boombox setSong={setSong} />
-      <Sound
-        // url="../assets/data/dynamite_bts/dynamite_bts.mp3"
-        url={`${audiofile}`}
-        playStatus={isPlaying ? Sound.status.PLAYING : Sound.status.PAUSED}
-      />
-      <p>{isActive ? 'active' : 'not active'}</p>
-      <p>time: {seconds}</p>
+      <ReactPlayer url={curSongUrl} />
+
       <br />
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        <span>{seconds}</span>
+      </div>
 
       <div>
         <Stats
           wpm={correctWordCount === 0 ? 'XX' : Math.round((correctWordCount / seconds) * 60)}
-          acc={correctWordCount === 0 ? 'XX' : Math.round((correctWordCount / wordList.length) * 100)}
+          acc={correctWordCount === 0 ? 'XX' : Math.round((correctWordCount / typedWordCount) * 100)}
         />
 
         <div className="typing-area">

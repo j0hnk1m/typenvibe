@@ -1,32 +1,31 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Select from 'react-select';
+import { getLrc, setCurSong, setCurSongUrl } from 'state/app';
 
-const Boombox = ({ setSong, }) => {
-  const [sel, setSel] = useState({ value: '', label: '' });
-  const onSongSel = (e) => {
-    setSel(e.label);
-    setSong(e.value);
-  };
-  const songOptions = [
-    {
-      value: 'believer_imagineDragons',
-      label: 'Believer',
-    },
-    {
-      value: 'dynamite_bts',
-      label: 'Dynamite',
-    },
-    {
-      value: 'blindingLights_weeknd',
-      label: 'Blinding Lights ',
-    },
-  ];
+const Boombox = () => {
+  const songs = useSelector((state) => state.app.songs);
+  const curSong = useSelector((state) => state.app.curSong);
+  const lrcBasic = useSelector((state) => state.app.lrcBasic);
+
+  const dispatch = useDispatch();
+  const [sel, setSel] = useState({ value: curSong || '', label: curSong || '' });
+
+  useEffect(() => {
+    dispatch(setCurSong(sel.value));
+    dispatch(setCurSongUrl('https://www.youtube.com/watch?v=HWoRAxXRg14'));
+    if (curSong && (sel.value !== curSong || lrcBasic.length === 0)) dispatch(getLrc(sel.value));
+  }, [sel]);
+
+  const options = songs.map((node) => ({ value: node.Key, label: node.Key }));
 
   return (
     <>
-      <p>boombox</p>
-      <Select options={songOptions} onChange={onSongSel} />
-      <p>{sel.label}</p>
+      <Select
+        value={sel}
+        options={options}
+        onChange={setSel}
+      />
     </>
   );
 };

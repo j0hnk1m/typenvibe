@@ -1,8 +1,12 @@
 import React from 'react';
+import { navigate } from 'gatsby';
 import { useStaticQuery, graphql } from 'gatsby';
 
-const Layout = ({ setPage, children }) => {
-  const data = useStaticQuery(graphql`
+const Layout = ({ children }) => {
+  const navigateUserGuide = () => navigate('/userguide');
+  const navigateSettings = () => navigate('/settings');
+
+  const query = useStaticQuery(graphql`
     query {
       site {
         siteMetadata {
@@ -14,16 +18,16 @@ const Layout = ({ setPage, children }) => {
 
   return (
     <>
-      <h2 className="header">{data.site.siteMetadata.title}</h2>
+      <h2 className="header">{query.site.siteMetadata.title}</h2>
 
       {children}
 
       <div className="footer">
-        <p className="button" onClick={() => setPage(1)} tabIndex="4">
+        <p className="button" onClick={navigateUserGuide} tabIndex="4">
           user guide
         </p>
-        <p className="button" onClick={() => setPage(2)} tabIndex="4">
-          ui
+        <p className="button" onClick={navigateSettings} tabIndex="4">
+          settings
         </p>
       </div>
     </>

@@ -1,2 +1,12 @@
-.cache
-node_modules
+.vscode
+.DS_Store
+
+frontend/.*
+frontned/.*/
+frontend/node_modules
+frontend/yarn.lock
+
+backend/env
+backend/songs/__pycache__
+backend/songs/migrations
+backend/typenvibe/__pycache__

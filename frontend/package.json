@@ -1,7 +1,7 @@
 {
-  "name": "gatsby-starter-hello-world",
+  "name": "typenvibe",
   "private": true,
-  "description": "A simplified bare-bones starter for Gatsby",
+  "description": "A React web app to help you practice touch typing while vibing to your favorite songs",
   "version": "0.1.0",
   "license": "0BSD",
   "scripts": {
@@ -14,19 +14,27 @@
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
   },
   "dependencies": {
-    "aws-sdk": "^2.747.0",
+    "aws-signature-v4": "^1.4.0",
+    "axios": "^0.20.0",
     "gatsby": "^2.24.50",
     "gatsby-alias-imports": "^1.0.4",
     "gatsby-cli": "^2.12.92",
+    "gatsby-plugin-netlify": "^2.3.14",
     "gatsby-plugin-react-helmet": "^3.3.10",
     "gatsby-source-filesystem": "^2.3.27",
+    "gatsby-source-s3": "^0.0.0",
+    "lrc-parser": "^1.0.1",
     "react": "^16.12.0",
+    "react-dark-mode-toggle": "^0.0.9",
     "react-dom": "^16.12.0",
     "react-helmet": "^6.1.0",
+    "react-player": "^2.6.2",
     "react-redux": "^7.2.1",
     "react-select": "^3.1.0",
-    "react-sound": "^1.2.0",
+    "react-switch": "^5.0.1",
+    "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8",
+    "redux-localstorage": "^0.4.1",
     "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
@@ -41,9 +49,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/gatsbyjs/gatsby-starter-hello-world"
-  },
-  "bugs": {
-    "url": "https://github.com/gatsbyjs/gatsby/issues"
+    "url": "https://github.com/j0hnk1m/typenvibe"
   }
 }
