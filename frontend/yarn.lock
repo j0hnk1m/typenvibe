@@ -11163,6 +11163,11 @@ redux-localstorage@^0.4.1:
   resolved "https://registry.yarnpkg.com/redux-localstorage/-/redux-localstorage-0.4.1.tgz#faf6d719c581397294d811473ffcedee065c933c"
   integrity sha1-+vbXGcWBOXKU2BFHP/zt7gZckzw=
 
+redux-localstore@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/redux-localstore/-/redux-localstore-1.0.0.tgz#be5fd332066460852c941e72ec4780eb275264d9"
+  integrity sha512-x5kWx0fusy5PSvnLkfnfXZ53eEz4Bh8SYZJQaLMlYYdFojGyuLi5PIov4jwO6HDvDORtbdoM19fmNlX+lWooDg==
+
 redux-thunk@^2.3.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/redux-thunk/-/redux-thunk-2.3.0.tgz#51c2c19a185ed5187aaa9a2d08b666d0d6467622"

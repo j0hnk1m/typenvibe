@@ -6,10 +6,9 @@ import { getLrc, setCurSong, setCurSongUrl } from 'state/app';
 const Boombox = () => {
   const songs = useSelector((state) => state.app.songs);
   const curSong = useSelector((state) => state.app.curSong);
-  const lrcBasic = useSelector((state) => state.app.lrcBasic);
-
-  const dispatch = useDispatch();
+  const typingMode = useSelector((state) => state.app.typingMode);
   const [sel, setSel] = useState({ value: curSong || '', label: curSong || '' });
+  const dispatch = useDispatch();
 
   const temp = {
     'believer_imagineDragons.lrc': 'https://www.youtube.com/watch?v=IhP3J0j9JmY',
@@ -21,7 +20,7 @@ const Boombox = () => {
   useEffect(() => {
     dispatch(setCurSong(sel.value));
     dispatch(setCurSongUrl(temp[sel.value]));
-    if (curSong && (sel.value !== curSong || lrcBasic.length === 0)) dispatch(getLrc(sel.value));
+    dispatch(getLrc(sel.value, typingMode));
   }, [sel]);
 
   const options = songs.map((node) => ({ value: node.Key, label: node.Key }));

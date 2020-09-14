@@ -10,26 +10,16 @@ const Typing = () => {
   const curSong = useSelector((state) => state.app.curSong);
   const curSongLength = useSelector((state) => state.app.curSongLength);
   const curSongUrl = useSelector((state) => state.app.curSongUrl);
-  const typingMode = useSelector((state) => state.app.typingMode);
-  const lrcBasic = useSelector((state) => state.app.lrcBasic);
-  const lrcPunc = useSelector((state) => state.app.lrcPunc);
-  const lrcUpper = useSelector((state) => state.app.lrcUpper);
-  const lrcProper = useSelector((state) => state.app.lrcProper);
-
-  // Lyrics depend on the typingMode set in settings
-  let lrc;
-  if (typingMode === 'basic') lrc = lrcBasic;
-  else if (typingMode === 'punc') lrc = lrcPunc;
-  else if (typingMode === 'upper') lrc = lrcUpper;
-  else lrc = lrcProper;
+  const volume = useSelector((state) => state.app.volume);
+  const lrc = useSelector((state) => state.app.lrc);
 
   // Typing state
   const [linePos, setLinePos] = useState(0);
   const [wordPos, setWordPos] = useState(0);
   const [lastWord, setLastWord] = useState('');
   const [finishedPrevLine, setFinishedPrevLine] = useState(true);
-  const [wordList, setWordList] = useState(lrc.length === 0 ? [] : lrc[linePos].text.split(' '));
-  const [nextWordList, setNextWordList] = useState(lrc.length === 0 ? [] : lrc[linePos + 1].text.split(' '));
+  const [wordList, setWordList] = useState([]);
+  const [nextWordList, setNextWordList] = useState([]);
   const [wordListStatus, setWordListStatus] = useState([]);
   const [correctWordCount, setCorrectWordCount] = useState(0);
   const [typedWordCount, setTypedWordCount] = useState(0);
@@ -40,7 +30,7 @@ const Typing = () => {
   const reset = () => {
     setLinePos(0);
     setWordPos(0);
-    setWordList(lrc.length === 0 ? [] : lrc[0].text.split(' '));
+    setWordList([]);
     setWordListStatus([]);
     setNextWordList([]);
     setCorrectWordCount(0);
@@ -55,14 +45,12 @@ const Typing = () => {
     setCurWord('');
   };
 
-  // Called when user finishes typing line
   const nextLine = () => {
     setFinishedPrevLine(true);
     setWordPos(0);
     setLinePos(linePos + 1);
   };
 
-  // Called when user doesn't finish typing line but time's out
   const skipToNextLine = () => {
     setFinishedPrevLine(false);
     setLinePos(linePos + 1);
@@ -107,13 +95,12 @@ const Typing = () => {
   }, [wordPos]);
 
   useEffect(() => {
-    setWordList(lrc[linePos].text.split(' '));
-    setWordListStatus([]);
-
-    if (linePos < lrc.length - 2) setNextWordList(lrc[linePos + 1].text.split(' '));
-    else setNextWordList([]);
-
-    if (linePos > lrc.length - 1) reset();
+    if (linePos >= lrc.length) reset();
+    if (curSong) {
+      setWordList(lrc[linePos].text.split(' '));
+      if (linePos < lrc.length - 2) setNextWordList(lrc[linePos + 1].text.split(' '));
+      else setNextWordList([]);
+    }
   }, [linePos]);
 
   // Runs a timer that updates every half second
@@ -123,7 +110,6 @@ const Typing = () => {
       else skipToNextLine();
     } else if (seconds > curSongLength + 10) {
       finish();
-      // TODO: may want to keep some stuff, like stats
     }
 
     let interval = null;
@@ -140,10 +126,18 @@ const Typing = () => {
   return (
     <>
       <Head />
-      <ReactPlayer
-        url={curSongUrl}
-        playing={isActive}
-      />
+      {
+        curSong
+          && (
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <ReactPlayer
+              url={curSongUrl}
+              playing={isActive}
+              volume={volume}
+            />
+          </div>
+          )
+      }
 
       <br />
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
@@ -163,13 +157,8 @@ const Typing = () => {
         <div className="typing-area">
           {wordList.map((word, i) => {
             let color = 'grey';
-            if (i === wordListStatus.length) {
-              // Current word that's being typed
-              color = 'purple';
-            } else if (i < wordListStatus.length) {
-              // Past words
-              color = wordListStatus[i] ? 'green' : 'red';
-            }
+            if (i === wordListStatus.length) color = 'purple';
+            else if (i < wordListStatus.length) color = wordListStatus[i] ? 'green' : 'red';
 
             return (
               <p key={i} style={{ display: 'inline', color: [color] }}>

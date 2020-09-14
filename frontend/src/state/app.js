@@ -1,18 +1,18 @@
 import axios from 'axios';
 import { useStaticQuery, graphql } from 'gatsby';
+import { defineState } from 'redux-localstore';
 import lrcParser from 'lrc-parser';
 
-const initialState = {
+const defaultState = {
   songs: [],
   curSong: null,
   curSongUrl: null,
   curSongLength: 0,
+  volume: 1,
   typingMode: 'basic',
-  lrcBasic: [],         // all lowercase, no punctuation
-  lrcPunc: [],          // lrcBasic + punctuation
-  lrcUpper: [],         // lrcBasic + uppercase
-  lrcProper: [],        // lrcBasic + punctuation + uppercase
+  lrc: [],
 };
+const initialState = defineState(defaultState);
 
 const config = () => (
   {
@@ -58,40 +58,8 @@ export const setCurSongLength = (curSongLength) => (dispatch) => {
   });
 };
 
-const SET_LRCBASIC = 'SET_LRCBASIC';
-export const setLrcBasic = (lrcBasic) => (dispatch) => {
-  dispatch({
-    type: SET_LRCBASIC,
-    payload: lrcBasic,
-  });
-};
-
-const SET_LRCPUNC = 'SET_LRCPUNC';
-export const setLrcPunc = (lrcPunc) => (dispatch) => {
-  dispatch({
-    type: SET_LRCPUNC,
-    payload: lrcPunc,
-  });
-};
-
-const SET_LRCUPPER = 'SET_LRCUPPER';
-export const setLrcUpper = (lrcUpper) => (dispatch) => {
-  dispatch({
-    type: SET_LRCUPPER,
-    payload: lrcUpper,
-  });
-};
-
-const SET_LRCPROPER = 'SET_LRCPROPER';
-export const setLrcProper = (lrcProper) => (dispatch) => {
-  dispatch({
-    type: SET_LRCPROPER,
-    payload: lrcProper,
-  });
-};
-
 // Parses the LRC file received from action GET_LRC and sets curSongLength, lrc, and lrcPunc
-const parseLrc = (lrc) => (dispatch) => {
+const parseLrc = (lrc, typingMode) => (dispatch) => {
   const data = lrcParser(lrc.toString('utf8'));
 
   if (data) {
@@ -106,30 +74,43 @@ const parseLrc = (lrc) => (dispatch) => {
       if (i % 2 === 0) return line;
       return [];
     });
-
     const lrcProper = cleaned.map(({ start, text, end }) => ({ start, text: text.trim(), end }));
     const lrcUpper = lrcProper.map(({ start, text, end }) => ({ start, text: text.replace(/[^\w\s]|_/g, '').replace(/\s+/g, ' '), end }));
     const lrcPunc = lrcProper.map(({ start, text, end }) => ({ start, text: text.toLowerCase(), end }));
     const lrcBasic = lrcUpper.map(({ start, text, end }) => ({ start, text: text.toLowerCase(), end }));
 
-    dispatch(setLrcPunc(lrcPunc));
-    dispatch(setLrcUpper(lrcUpper));
-    dispatch(setLrcProper(lrcProper));
-    return lrcBasic;
+    switch (typingMode) {
+      case 'basic':
+        return lrcBasic;
+      case 'punc':
+        return lrcPunc;
+      case 'upper':
+        return lrcUpper;
+      default:
+        return lrcProper;
+    }
   }
   return null;
 };
 
 const GET_LRC = 'GET_LRC';
-export const getLrc = (key) => (dispatch) => {
+export const getLrc = (key, typingMode) => (dispatch) => {
   axios.get(`https://${process.env.CLOUDFRONT_URL}/${key}`, config())
     .then((res) => {
       dispatch({
         type: GET_LRC,
-        payload: dispatch(parseLrc(res.data)),
+        payload: dispatch(parseLrc(res.data, typingMode)),
       });
     })
     .catch((err) => console.log(err));
+};
+
+const SET_VOLUME = 'SET_VOLUME';
+export const setVolume = (volume) => (dispatch) => {
+  dispatch({
+    type: SET_VOLUME,
+    payload: volume,
+  });
 };
 
 const SET_TYPINGMODE = 'SET_TYPINGMODE';
@@ -148,18 +129,19 @@ export const setCurSong = (curSong) => (dispatch) => {
   });
 };
 
+const RESET = 'RESET';
+export const reset = () => (dispatch) => {
+  dispatch({
+    type: RESET,
+  });
+};
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_SONGS:
       return { ...state, songs: action.payload };
     case GET_LRC:
-      return { ...state, lrcBasic: action.payload };
-    case SET_LRCPUNC:
-      return { ...state, lrcPunc: action.payload };
-    case SET_LRCUPPER:
-      return { ...state, lrcUpper: action.payload };
-    case SET_LRCPROPER:
-      return { ...state, lrcProper: action.payload };
+      return { ...state, lrc: action.payload };
     case SET_CURSONG:
       return { ...state, curSong: action.payload };
     case SET_CURSONGURL:
@@ -168,6 +150,8 @@ const reducer = (state = initialState, action) => {
       return { ...state, curSongLength: action.payload };
     case SET_TYPINGMODE:
       return { ...state, typingMode: action.payload };
+    case RESET:
+      return initialState;
     default:
       return state;
   }
