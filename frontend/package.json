@@ -22,7 +22,6 @@
     "gatsby-plugin-netlify": "^2.3.14",
     "gatsby-plugin-react-helmet": "^3.3.10",
     "gatsby-source-filesystem": "^2.3.29",
-    "gatsby-source-s3": "^0.0.0",
     "gatsby-transformer-remark": "^2.8.34",
     "lrc-parser": "^1.0.1",
     "react": "^16.12.0",
@@ -37,7 +36,6 @@
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8",
     "redux-localstorage": "^0.4.1",
-    "redux-localstore": "^1.0.0",
     "redux-thunk": "^2.3.0"
   },
   "devDependencies": {

@@ -8,7 +8,6 @@ import { setTypingMode } from 'state/app';
 const Settings = () => {
   const dispatch = useDispatch();
   const typingMode = useSelector((state) => state.app.typingMode);
-  // const typingMode = localStorage.getItem('typingMode');
   const navigateHome = () => navigate('/');
 
   // Typing mode state
