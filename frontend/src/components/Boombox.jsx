@@ -18,9 +18,11 @@ const Boombox = () => {
   };
 
   useEffect(() => {
-    dispatch(setCurSong(sel.value));
-    dispatch(setCurSongUrl(temp[sel.value]));
-    dispatch(getLrc(sel.value, typingMode));
+    if (sel.value !== curSong) {
+      dispatch(setCurSong(sel.value));
+      dispatch(setCurSongUrl(temp[sel.value]));
+      dispatch(getLrc(sel.value, typingMode));
+    }
   }, [sel]);
 
   const options = songs.map((node) => ({ value: node.Key, label: node.Key }));

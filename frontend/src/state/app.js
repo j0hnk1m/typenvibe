@@ -1,9 +1,7 @@
 import axios from 'axios';
-import { useStaticQuery, graphql } from 'gatsby';
-import { defineState } from 'redux-localstore';
 import lrcParser from 'lrc-parser';
 
-const defaultState = {
+const initialState = {
   songs: [],
   curSong: null,
   curSongUrl: null,
@@ -12,7 +10,6 @@ const defaultState = {
   typingMode: 'basic',
   lrc: [],
 };
-const initialState = defineState(defaultState);
 
 const config = () => (
   {
@@ -23,23 +20,18 @@ const config = () => (
   }
 );
 
+const REVERSE_PROXY = 'https://cors-anywhere.herokuapp.com';
+
 const GET_SONGS = 'GET_SONGS';
 export const getSongs = () => (dispatch) => {
-  const query = useStaticQuery(graphql`
-    query IndexQuery {
-      allS3Object {
-        edges {
-          node {
-            Key
-          }
-        }
-      }
-    }
-  `);
-  dispatch({
-    type: GET_SONGS,
-    payload: query.allS3Object.edges.map((edge) => edge.node),
-  });
+  axios.get(`${REVERSE_PROXY}/https://${process.env.CLOUDFRONT_URL}/songs.txt`, config())
+    .then((res) => {
+      dispatch({
+        type: GET_SONGS,
+        payload: res.data.split('\n'),
+      });
+    })
+    .catch((err) => console.log(err));
 };
 
 const SET_CURSONGURL = 'SET_CURSONGURL';

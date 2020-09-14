@@ -15,7 +15,8 @@ const Layout = ({ children }) => {
       }
     }
   `);
-
+  
+  
   return (
     <>
       <h2 className="header">{query.site.siteMetadata.title}</h2>

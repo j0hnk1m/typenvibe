@@ -35,16 +35,6 @@ module.exports = {
     },
     'gatsby-transformer-remark',
     'gatsby-plugin-react-helmet',
-    {
-      resolve: 'gatsby-source-s3',
-      options: {
-        aws: {
-          accessKeyId: `${process.env.ACCESS_KEY_ID}`,
-          secretAccessKey: `${process.env.ACCESS_SECRET}`,
-        },
-        buckets: [`${process.env.S3_BUCKET}`],
-      },
-    },
     'gatsby-plugin-netlify',
   ],
 };

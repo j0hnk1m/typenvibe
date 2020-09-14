@@ -6,72 +6,52 @@ import Head from './Head';
 import Stats from './Stats';
 
 const Typing = () => {
-  // Global state
+  // Global app state
   const curSong = useSelector((state) => state.app.curSong);
   const curSongLength = useSelector((state) => state.app.curSongLength);
   const curSongUrl = useSelector((state) => state.app.curSongUrl);
   const volume = useSelector((state) => state.app.volume);
   const lrc = useSelector((state) => state.app.lrc);
 
-  // Typing state
+  // Local typing state
   const [linePos, setLinePos] = useState(0);
   const [wordPos, setWordPos] = useState(0);
-  const [lastWord, setLastWord] = useState('');
-  const [finishedPrevLine, setFinishedPrevLine] = useState(true);
-  const [wordList, setWordList] = useState([]);
-  const [nextWordList, setNextWordList] = useState([]);
+  const [ohShitTheLineChangedWhileIWasTyping, setOhShitTheLineChangedWhileIWasTyping] = useState(false);
   const [wordListStatus, setWordListStatus] = useState([]);
   const [correctWordCount, setCorrectWordCount] = useState(0);
   const [typedWordCount, setTypedWordCount] = useState(0);
-  const [seconds, setSeconds] = useState(0);
-  const [isActive, setIsActive] = useState(false);
   const [curWord, setCurWord] = useState('');
+  const [prevWord, setPrevWord] = useState('');
+  const [isActive, setIsActive] = useState(false);
+  const [seconds, setSeconds] = useState(0);
+
+  const wordList = lrc[linePos].text.split(' ');
+  const nextWordList = (linePos <= lrc.length - 2) ? lrc[linePos + 1].text.split(' ') : [];
 
   const reset = () => {
+    setIsActive(false);
+    setSeconds(0);
     setLinePos(0);
     setWordPos(0);
-    setWordList([]);
+    setOhShitTheLineChangedWhileIWasTyping(false);
     setWordListStatus([]);
-    setNextWordList([]);
     setCorrectWordCount(0);
     setTypedWordCount(0);
-    setSeconds(0);
-    setIsActive(false);
     setCurWord('');
+    setPrevWord('');
   };
-
-  const finish = () => {
-    setIsActive(false);
-    setCurWord('');
-  };
-
-  const nextLine = () => {
-    setFinishedPrevLine(true);
-    setWordPos(0);
-    setLinePos(linePos + 1);
-  };
-
-  const skipToNextLine = () => {
-    setFinishedPrevLine(false);
-    setLinePos(linePos + 1);
-    setWordPos(0);
-    setWordList(nextWordList);
-  };
-
   const addWordListStatus = (newStatus) => setWordListStatus([...wordListStatus, newStatus]);
   const handleCurWordChange = (e) => setCurWord(e.target.value);
 
-  // Only when curSong changes (not on mount / initial render) does it reset
-  const didMountRef = useRef(false);
   useEffect(() => {
-    if (didMountRef.current) reset();
-    else didMountRef.current = true;
+    reset();
   }, [curSong]);
 
   useEffect(() => {
     // Compare the word you typed with the answer
     const actual = wordList[wordPos];
     const typed = curWord.trim();
+    let correct;
 
     // Start the song + timer once the user has started typing
     if (typed !== '' && wordPos < wordList.length) setIsActive(true);
@@ -81,37 +61,52 @@ const Typing = () => {
     if (typed.length > 0 && curWord.indexOf(' ') >= 0 && wordListStatus.length <= wordList.length) {
       setCurWord('');
       setTypedWordCount(typedWordCount + 1);
-      const correct = actual === typed || (!finishedPrevLine && typed === lastWord);
-      if (finishedPrevLine) addWordListStatus(correct);
-      if (correct) setCorrectWordCount(correctWordCount + 1);
 
-      if (!(wordPos === 0 && !finishedPrevLine)) setWordPos(wordPos + 1);
-      setFinishedPrevLine(true);
+      if (ohShitTheLineChangedWhileIWasTyping) {
+        correct = (typed === prevWord);
+        setOhShitTheLineChangedWhileIWasTyping(false);
+      } else {
+        correct = (typed === actual);
+        addWordListStatus(correct);
+        setWordPos(wordPos + 1);
+      }
+
+      if (correct) setCorrectWordCount(correctWordCount + 1);
     }
   }, [curWord]);
 
   useEffect(() => {
-    if (wordPos !== 0) setLastWord(wordList[wordPos]);
+    if (wordPos !== 0) setPrevWord(wordList[wordPos]);
   }, [wordPos]);
 
   useEffect(() => {
-    if (linePos >= lrc.length) reset();
-    if (curSong) {
-      setWordList(lrc[linePos].text.split(' '));
-      if (linePos < lrc.length - 2) setNextWordList(lrc[linePos + 1].text.split(' '));
-      else setNextWordList([]);
+    if (linePos === lrc.length) {
+      reset();
+    } else {
+      // setWordList(lrc[linePos].text.split(' '));
+      setWordListStatus([]);
+
+      // If there is a next line, display it. Otherwise, set nextWordList to empty
+      // if (linePos <= lrc.length - 2) setNextWordList(lrc[linePos + 1].text.split(' '));
+      // else setNextWordList([]);
     }
   }, [linePos]);
 
-  // Runs a timer that updates every half second
   useEffect(() => {
-    if (linePos < lrc.length - 1 && seconds >= lrc[linePos + 1].start) {
-      if (curWord === '') nextLine();
-      else skipToNextLine();
-    } else if (seconds > curSongLength + 10) {
-      finish();
+    if (isActive) {
+      if (linePos < lrc.length - 1 && seconds >= lrc[linePos + 1].start) {
+        // Line changes based on the time
+        setOhShitTheLineChangedWhileIWasTyping(curWord !== '');
+        setLinePos(linePos + 1);
+        setWordPos(0);
+      } else if (seconds > curSongLength + 10) {
+        // Ends the typing session
+        setIsActive(false);
+        setCurWord('');
+      }
     }
 
+    // Runs a timer that updates every half second
     let interval = null;
     if (isActive) {
       interval = setInterval(() => {
@@ -126,25 +121,19 @@ const Typing = () => {
   return (
     <>
       <Head />
-      {
-        curSong
-          && (
-          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-            <ReactPlayer
-              url={curSongUrl}
-              playing={isActive}
-              volume={volume}
-            />
-          </div>
-          )
-      }
+      <div style={{ padding: '20px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        <ReactPlayer
+          url={curSongUrl}
+          playing={isActive}
+          volume={volume}
+        />
+      </div>
 
-      <br />
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
         <p>{seconds}</p>
       </div>
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-        <p>last word: {lastWord}</p>
+        <p>prev word: {prevWord}</p>
       </div>
 
       <div>

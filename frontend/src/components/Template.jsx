@@ -1,24 +1,27 @@
 import React from 'react';
-import { graphql } from 'gatsby';
+import { navigate, graphql } from 'gatsby';
+import Layout from 'components/Layout';
 
-const Template = ({ data }) => {
-  const { markdownRemark } = data;
+export default function Template({ data }) {
+  const navigateHome = () => navigate('/');
+  const { markdownRemark } = data; // data.markdownRemark holds your post data
   const { frontmatter, html } = markdownRemark;
+
   return (
-    <div className="blog-post-container">
-      <div className="blog-post">
+    <Layout>
+      <p onClick={navigateHome}>back</p>
+
+      <div className="user Guide">
         <h1>{frontmatter.title}</h1>
-        <h2>{frontmatter.date}</h2>
         <div
-          className="blog-post-content"
+          className="content"
           dangerouslySetInnerHTML={{ __html: html }}
         />
       </div>
-    </div>
-  );
-};
+    </Layout>
 
-export default Template;
+  );
+}
 
 export const pageQuery = graphql`
   query($slug: String!) {
