@@ -100,8 +100,12 @@ const parseLrc = (lrc) => (dispatch) => {
 
     // Trims garbage if LRC file is from RentAnAdviser.com
     let cleaned = data.scripts.filter((line) => !line.text.includes('RentAnAdviser'));
-    cleaned = cleaned.map(({ start, text, end }) => ({ start, text: text.trim(), end }));
-    cleaned = cleaned.filter((line) => line.text);
+    cleaned = cleaned.map(({ start, text, end }) => ({ start, text: text.trim(), end })).filter((line) => line.text);
+    cleaned = cleaned.flatMap((line, i) => {
+      if (i < cleaned.length - 1 && i % 2 === 0) return { start: line.start, text: line.text.concat(' ', cleaned[i + 1].text), end: cleaned[i + 1].end };
+      if (i % 2 === 0) return line;
+      return [];
+    });
 
     const lrcProper = cleaned.map(({ start, text, end }) => ({ start, text: text.trim(), end }));
     const lrcUpper = lrcProper.map(({ start, text, end }) => ({ start, text: text.replace(/[^\w\s]|_/g, '').replace(/\s+/g, ' '), end }));
