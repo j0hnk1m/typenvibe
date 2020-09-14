@@ -11,9 +11,16 @@ const Boombox = () => {
   const dispatch = useDispatch();
   const [sel, setSel] = useState({ value: curSong || '', label: curSong || '' });
 
+  const temp = {
+    'believer_imagineDragons.lrc': 'https://www.youtube.com/watch?v=IhP3J0j9JmY',
+    'blindingLights_weeknd.lrc': 'https://www.youtube.com/watch?v=fHI8X4OXluQ',
+    'dynamite_bts.lrc': 'https://www.youtube.com/watch?v=OiMWFojB9Ok',
+    'allOfMe_johnLegend.lrc': 'https://www.youtube.com/watch?v=Mk7-GRWq7wA',
+  };
+
   useEffect(() => {
     dispatch(setCurSong(sel.value));
-    dispatch(setCurSongUrl('https://www.youtube.com/watch?v=HWoRAxXRg14'));
+    dispatch(setCurSongUrl(temp[sel.value]));
     if (curSong && (sel.value !== curSong || lrcBasic.length === 0)) dispatch(getLrc(sel.value));
   }, [sel]);
 
