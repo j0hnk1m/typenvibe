@@ -16,11 +16,13 @@ const Home = () => {
   return (
     <div className="container">
       <Layout>
-        <Boombox />
-        {
-          (curSong && lrc && lrc.length !== 0)
-            && <Typing />
-        }
+        <div className="alignBoom">
+          <Boombox />
+          {
+            (curSong && lrc && lrc.length !== 0)
+              && <Typing />
+          }
+        </div>
       </Layout>
     </div>
   );

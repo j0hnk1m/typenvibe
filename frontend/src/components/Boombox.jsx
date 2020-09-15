@@ -29,12 +29,12 @@ const Boombox = () => {
 
   return (
     <>
-    <div className="bar">
-      <Select
-        value={sel}
-        options={options}
-        onChange={setSel}
-      />
+      <div className="bar">
+        <Select
+          value={sel}
+          options={options}
+          onChange={setSel}
+        />
       </div>
     </>
   );

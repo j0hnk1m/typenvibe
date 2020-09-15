@@ -24,8 +24,10 @@ const Typing = () => {
   const [prevWord, setPrevWord] = useState('');
   const [isActive, setIsActive] = useState(false);
   const [seconds, setSeconds] = useState(0);
+  const [score, setScore] = useState(0);
   const wordList = lrc[linePos].text.split(' ');
   const nextWordList = (linePos <= lrc.length - 2) ? lrc[linePos + 1].text.split(' ') : [];
+
 
   const reset = () => {
     setIsActive(false);
@@ -38,6 +40,7 @@ const Typing = () => {
     setTypedWordCount(0);
     setCurWord('');
     setPrevWord('');
+    setScore(0);
   };
   const addWordListStatus = (newStatus) => setWordListStatus([...wordListStatus, newStatus]);
   const handleCurWordChange = (e) => setCurWord(e.target.value);
@@ -63,9 +66,11 @@ const Typing = () => {
 
       if (ohShitTheLineChangedWhileIWasTyping) {
         correct = (typed === prevWord);
+        if (correct) setScore(score + prevWord.length);
         setOhShitTheLineChangedWhileIWasTyping(false);
       } else {
         correct = (typed === actual);
+        if (correct) setScore(score + actual.length);
         addWordListStatus(correct);
         setWordPos(wordPos + 1);
       }
@@ -124,10 +129,11 @@ const Typing = () => {
         <Stats
           wpm={correctWordCount === 0 ? 'XX' : Math.round((correctWordCount / seconds) * 60)}
           acc={correctWordCount === 0 ? 'XX' : Math.round((correctWordCount / typedWordCount) * 100)}
-          points={correctWordCount}
+          points={score}
         />
-        <Line percent={seconds > curSongLength ? 100 : (seconds / curSongLength) * 100} />
-
+        <div className="progress-bar">
+          <Line strokeWidth="4" trailWidth="4" percent={seconds > curSongLength ? 100 : (seconds / curSongLength) * 100} />
+        </div>
         <div className="typing-area">
           {wordList.map((word, i) => {
             let color = 'grey';
@@ -159,7 +165,7 @@ const Typing = () => {
             );
           })}
 
-          <div className="bar">
+          <div className="text-input-bar">
             <input className="input-field" type="text" value={curWord} onChange={handleCurWordChange} spellCheck="false" autoComplete="off" autoCorrect="off" autoCapitalize="off" tabIndex="1" />
             <button className="redo-button" onClick={reset} tabIndex="2">
               redo
