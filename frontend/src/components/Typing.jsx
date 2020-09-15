@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import ReactPlayer from 'react-player';
-import Progress from 'react-progressbar';
+import { Line } from 'rc-progress';
 import Head from './Head';
 import Stats from './Stats';
 
@@ -24,7 +24,6 @@ const Typing = () => {
   const [prevWord, setPrevWord] = useState('');
   const [isActive, setIsActive] = useState(false);
   const [seconds, setSeconds] = useState(0);
-
   const wordList = lrc[linePos].text.split(' ');
   const nextWordList = (linePos <= lrc.length - 2) ? lrc[linePos + 1].text.split(' ') : [];
 
@@ -80,16 +79,8 @@ const Typing = () => {
   }, [wordPos]);
 
   useEffect(() => {
-    if (linePos === lrc.length) {
-      reset();
-    } else {
-      // setWordList(lrc[linePos].text.split(' '));
-      setWordListStatus([]);
-
-      // If there is a next line, display it. Otherwise, set nextWordList to empty
-      // if (linePos <= lrc.length - 2) setNextWordList(lrc[linePos + 1].text.split(' '));
-      // else setNextWordList([]);
-    }
+    if (linePos === lrc.length) reset();
+    else setWordListStatus([]);
   }, [linePos]);
 
   useEffect(() => {
@@ -121,7 +112,7 @@ const Typing = () => {
   return (
     <>
       <Head />
-      <div style={{ padding: '20px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+      <div style={{ padding: '20px', display: 'none', justifyContent: 'center', alignItems: 'center' }}>
         <ReactPlayer
           url={curSongUrl}
           playing={isActive}
@@ -129,19 +120,13 @@ const Typing = () => {
         />
       </div>
 
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-        <p>{seconds}</p>
-      </div>
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-        <p>prev word: {prevWord}</p>
-      </div>
-
       <div>
         <Stats
           wpm={correctWordCount === 0 ? 'XX' : Math.round((correctWordCount / seconds) * 60)}
           acc={correctWordCount === 0 ? 'XX' : Math.round((correctWordCount / typedWordCount) * 100)}
+          points={correctWordCount}
         />
-        <Progress completed={seconds > curSongLength ? 100 : (seconds / curSongLength) * 100} />
+        <Line percent={seconds > curSongLength ? 100 : (seconds / curSongLength) * 100} />
 
         <div className="typing-area">
           {wordList.map((word, i) => {
@@ -150,7 +135,15 @@ const Typing = () => {
             else if (i < wordListStatus.length) color = wordListStatus[i] ? 'green' : 'red';
 
             return (
-              <p key={i} style={{ display: 'inline', color: [color] }}>
+              <p
+                key={i}
+                style={{
+                  display: 'inline',
+                  color: [color],
+                  fontWeight: i === wordListStatus.length && 'bold',
+                  fontSize: i === wordListStatus.length ? '1.6rem' : '1rem',
+                }}
+              >
                 {word}
                 {' '}
               </p>
@@ -168,7 +161,9 @@ const Typing = () => {
 
           <div className="bar">
             <input className="input-field" type="text" value={curWord} onChange={handleCurWordChange} spellCheck="false" autoComplete="off" autoCorrect="off" autoCapitalize="off" tabIndex="1" />
-            <button className="redo-button" onClick={reset} tabIndex="2">redo</button>
+            <button className="redo-button" onClick={reset} tabIndex="2">
+              redo
+            </button>
           </div>
         </div>
       </div>

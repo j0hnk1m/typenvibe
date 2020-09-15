@@ -8,10 +8,10 @@ export default function Template({ data }) {
   const { frontmatter, html } = markdownRemark;
 
   return (
-    <Layout>
+    <Layout title={frontmatter.title}>
       <p onClick={navigateHome}>back</p>
 
-      <div className="user Guide">
+      <div className="userguide">
         <h1>{frontmatter.title}</h1>
         <div
           className="content"

@@ -5,7 +5,7 @@ import Boombox from 'components/Boombox';
 import Typing from 'components/Typing';
 import { getSongs } from 'state/app';
 
-import 'styles/style.css';
+import 'styles/style1.css';
 
 const Home = () => {
   const curSong = useSelector((state) => state.app.curSong);
@@ -14,7 +14,7 @@ const Home = () => {
   dispatch(getSongs());
 
   return (
-    <>
+    <div className="container">
       <Layout>
         <Boombox />
         {
@@ -22,7 +22,7 @@ const Home = () => {
             && <Typing />
         }
       </Layout>
-    </>
+    </div>
   );
 };
 

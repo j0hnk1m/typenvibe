@@ -7,7 +7,7 @@ const Boombox = () => {
   const songs = useSelector((state) => state.app.songs);
   const curSong = useSelector((state) => state.app.curSong);
   const typingMode = useSelector((state) => state.app.typingMode);
-  const [sel, setSel] = useState({ value: curSong || '', label: curSong || '' });
+  const [sel, setSel] = useState({ value: curSong ? curSong.label : '', label: curSong ? curSong.label : '' });
   const dispatch = useDispatch();
 
   const temp = {
@@ -18,22 +18,24 @@ const Boombox = () => {
   };
 
   useEffect(() => {
-    if (sel.value !== curSong) {
-      dispatch(setCurSong(sel.value));
-      dispatch(setCurSongUrl(temp[sel.value]));
-      dispatch(getLrc(sel.value, typingMode));
-    }
+    dispatch(setCurSong(sel));
+    dispatch(setCurSongUrl(temp[sel.value]));
+    dispatch(getLrc(sel.value, typingMode));
   }, [sel]);
 
-  const options = songs.map((node) => ({ value: node.Key, label: node.Key }));
+  const options = songs
+    ? songs.map((song) => ({ value: song.lrc, label: `${song.title} - ${song.artist}` }))
+    : [];
 
   return (
     <>
+    <div className="bar">
       <Select
         value={sel}
         options={options}
         onChange={setSel}
       />
+      </div>
     </>
   );
 };

@@ -1,8 +1,8 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware, compose } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import persistState from 'redux-localstorage';
+import persistState from 'redux-localstorage'
 import thunk from 'redux-thunk';
 import rootReducer from '.';
 

@@ -16,15 +16,18 @@ body {
 }
 
 .bar {
+  margin: 2.5vh; 
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  width: .25vw; 
 }
 
 .header {
-  margin: 0;
-  margin: 1.2rem 0 0 0;
-  line-height: 2rem;
-}
+  margin: 2.5vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+} 
 
 .command-center {
   margin: 0 0.4rem;
@@ -40,7 +43,7 @@ body {
   margin-top: 1rem;
   padding: 1.4rem 1rem;
   border-radius: 0.4rem;
-  background: .eaeaea;
+  background: '.eaeaea';
   display: grid;
   grid-gap: 1rem;
   grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -115,7 +118,7 @@ body {
   color: inherit;
 }
 
-.footer .button{
+.footer .button {
   cursor: pointer;
 }
 
@@ -136,4 +139,28 @@ body, .header, .left-wing, .right-wing, .typing-area, .theme-area, .theme-center
 .react-switch {
   vertical-align: middle;
   margin-left: 4px;
+}
+
+.footer-button {
+  margin-left: 0.7rem;
+  border: none;
+  font: inherit;
+  padding: 0.4rem 1rem;
+  border-radius: 0.2rem;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.container {
+  width: 100%;
+  height: 100%;
+}
+
+.score {
+  justify-content: right;
+  margin-top: 10vh;
+  margin-bottom: 2.5vh;
+
+
+  text-align: right;
 }

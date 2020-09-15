@@ -24,11 +24,17 @@ const REVERSE_PROXY = 'https://cors-anywhere.herokuapp.com';
 
 const GET_SONGS = 'GET_SONGS';
 export const getSongs = () => (dispatch) => {
-  axios.get(`${REVERSE_PROXY}/https://${process.env.CLOUDFRONT_URL}/songs.txt`, config())
+  axios.get(`${REVERSE_PROXY}/https://${process.env.CLOUDFRONT_URL}/songlist.txt`, config())
     .then((res) => {
+      const songs = res.data.split('\n').map((song) => {
+        const parts = song.split(',');
+        const [title, artist] = parts[0].split(' - ');
+        return { title, artist, lrc: parts[1].trim() };
+      });
+
       dispatch({
         type: GET_SONGS,
-        payload: res.data.split('\n'),
+        payload: songs,
       });
     })
     .catch((err) => console.log(err));

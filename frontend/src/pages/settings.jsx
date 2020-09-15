@@ -22,19 +22,18 @@ const Settings = () => {
     else mode = 'proper';
 
     dispatch(setTypingMode(mode));
-    // localStorage.setItem('typingMode', mode);
   }, [upper, punc]);
 
   return (
     <>
-      <Layout>
+      <Layout title="settings">
         <p className="button" onClick={navigateHome}>back</p>
         <h1>settings</h1>
 
-        <span>Uppercase? </span>
+        <span>Uppercase </span>
         <Switch onChange={toggleUpper} checked={upper} />
         <br />
-        <span>Punctuation? </span>
+        <span>Punctuation </span>
         <Switch onChange={togglePunc} checked={punc} />
         <br />
         <br />
