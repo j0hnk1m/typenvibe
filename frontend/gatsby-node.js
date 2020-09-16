@@ -10,7 +10,7 @@ exports.onCreateWebpackConfig = ({ getConfig, stage }) => {
 
 exports.createPages = async ({ actions, graphql, reporter }) => {
   const { createPage } = actions;
-  const template = require.resolve('./src/components/Template.jsx');
+  const template = require.resolve('./src/components/AboutTemplate.jsx');
   const result = await graphql(`
     {
       allMarkdownRemark(

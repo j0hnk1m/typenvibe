@@ -2,3 +2,5 @@ Dynamite - BTS,dynamite_bts.lrc
 Blinding Lights - The Weeknd,blindingLights_weeknd.lrc
 Believer - Imagine Dragons,believer_imagineDragons.lrc
 All of Me - John Legend,allOfMe_johnLegend.lrc
+The A Team - Ed Sheeran,theATeam_edSheeran_1.lrc
+Hello - Adele,hello_adele_1.lrc

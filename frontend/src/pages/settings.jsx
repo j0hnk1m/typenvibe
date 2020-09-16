@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { navigate } from 'gatsby';
+import { Link } from 'gatsby';
 import Switch from "react-switch";
 import Layout from 'components/Layout';
 import { setTypingMode } from 'state/app';
@@ -8,7 +8,6 @@ import { setTypingMode } from 'state/app';
 const Settings = () => {
   const dispatch = useDispatch();
   const typingMode = useSelector((state) => state.app.typingMode);
-  const navigateHome = () => navigate('/');
 
   // Typing mode state
   const [upper, toggleUpper] = useState((typingMode && (typingMode === 'upper' || typingMode === 'proper')));
@@ -27,7 +26,7 @@ const Settings = () => {
   return (
     <>
       <Layout title="settings">
-        <p className="button" onClick={navigateHome}>back</p>
+        <Link className="button" to="/">back</Link>
         <h1>settings</h1>
 
         <span>Uppercase </span>

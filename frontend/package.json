@@ -14,19 +14,18 @@
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
   },
   "dependencies": {
-    "aws-signature-v4": "^1.4.0",
     "axios": "^0.20.0",
     "gatsby": "^2.24.50",
     "gatsby-alias-imports": "^1.0.4",
     "gatsby-cli": "^2.12.92",
     "gatsby-plugin-netlify": "^2.3.14",
+    "gatsby-plugin-postcss": "^2.3.12",
     "gatsby-plugin-react-helmet": "^3.3.10",
     "gatsby-source-filesystem": "^2.3.29",
     "gatsby-transformer-remark": "^2.8.34",
     "lrc-parser": "^1.0.1",
     "rc-progress": "^3.1.0",
     "react": "^16.12.0",
-    "react-dark-mode-toggle": "^0.0.9",
     "react-dom": "^16.12.0",
     "react-helmet": "^6.1.0",
     "react-player": "^2.6.2",
@@ -47,7 +46,8 @@
     "eslint-plugin-jsx-a11y": "6.3.0",
     "eslint-plugin-react": "7.20.0",
     "eslint-plugin-react-hooks": "4.0.0",
-    "prettier": "2.1.0"
+    "prettier": "2.1.0",
+    "tailwindcss": "^1.8.10"
   },
   "repository": {
     "type": "git",

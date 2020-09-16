@@ -1,6 +1,9 @@
 import axios from 'axios';
 import lrcParser from 'lrc-parser';
 
+const REVERSE_PROXY = 'https://cors-anywhere.herokuapp.com';
+const SONGLIST = 'songlist_2.txt';
+
 const initialState = {
   songs: [],
   curSong: null,
@@ -20,11 +23,18 @@ const config = () => (
   }
 );
 
-const REVERSE_PROXY = 'https://cors-anywhere.herokuapp.com';
-
+// Action Types
 const GET_SONGS = 'GET_SONGS';
+const SET_CURSONGURL = 'SET_CURSONGURL';
+const SET_CURSONGLENGTH = 'SET_CURSONGLENGTH';
+const GET_LRC = 'GET_LRC';
+const SET_VOLUME = 'SET_VOLUME';
+const SET_TYPINGMODE = 'SET_TYPINGMODE';
+const SET_CURSONG = 'SET_CURSONG';
+const RESET = 'RESET';
+
 export const getSongs = () => (dispatch) => {
-  axios.get(`${REVERSE_PROXY}/https://${process.env.CLOUDFRONT_URL}/songlist.txt`, config())
+  axios.get(`https://${process.env.CLOUDFRONT_URL}/${SONGLIST}`, config())
     .then((res) => {
       const songs = res.data.split('\n').map((song) => {
         const parts = song.split(',');
@@ -40,7 +50,6 @@ export const getSongs = () => (dispatch) => {
     .catch((err) => console.log(err));
 };
 
-const SET_CURSONGURL = 'SET_CURSONGURL';
 export const setCurSongUrl = (curSongUrl) => (dispatch) => {
   dispatch({
     type: SET_CURSONGURL,
@@ -48,7 +57,6 @@ export const setCurSongUrl = (curSongUrl) => (dispatch) => {
   });
 };
 
-const SET_CURSONGLENGTH = 'SET_CURSONGLENGTH';
 export const setCurSongLength = (curSongLength) => (dispatch) => {
   dispatch({
     type: SET_CURSONGLENGTH,
@@ -91,7 +99,6 @@ const parseLrc = (lrc, typingMode) => (dispatch) => {
   return null;
 };
 
-const GET_LRC = 'GET_LRC';
 export const getLrc = (key, typingMode) => (dispatch) => {
   axios.get(`https://${process.env.CLOUDFRONT_URL}/${key}`, config())
     .then((res) => {
@@ -103,7 +110,6 @@ export const getLrc = (key, typingMode) => (dispatch) => {
     .catch((err) => console.log(err));
 };
 
-const SET_VOLUME = 'SET_VOLUME';
 export const setVolume = (volume) => (dispatch) => {
   dispatch({
     type: SET_VOLUME,
@@ -111,7 +117,6 @@ export const setVolume = (volume) => (dispatch) => {
   });
 };
 
-const SET_TYPINGMODE = 'SET_TYPINGMODE';
 export const setTypingMode = (typingMode) => (dispatch) => {
   dispatch({
     type: SET_TYPINGMODE,
@@ -119,7 +124,6 @@ export const setTypingMode = (typingMode) => (dispatch) => {
   });
 };
 
-const SET_CURSONG = 'SET_CURSONG';
 export const setCurSong = (curSong) => (dispatch) => {
   dispatch({
     type: SET_CURSONG,
@@ -127,7 +131,6 @@ export const setCurSong = (curSong) => (dispatch) => {
   });
 };
 
-const RESET = 'RESET';
 export const reset = () => (dispatch) => {
   dispatch({
     type: RESET,

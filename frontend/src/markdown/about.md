@@ -1,6 +1,6 @@
 ---
-slug: '/userguide'
-title: 'user guide'
+slug: '/about'
+title: 'about'
 ---
 hello world
 

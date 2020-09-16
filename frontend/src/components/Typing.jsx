@@ -5,6 +5,45 @@ import { Line } from 'rc-progress';
 import Head from './Head';
 import Stats from './Stats';
 
+// Levenshtein distance
+const editDistance = (str1, str2) => {
+  const s1 = str1.toLowerCase();
+  const s2 = str2.toLowerCase();
+
+  const costs = new Array(str1.length);
+  for (let i = 0; i <= s1.length; i++) {
+    let lastValue = i;
+    for (let j = 0; j <= s2.length; j++) {
+      if (i === 0) {
+        costs[j] = j;
+      } else if (j > 0) {
+        let newValue = costs[j - 1];
+        if (s1.charAt(i - 1) !== s2.charAt(j - 1)) {
+          newValue = Math.min(Math.min(newValue, lastValue), costs[j]) + 1;
+        }
+        costs[j - 1] = lastValue;
+        lastValue = newValue;
+      }
+    }
+    if (i > 0) costs[s2.length] = lastValue;
+  }
+  return costs[s2.length];
+};
+
+const similarity = (str1, str2) => {
+  let longer = str1;
+  let shorter = str2;
+  if (str1.length < str2.length) {
+    longer = str2;
+    shorter = str1;
+  }
+  const longerLength = longer.length;
+  if (longerLength === 0) {
+    return 1.0;
+  }
+  return (longerLength - editDistance(longer, shorter)) / parseFloat(longerLength);
+};
+
 const Typing = () => {
   // Global app state
   const curSong = useSelector((state) => state.app.curSong);
@@ -16,7 +55,7 @@ const Typing = () => {
   // Local typing state
   const [linePos, setLinePos] = useState(0);
   const [wordPos, setWordPos] = useState(0);
-  const [ohShitTheLineChangedWhileIWasTyping, setOhShitTheLineChangedWhileIWasTyping] = useState(false);
+  const [lineJustChanged, setLineJustChanged] = useState(false);
   const [wordListStatus, setWordListStatus] = useState([]);
   const [correctWordCount, setCorrectWordCount] = useState(0);
   const [typedWordCount, setTypedWordCount] = useState(0);
@@ -28,13 +67,12 @@ const Typing = () => {
   const wordList = lrc[linePos].text.split(' ');
   const nextWordList = (linePos <= lrc.length - 2) ? lrc[linePos + 1].text.split(' ') : [];
 
-
   const reset = () => {
     setIsActive(false);
     setSeconds(0);
     setLinePos(0);
     setWordPos(0);
-    setOhShitTheLineChangedWhileIWasTyping(false);
+    setLineJustChanged(false);
     setWordListStatus([]);
     setCorrectWordCount(0);
     setTypedWordCount(0);
@@ -64,18 +102,36 @@ const Typing = () => {
       setCurWord('');
       setTypedWordCount(typedWordCount + 1);
 
-      if (ohShitTheLineChangedWhileIWasTyping) {
-        correct = (typed === prevWord);
-        if (correct) setScore(score + prevWord.length);
-        setOhShitTheLineChangedWhileIWasTyping(false);
+      if (lineJustChanged) {
+        /*
+        Two cases: user can either type prev word or current word
+        We decide what the user was trying to type based on Levenshtein distance
+        https://en.wikipedia.org/wiki/Levenshtein_distance
+        */
+        const prevWordMatch = similarity(typed, prevWord);
+        const actualMatch = similarity(typed, actual);
+        if (prevWordMatch > actualMatch) {
+          // if user intended to type prev word
+          correct = (typed === prevWord);
+          console.log(`tried to type prev word: ${prevWord}`);
+        } else {
+          // if user intended to type cur word
+          console.log(`tried to type cur word: ${actual}`);
+          correct = (typed === actual);
+          addWordListStatus(correct);
+          setWordPos(wordPos + 1);
+        }
+        setLineJustChanged(false);
       } else {
         correct = (typed === actual);
-        if (correct) setScore(score + actual.length);
         addWordListStatus(correct);
         setWordPos(wordPos + 1);
       }
 
-      if (correct) setCorrectWordCount(correctWordCount + 1);
+      if (correct) {
+        setScore(score + actual.length);
+        setCorrectWordCount(correctWordCount + 1);
+      }
     }
   }, [curWord]);
 
@@ -92,7 +148,7 @@ const Typing = () => {
     if (isActive) {
       if (linePos < lrc.length - 1 && seconds >= lrc[linePos + 1].start) {
         // Line changes based on the time
-        setOhShitTheLineChangedWhileIWasTyping(curWord !== '');
+        setLineJustChanged(true);
         setLinePos(linePos + 1);
         setWordPos(0);
       } else if (seconds > curSongLength + 10) {
@@ -129,7 +185,7 @@ const Typing = () => {
         <Stats
           wpm={correctWordCount === 0 ? 'XX' : Math.round((correctWordCount / seconds) * 60)}
           acc={correctWordCount === 0 ? 'XX' : Math.round((correctWordCount / typedWordCount) * 100)}
-          points={score}
+          score={score}
         />
         <div className="progress-bar">
           <Line strokeWidth="4" trailWidth="4" percent={seconds > curSongLength ? 100 : (seconds / curSongLength) * 100} />

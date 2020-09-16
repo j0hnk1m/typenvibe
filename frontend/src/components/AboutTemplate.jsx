@@ -2,7 +2,7 @@ import React from 'react';
 import { navigate, graphql } from 'gatsby';
 import Layout from 'components/Layout';
 
-export default function Template({ data }) {
+export default function AboutTemplate({ data }) {
   const navigateHome = () => navigate('/');
   const { markdownRemark } = data; // data.markdownRemark holds your post data
   const { frontmatter, html } = markdownRemark;
