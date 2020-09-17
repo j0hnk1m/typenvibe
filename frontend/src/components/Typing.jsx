@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import ReactPlayer from 'react-player';
 import { Line } from 'rc-progress';
@@ -170,60 +170,66 @@ const Typing = () => {
 
   return (
     <>
-      <div style={{ display: 'none', padding: '20px', justifyContent: 'center', alignItems: 'center' }}>
-        <ReactPlayer
-          url={curSongUrl}
-          playing={isActive}
-          volume={volume}
-        />
-      </div>
-      <div className="flex col-span-1 h-20 justify-end">
+      <ReactPlayer
+        url={curSongUrl}
+        playing={isActive}
+        volume={volume}
+        style={{ display: 'none', padding: '20px', justifyContent: 'center', alignItems: 'center' }}
+      />
+
+      <div className="flex col-span-1 h-20 justify-end bg-gray-200">
         <Stats
           wpm={correctWordCount === 0 ? 'XX' : Math.round((correctWordCount / seconds) * 60)}
           acc={correctWordCount === 0 ? 'XX' : Math.round((correctWordCount / typedWordCount) * 100)}
           score={score}
         />
       </div>
-      <div className="flex col-span-2 h-12 items-center justify-center">
+      <div className="flex col-span-2 h-12 items-center justify-center bg-gray-200">
         <Line strokeWidth="4" trailWidth="4" percent={seconds > curSongLength ? 100 : (seconds / curSongLength) * 100} />
       </div>
-      <div className="flex col-span-2 h-48 items-center justify-center">
-        <div className="typing-area">
-          {wordList.map((word, i) => {
-            let color = 'grey';
-            if (i === wordListStatus.length) color = 'purple';
-            else if (i < wordListStatus.length) color = wordListStatus[i] ? 'green' : 'red';
+      <div className="flex col-span-2 h-48 items-center justify-center bg-gray-200">
+        <div className="w-full">
+          <div className="border-2 rounded-lg border-gray-400 bg-white p-3 flex flex-col leading-relaxed">
+            <div className="mb-4">
+              {wordList.map((word, i) => {
+                let color = 'grey';
+                if (i === wordListStatus.length) color = 'purple';
+                else if (i < wordListStatus.length) color = wordListStatus[i] ? 'green' : 'red';
 
-            return (
-              <p
-                key={i}
-                style={{
-                  display: 'inline',
-                  color: [color],
-                  fontWeight: i === wordListStatus.length && 'bold',
-                  fontSize: i === wordListStatus.length ? '1.6rem' : '1rem',
-                }}
-              >
-                {word}
-                {' '}
-              </p>
-            );
-          })}
-          <br />
-          {nextWordList.map((word, i) => {
-            return (
-              <p key={i} style={{ display: 'inline', color: 'grey' }}>
-                {word}
-                {' '}
-              </p>
-            );
-          })}
-
-          <div className="text-input-bar">
-            <input className="input-field" type="text" value={curWord} onChange={handleCurWordChange} spellCheck="false" autoComplete="off" autoCorrect="off" autoCapitalize="off" tabIndex="1" />
-            <button className="redo-button" onClick={reset} tabIndex="2">
-              redo
-            </button>
+                return (
+                  <p
+                    key={i}
+                    style={{
+                      display: 'inline',
+                      color: [color],
+                      fontWeight: i === wordListStatus.length && 'bold',
+                      fontSize: i === wordListStatus.length ? '1.6rem' : '1rem',
+                    }}
+                  >
+                    {word}
+                    {' '}
+                  </p>
+                );
+              })}
+              <br />
+              {nextWordList.map((word, i) => (
+                <p
+                  key={i}
+                  style={{ display: 'inline', color: 'grey' }}
+                >
+                  {word}
+                  {' '}
+                </p>
+              ))}
+            </div>
+            <div className="flex items-center">
+              {/* <div className="text-input-bar">
+                <input className="input-field" type="text" value={curWord} onChange={handleCurWordChange} spellCheck="false" autoComplete="off" autoCorrect="off" autoCapitalize="off" tabIndex="1" />
+                <button className="redo-button" onClick={reset} tabIndex="2">
+                  redo
+                </button>
+              </div> */}
+            </div>
           </div>
         </div>
       </div>

@@ -12,6 +12,7 @@ const initialState = {
   volume: 1,
   typingMode: 'basic',
   lrc: [],
+  theme: 'default',
 };
 
 const config = () => (

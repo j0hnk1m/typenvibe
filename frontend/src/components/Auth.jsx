@@ -4,7 +4,7 @@ const Auth = () => {
   const token = localStorage.getItem('spotifyAuthToken');
 
   const authEndpoint = 'https://accounts.spotify.com/authorize';
-  const redirectUri = "http://localhost:8000";
+  const redirectUri = "https://google.com";
   const scopes = [
     "user-read-currently-playing",
     "user-read-playback-state",
