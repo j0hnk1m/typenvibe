@@ -52,6 +52,7 @@ const Typing = () => {
   const lrc = useSelector((state) => state.app.lrc);
 
   // Local typing state
+  const defaultTextBox = 'type-any-key-to-start';
   const [linePos, setLinePos] = useState(0);
   const [wordPos, setWordPos] = useState(0);
   const [lineJustChanged, setLineJustChanged] = useState(false);
@@ -79,8 +80,10 @@ const Typing = () => {
     setPrevWord('');
     setScore(0);
   };
+
   const addWordListStatus = (newStatus) => setWordListStatus([...wordListStatus, newStatus]);
   const handleCurWordChange = (e) => setCurWord(e.target.value);
+
 
   useEffect(() => {
     reset();
@@ -90,12 +93,14 @@ const Typing = () => {
     // Compare the word you typed with the answer
     const actual = wordList[wordPos];
     const typed = curWord.trim();
+
     let correct;
 
     // Start the song + timer once the user has started typing
     if (typed !== '' && wordPos < wordList.length) setIsActive(true);
     else setCurWord('');
 
+    if (linePos == 0 && seconds < lrc[0].start) {setCurWord(''); return;}
     // If user entered word (by pressing space), evaluate word
     if (typed.length > 0 && curWord.indexOf(' ') >= 0 && wordListStatus.length <= wordList.length) {
       setCurWord('');
@@ -158,6 +163,7 @@ const Typing = () => {
     // Runs a timer that updates every half second
     let interval = null;
     if (isActive) {
+      if (similarity(defaultTextBox, curWord) > .5) setCurWord('');
       interval = setInterval(() => {
         setSeconds(Math.round((seconds + 0.5 + Number.EPSILON) * 100) / 100);
       }, 500);
@@ -185,12 +191,7 @@ const Typing = () => {
       </div>
 
       <div className="flex col-span-2 h-12 items-center justify-center bg-gray-200">
-        {/* <Line strokeWidth="4" trailWidth="4" percent={seconds > curSongLength ? 100 : (seconds / curSongLength) * 100} /> */}
-        <div className="relative pt-1">
-          <div className="overflow-hidden h-2 mb-4 text-xs flex rounded bg-pink-200">
-            <div style={{ width: "30%" }} className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-pink-500"></div>
-          </div>
-        </div>
+        <Line strokeWidth="4" trailWidth="4" percent={seconds > curSongLength ? 100 : (seconds / curSongLength) * 100} />
       </div>
 
       <div className="flex col-span-2 h-48 bg-gray-200">
@@ -201,7 +202,7 @@ const Typing = () => {
                 let color = 'text-gray-600';
                 let fontSize = 'text-base';
                 let fontWeight = 'font-normal';
-                if (i === wordListStatus.length) {
+                if (i === wordListStatus.length && seconds >= lrc[0].start) {
                   color = 'text-gray-900';
                   fontSize = 'text-3xl';
                   fontWeight = 'font-extrabold';
@@ -228,7 +229,7 @@ const Typing = () => {
           </div>
 
           <div className="flex justify-between">
-            <input className="w-11/12 border-2 rounded-lg border-gray-400 text-xl p-1" type="text" value={curWord} onChange={handleCurWordChange} spellCheck="false" autoComplete="off" autoCorrect="off" autoCapitalize="off" />
+            <input className={`w-11/12 border-2 rounded-lg border-gray-400 text-xl p-1 ${isActive ? "text-gray-700": "text-gray-500" }`} type="text" value={isActive ? curWord : defaultTextBox} onChange={handleCurWordChange} spellCheck="false" autoComplete="off" autoCorrect="off" autoCapitalize="off" />
             <button className="py-2 px-4 border-2 rounded-lg border-gray-400" type="submit" onClick={reset}>
               redo
             </button>
