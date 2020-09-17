@@ -1,7 +1,7 @@
 {
   "name": "typenvibe",
   "private": true,
-  "description": "A React web app to help you practice touch typing while vibing to your favorite songs",
+  "description": "a react web app to type while vibing to your favorite songs",
   "version": "0.1.0",
   "license": "0BSD",
   "scripts": {
