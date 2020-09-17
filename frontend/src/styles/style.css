@@ -52,28 +52,6 @@ body {
   overflow: hidden;
 }
 
-<<<<<<< HEAD
-.input-field-inactive {
-  color: gray;
-  width: 80%;
-  border: none;
-  font: inherit;
-  padding: 0.4rem 1rem;
-  border-radius: 0.2rem;
-  font-size: 1.2rem;
-}
-
-.input-field-active {
-  width: 80%;
-  border: none;
-  font: inherit;
-  padding: 0.4rem 1rem;
-  border-radius: 0.2rem;
-  font-size: 1.2rem;
-}
-
-=======
->>>>>>> b015f80fd18c659b4ef8bf16bcee8f300f7d6301
 .redo-button {
   margin-left: 0.7rem;
   border: none;

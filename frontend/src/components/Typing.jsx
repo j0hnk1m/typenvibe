@@ -230,7 +230,7 @@ const Typing = () => {
           </div>
 
           <div className="flex justify-between">
-            <input className={`w-11/12 border-2 rounded-lg border-gray-400 text-xl p-1 ${isActive ? "text-gray-600": "text-gray-200" }`} type="text" value={curWord} onChange={handleCurWordChange} spellCheck="false" autoComplete="off" autoCorrect="off" autoCapitalize="off" />
+            <input className={`w-11/12 border-2 rounded-lg border-gray-400 text-xl p-1 ${isActive ? "text-gray-700": "text-gray-500" }`} type="text" value={isActive ? curWord : defaultTextBox} onChange={handleCurWordChange} spellCheck="false" autoComplete="off" autoCorrect="off" autoCapitalize="off" />
             <button className="py-2 px-4 border-2 rounded-lg border-gray-400" type="submit" onClick={reset}>
               redo
             </button>
