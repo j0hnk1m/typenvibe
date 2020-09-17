@@ -64,8 +64,10 @@ const Typing = () => {
   const [isActive, setIsActive] = useState(false);
   const [seconds, setSeconds] = useState(0);
   const [score, setScore] = useState(0);
+  const [typingBoxField, setTypingBoxField] = useState(defaultTextBox);
   const wordList = lrc[linePos].text.split(' ');
   const nextWordList = (linePos <= lrc.length - 2) ? lrc[linePos + 1].text.split(' ') : [];
+  
 
   const reset = () => {
     setIsActive(false);
@@ -79,10 +81,13 @@ const Typing = () => {
     setCurWord('');
     setPrevWord('');
     setScore(0);
+    setTypingBoxField(defaultTextBox);
   };
 
   const addWordListStatus = (newStatus) => setWordListStatus([...wordListStatus, newStatus]);
-  const handleCurWordChange = (e) => setCurWord(e.target.value);
+  const handleCurWordChange = (e) => {
+    if (!isActive || seconds >= lrc[0].start) setCurWord(e.target.value);
+  }
 
 
   useEffect(() => {
@@ -91,18 +96,23 @@ const Typing = () => {
 
   useEffect(() => {
     // Compare the word you typed with the answer
+
     const actual = wordList[wordPos];
+    if (linePos === 0 && seconds < lrc[0].start) setCurWord('');
+    else setTypingBoxField('');
     const typed = curWord.trim();
+    console.log(curWord);
 
     let correct;
 
     // Start the song + timer once the user has started typing
     if (typed !== '' && wordPos < wordList.length) setIsActive(true);
     else setCurWord('');
-
-    if (linePos == 0 && seconds < lrc[0].start) {setCurWord(''); return;}
+    setTypingBoxField(curWord)
+  
     // If user entered word (by pressing space), evaluate word
-    if (typed.length > 0 && curWord.indexOf(' ') >= 0 && wordListStatus.length <= wordList.length) {
+    if (seconds > lrc[0].start && (typed.length > 0 && curWord.indexOf(' ') >= 0 && wordListStatus.length <= wordList.length)) {
+      setTypingBoxField('');
       setCurWord('');
       setTypedWordCount(typedWordCount + 1);
 
@@ -147,6 +157,10 @@ const Typing = () => {
   }, [linePos]);
 
   useEffect(() => {
+    if (!isActive) setTypingBoxField(defaultTextBox);
+    else if (isActive && seconds < lrc[0].start) setTypingBoxField(`Begin in ${Math.floor(lrc[0].start - seconds)}s...`);
+    else setTypingBoxField(curWord);
+
     if (isActive) {
       if (linePos < lrc.length - 1 && seconds >= lrc[linePos + 1].start) {
         // Line changes based on the time
@@ -163,7 +177,6 @@ const Typing = () => {
     // Runs a timer that updates every half second
     let interval = null;
     if (isActive) {
-      if (similarity(defaultTextBox, curWord) > .5) setCurWord('');
       interval = setInterval(() => {
         setSeconds(Math.round((seconds + 0.5 + Number.EPSILON) * 100) / 100);
       }, 500);
@@ -229,7 +242,7 @@ const Typing = () => {
           </div>
 
           <div className="flex justify-between">
-            <input className={`w-11/12 border-2 rounded-lg border-gray-400 text-xl p-1 ${isActive ? "text-gray-700": "text-gray-500" }`} type="text" value={isActive ? curWord : defaultTextBox} onChange={handleCurWordChange} spellCheck="false" autoComplete="off" autoCorrect="off" autoCapitalize="off" />
+            <input className={`w-11/12 border-2 rounded-lg border-gray-400 text-xl p-1 ${isActive ? "text-gray-700": "text-gray-500" }`} type="text" value={typingBoxField} onChange={handleCurWordChange} spellCheck="false" autoComplete="off" autoCorrect="off" autoCapitalize="off" />
             <button className="py-2 px-4 border-2 rounded-lg border-gray-400" type="submit" onClick={reset}>
               redo
             </button>
