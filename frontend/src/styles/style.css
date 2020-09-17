@@ -52,7 +52,17 @@ body {
   overflow: hidden;
 }
 
-.input-field {
+.input-field-inactive {
+  color: gray;
+  width: 80%;
+  border: none;
+  font: inherit;
+  padding: 0.4rem 1rem;
+  border-radius: 0.2rem;
+  font-size: 1.2rem;
+}
+
+.input-field-active {
   width: 80%;
   border: none;
   font: inherit;
