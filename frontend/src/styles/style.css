@@ -52,15 +52,6 @@ body {
   overflow: hidden;
 }
 
-.input-field {
-  width: 80%;
-  border: none;
-  font: inherit;
-  padding: 0.4rem 1rem;
-  border-radius: 0.2rem;
-  font-size: 1.2rem;
-}
-
 .redo-button {
   margin-left: 0.7rem;
   border: none;

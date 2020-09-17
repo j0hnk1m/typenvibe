@@ -107,6 +107,7 @@ const Typing = () => {
         We decide what the user was trying to type based on Levenshtein distance
         https://en.wikipedia.org/wiki/Levenshtein_distance
         */
+        console.log(prevWord);
         const prevWordMatch = similarity(typed, prevWord);
         const actualMatch = similarity(typed, actual);
         if (prevWordMatch > actualMatch) {
@@ -183,52 +184,50 @@ const Typing = () => {
           score={score}
         />
       </div>
+
       <div className="flex col-span-2 h-12 items-center justify-center bg-gray-200">
         <Line strokeWidth="4" trailWidth="4" percent={seconds > curSongLength ? 100 : (seconds / curSongLength) * 100} />
       </div>
-      <div className="flex col-span-2 h-48 items-center justify-center bg-gray-200">
-        <div className="w-full">
-          <div className="border-2 rounded-lg border-gray-400 bg-white p-3 flex flex-col leading-relaxed">
-            <div className="mb-4">
+
+      <div className="flex col-span-2 h-48 bg-gray-200">
+        <div className="w-full border-2 rounded-lg border-gray-400 bg-white p-3 flex flex-col text-center leading-relaxed">
+          <div className="mb-4">
+            <div className="flex justify-start items-center">
               {wordList.map((word, i) => {
-                let color = 'grey';
-                if (i === wordListStatus.length) color = 'purple';
-                else if (i < wordListStatus.length) color = wordListStatus[i] ? 'green' : 'red';
+                let color = 'text-gray-600';
+                let fontSize = 'text-base';
+                let fontWeight = 'font-normal';
+                if (i === wordListStatus.length) {
+                  color = 'text-gray-900';
+                  fontSize = 'text-3xl';
+                  fontWeight = 'font-extrabold';
+                } else if (i < wordListStatus.length) {
+                  color = wordListStatus[i] ? 'text-green-400' : 'text-red-400';
+                }
+
+                const styles = `inline ${color} ${fontSize} ${fontWeight} text-opacity-100 mx-1`;
 
                 return (
-                  <p
-                    key={i}
-                    style={{
-                      display: 'inline',
-                      color: [color],
-                      fontWeight: i === wordListStatus.length && 'bold',
-                      fontSize: i === wordListStatus.length ? '1.6rem' : '1rem',
-                    }}
-                  >
+                  <p key={i} className={styles}>
                     {word}
-                    {' '}
                   </p>
                 );
               })}
-              <br />
+            </div>
+            <div className="flex justify-end items-center">
               {nextWordList.map((word, i) => (
-                <p
-                  key={i}
-                  style={{ display: 'inline', color: 'grey' }}
-                >
+                <p key={i} className="inline text-gray-600 text-opacity-50 mx-1">
                   {word}
-                  {' '}
                 </p>
               ))}
             </div>
-            <div className="flex items-center">
-              {/* <div className="text-input-bar">
-                <input className="input-field" type="text" value={curWord} onChange={handleCurWordChange} spellCheck="false" autoComplete="off" autoCorrect="off" autoCapitalize="off" tabIndex="1" />
-                <button className="redo-button" onClick={reset} tabIndex="2">
-                  redo
-                </button>
-              </div> */}
-            </div>
+          </div>
+
+          <div className="flex justify-between">
+            <input className="w-11/12 border-2 rounded-lg border-gray-400 text-xl p-1" type="text" value={curWord} onChange={handleCurWordChange} spellCheck="false" autoComplete="off" autoCorrect="off" autoCapitalize="off" />
+            <button className="py-2 px-4 border-2 rounded-lg border-gray-400" type="submit" onClick={reset}>
+              redo
+            </button>
           </div>
         </div>
       </div>
