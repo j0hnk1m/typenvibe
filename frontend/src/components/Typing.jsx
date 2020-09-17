@@ -106,13 +106,12 @@ const Typing = () => {
       setCurWord('');
       setTypedWordCount(typedWordCount + 1);
 
-      if (lineJustChanged) {
+      if (lineJustChanged && prevWord) {
         /*
         Two cases: user can either type prev word or current word
         We decide what the user was trying to type based on Levenshtein distance
         https://en.wikipedia.org/wiki/Levenshtein_distance
         */
-        console.log(prevWord);
         const prevWordMatch = similarity(typed, prevWord);
         const actualMatch = similarity(typed, actual);
         if (prevWordMatch > actualMatch) {
@@ -180,7 +179,7 @@ const Typing = () => {
         url={curSongUrl}
         playing={isActive}
         volume={volume}
-        style={{ display: 'none', padding: '20px', justifyContent: 'center', alignItems: 'center' }}
+        style={{ display: 'none' }}
       />
 
       <div className="flex col-span-1 h-20 justify-end bg-gray-200">
