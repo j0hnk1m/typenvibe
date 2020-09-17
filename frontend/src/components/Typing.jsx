@@ -52,20 +52,21 @@ const Typing = () => {
   const lrc = useSelector((state) => state.app.lrc);
 
   // Local typing state
+  const defaultTextBox = 'Type any key to start';
   const [linePos, setLinePos] = useState(0);
   const [wordPos, setWordPos] = useState(0);
   const [lineJustChanged, setLineJustChanged] = useState(false);
   const [wordListStatus, setWordListStatus] = useState([]);
   const [correctWordCount, setCorrectWordCount] = useState(0);
   const [typedWordCount, setTypedWordCount] = useState(0);
-  const [curWord, setCurWord] = useState('');
+  const [curWord, setCurWord] = useState(defaultTextBox);
   const [prevWord, setPrevWord] = useState('');
   const [isActive, setIsActive] = useState(false);
   const [seconds, setSeconds] = useState(0);
   const [score, setScore] = useState(0);
   const wordList = lrc[linePos].text.split(' ');
   const nextWordList = (linePos <= lrc.length - 2) ? lrc[linePos + 1].text.split(' ') : [];
-
+  
   const reset = () => {
     setIsActive(false);
     setSeconds(0);
@@ -75,12 +76,12 @@ const Typing = () => {
     setWordListStatus([]);
     setCorrectWordCount(0);
     setTypedWordCount(0);
-    setCurWord('');
+    setCurWord(defaultTextBox);
     setPrevWord('');
     setScore(0);
   };
   const addWordListStatus = (newStatus) => setWordListStatus([...wordListStatus, newStatus]);
-  const handleCurWordChange = (e) => setCurWord(e.target.value);
+  const handleCurWordChange = (e) => setCurWord(e.target.value.replace(defaultTextBox));
 
   useEffect(() => {
     reset();
