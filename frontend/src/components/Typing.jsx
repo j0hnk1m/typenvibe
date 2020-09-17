@@ -101,13 +101,12 @@ const Typing = () => {
       setCurWord('');
       setTypedWordCount(typedWordCount + 1);
 
-      if (lineJustChanged) {
+      if (lineJustChanged && prevWord) {
         /*
         Two cases: user can either type prev word or current word
         We decide what the user was trying to type based on Levenshtein distance
         https://en.wikipedia.org/wiki/Levenshtein_distance
         */
-        console.log(prevWord);
         const prevWordMatch = similarity(typed, prevWord);
         const actualMatch = similarity(typed, actual);
         if (prevWordMatch > actualMatch) {
@@ -174,7 +173,7 @@ const Typing = () => {
         url={curSongUrl}
         playing={isActive}
         volume={volume}
-        style={{ display: 'none', padding: '20px', justifyContent: 'center', alignItems: 'center' }}
+        style={{ display: 'none' }}
       />
 
       <div className="flex col-span-1 h-20 justify-end bg-gray-200">
@@ -186,7 +185,12 @@ const Typing = () => {
       </div>
 
       <div className="flex col-span-2 h-12 items-center justify-center bg-gray-200">
-        <Line strokeWidth="4" trailWidth="4" percent={seconds > curSongLength ? 100 : (seconds / curSongLength) * 100} />
+        {/* <Line strokeWidth="4" trailWidth="4" percent={seconds > curSongLength ? 100 : (seconds / curSongLength) * 100} /> */}
+        <div className="relative pt-1">
+          <div className="overflow-hidden h-2 mb-4 text-xs flex rounded bg-pink-200">
+            <div style={{ width: "30%" }} className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-pink-500"></div>
+          </div>
+        </div>
       </div>
 
       <div className="flex col-span-2 h-48 bg-gray-200">
