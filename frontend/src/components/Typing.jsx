@@ -196,7 +196,7 @@ const Typing = () => {
       <div className="flex col-span-2 h-48">
         <div className="w-full border-2 rounded-lg border-gray-400 bg-white p-3 flex flex-col text-center leading-relaxed">
           <div className="mb-4">
-            <div className="flex justify-start items-center">
+            <div className="flex justify-start items-center break-normal flex-wrap w-9/12">
               {wordList.map((word, i) => {
                 let color = 'text-gray-600';
                 let fontSize = 'text-base';
@@ -209,7 +209,7 @@ const Typing = () => {
                   color = wordListStatus[i] ? 'text-green-400' : 'text-red-400';
                 }
 
-                const styles = `inline ${color} ${fontSize} ${fontWeight} text-opacity-100 mx-1`;
+                const styles = `${color} ${fontSize} ${fontWeight} text-opacity-100 mx-1`;
 
                 return (
                   <p key={i} className={styles}>
@@ -218,9 +218,9 @@ const Typing = () => {
                 );
               })}
             </div>
-            <div className="flex justify-end items-center">
+            <div className="flex justify-end float-right items-center flex-wrap w-9/12">
               {nextWordList.map((word, i) => (
-                <p key={i} className="inline text-gray-600 text-opacity-50 mx-1">
+                <p key={i} className="inline text-gray-600 text-opacity-50 mx-1 break-normal">
                   {word}
                 </p>
               ))}
