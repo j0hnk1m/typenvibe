@@ -1,7 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { SpotifyApiContext } from 'react-spotify-api';
-import Layout from 'components/Layout';
+import Layout from 'components/layout/Layout';
 import Boombox from 'components/Boombox';
 import Typing from 'components/Typing';
 import Auth from 'components/Auth';
@@ -19,21 +18,24 @@ const Home = () => {
 
   return (
     <Layout>
-      <SpotifyApiContext.Provider value={token}>
-        <div className="container">
-          <div className="alignBoom">
-            <Boombox />
-            {
-              (curSong && lrc && lrc.length !== 0)
-                && <Typing />
-            }
-          </div>
-
-          <div className="auth">
-            <Auth />
-          </div>
-        </div>
-      </SpotifyApiContext.Provider>
+      {
+        curSong && lrc && lrc.length !== 0
+          ? (
+            <>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="flex col-span-1 h-20 items-center justify-center">
+                  <Boombox />
+                </div>
+                <Typing />
+              </div>
+              <Auth />
+            </>
+          ) : (
+            <>
+              <Boombox />
+            </>
+          )
+      }
     </Layout>
   );
 };

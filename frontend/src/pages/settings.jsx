@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'gatsby';
 import Switch from "react-switch";
-import Layout from 'components/Layout';
+import Layout from 'components/layout/Layout';
 import { setTypingMode } from 'state/app';
 
 const Settings = () => {

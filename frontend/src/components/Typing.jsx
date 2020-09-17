@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import ReactPlayer from 'react-player';
 import { Line } from 'rc-progress';
-import Head from './Head';
 import Stats from './Stats';
 
 // Levenshtein distance
@@ -113,10 +112,8 @@ const Typing = () => {
         if (prevWordMatch > actualMatch) {
           // if user intended to type prev word
           correct = (typed === prevWord);
-          console.log(`tried to type prev word: ${prevWord}`);
         } else {
           // if user intended to type cur word
-          console.log(`tried to type cur word: ${actual}`);
           correct = (typed === actual);
           addWordListStatus(correct);
           setWordPos(wordPos + 1);
@@ -172,24 +169,24 @@ const Typing = () => {
 
   return (
     <>
-      <Head />
-      <div style={{ padding: '20px', display: 'none', justifyContent: 'center', alignItems: 'center' }}>
+      <div style={{ display: 'none', padding: '20px', justifyContent: 'center', alignItems: 'center' }}>
         <ReactPlayer
           url={curSongUrl}
           playing={isActive}
           volume={volume}
         />
       </div>
-
-      <div>
+      <div className="flex col-span-1 h-20 justify-end">
         <Stats
           wpm={correctWordCount === 0 ? 'XX' : Math.round((correctWordCount / seconds) * 60)}
           acc={correctWordCount === 0 ? 'XX' : Math.round((correctWordCount / typedWordCount) * 100)}
           score={score}
         />
-        <div className="progress-bar">
-          <Line strokeWidth="4" trailWidth="4" percent={seconds > curSongLength ? 100 : (seconds / curSongLength) * 100} />
-        </div>
+      </div>
+      <div className="flex col-span-2 h-12 items-center justify-center">
+        <Line strokeWidth="4" trailWidth="4" percent={seconds > curSongLength ? 100 : (seconds / curSongLength) * 100} />
+      </div>
+      <div className="flex col-span-2 h-48 items-center justify-center">
         <div className="typing-area">
           {wordList.map((word, i) => {
             let color = 'grey';
@@ -229,7 +226,6 @@ const Typing = () => {
           </div>
         </div>
       </div>
-
     </>
   );
 };

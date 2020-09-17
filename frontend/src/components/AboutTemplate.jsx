@@ -1,6 +1,6 @@
 import React from 'react';
 import { navigate, graphql } from 'gatsby';
-import Layout from 'components/Layout';
+import Layout from 'components/layout/Layout';
 
 export default function AboutTemplate({ data }) {
   const navigateHome = () => navigate('/');
