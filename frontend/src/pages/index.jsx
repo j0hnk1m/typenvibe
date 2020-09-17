@@ -23,7 +23,7 @@ const Home = () => {
           ? (
             <>
               <div className="grid grid-cols-2 gap-4">
-                <div className="flex col-span-1 h-20 items-center justify-center bg-gray-200">
+                <div className="flex col-span-1 h-20 items-center justify-center">
                   <Boombox />
                 </div>
                 <Typing />
@@ -32,7 +32,7 @@ const Home = () => {
             </>
           ) : (
             <>
-              <div className="flex flex-col justify-center items-center bg-gray-200">
+              <div className="flex flex-col justify-center items-center">
                 <Boombox />
               </div>
             </>

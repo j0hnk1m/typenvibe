@@ -2,10 +2,8 @@ import React from 'react';
 
 const Stats = ({ wpm, acc, score } = {}) => (
   <>
-    <div className="score">
-      <div className="right-wing">
-        WPM: {wpm} / ACC: {acc} / SCORE: {score}
-      </div>
+    <div className="flex justify-end text-xl">
+      <p>WPM: {wpm} / ACC: {acc} / SCORE: {score}</p>
     </div>
   </>
 );

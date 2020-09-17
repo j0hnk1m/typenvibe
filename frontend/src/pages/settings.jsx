@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'gatsby';
-import Switch from "react-switch";
+import Switch from 'react-switch';
 import Layout from 'components/layout/Layout';
 import { setTypingMode } from 'state/app';
 
@@ -26,16 +26,17 @@ const Settings = () => {
   return (
     <>
       <Layout title="settings">
-        <Link className="button" to="/">back</Link>
-        <h1>settings</h1>
+        <div className="prose">
+          <h1>settings</h1>
 
-        <span>Uppercase </span>
-        <Switch onChange={toggleUpper} checked={upper} />
-        <br />
-        <span>Punctuation </span>
-        <Switch onChange={togglePunc} checked={punc} />
-        <br />
-        <br />
+          <span>Uppercase </span>
+          <Switch onChange={toggleUpper} checked={upper} />
+          <br />
+          <span>Punctuation </span>
+          <Switch onChange={togglePunc} checked={punc} />
+          <br />
+          <br />
+        </div>
       </Layout>
     </>
   );
