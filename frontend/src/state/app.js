@@ -9,7 +9,7 @@ const initialState = {
   curSong: null,
   curSongUrl: null,
   curSongLength: 0,
-  volume: 1,
+  volume: 0.5,
   typingMode: 'basic',
   lrc: [],
   theme: 'default',

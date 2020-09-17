@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import ReactPlayer from 'react-player';
+import ReactPlayer from 'react-player/youtube';
 import { Line } from 'rc-progress';
 import Stats from './Stats';
 
-// Levenshtein distance
+// levenshtein distance
 const editDistance = (str1, str2) => {
   const s1 = str1.toLowerCase();
   const s2 = str2.toLowerCase();
@@ -44,15 +44,14 @@ const similarity = (str1, str2) => {
 };
 
 const Typing = () => {
-  // Global app state
+  // global app state
   const curSong = useSelector((state) => state.app.curSong);
   const curSongLength = useSelector((state) => state.app.curSongLength);
   const curSongUrl = useSelector((state) => state.app.curSongUrl);
   const volume = useSelector((state) => state.app.volume);
   const lrc = useSelector((state) => state.app.lrc);
 
-  // Local typing state
-  const defaultTextBox = 'type-any-key-to-start';
+  // local typing state
   const [linePos, setLinePos] = useState(0);
   const [wordPos, setWordPos] = useState(0);
   const [lineJustChanged, setLineJustChanged] = useState(false);
@@ -64,9 +63,9 @@ const Typing = () => {
   const [isActive, setIsActive] = useState(false);
   const [seconds, setSeconds] = useState(0);
   const [score, setScore] = useState(0);
+  const [playerKey, setPlayerKey] = useState(0);
   const wordList = lrc[linePos].text.split(' ');
   const nextWordList = (linePos <= lrc.length - 2) ? lrc[linePos + 1].text.split(' ') : [];
-  
 
   const reset = () => {
     setIsActive(false);
@@ -80,39 +79,36 @@ const Typing = () => {
     setCurWord('');
     setPrevWord('');
     setScore(0);
+    setPlayerKey(playerKey + 1);
   };
 
   const addWordListStatus = (newStatus) => setWordListStatus([...wordListStatus, newStatus]);
-  const handleCurWordChange = (e) => { setCurWord(e.target.value) }
-    // if (!isActive || seconds >= lrc[0].start) setCurWord(e.target.value);
+  const handleCurWordChange = (e) => {
+    // start the song + timer if user has typed something
+    if (!isActive) setIsActive(true);
 
-
+    // prevents user from typing before the start
+    else if (seconds >= lrc[0].start) setCurWord(e.target.value);
+  };
 
   useEffect(() => {
     reset();
   }, [curSong]);
 
   useEffect(() => {
-    // Compare the word you typed with the answer
-
     const actual = wordList[wordPos];
     const typed = curWord.trim();
     let correct;
 
-    if (seconds < lrc[0].start) setCurWord('');
-    // Start the song + timer once the user has started typing
-    if (typed !== '' && wordPos < wordList.length) setIsActive(true);
-    else setCurWord('');
-  
-    // If user entered word (by pressing space), evaluate word
+    // if user entered word (by pressing space), evaluate word
     if (seconds > lrc[0].start && (typed.length > 0 && curWord.indexOf(' ') >= 0 && wordListStatus.length <= wordList.length)) {
       setCurWord('');
       setTypedWordCount(typedWordCount + 1);
 
       if (lineJustChanged && prevWord) {
         /*
-        Two cases: user can either type prev word or current word
-        We decide what the user was trying to type based on Levenshtein distance
+        two cases: user can either type prev word or current word.
+        we decide what the user was trying to type based on Levenshtein distance
         https://en.wikipedia.org/wiki/Levenshtein_distance
         */
         const prevWordMatch = similarity(typed, prevWord);
@@ -152,19 +148,18 @@ const Typing = () => {
   useEffect(() => {
     if (isActive) {
       if (linePos < lrc.length - 1 && seconds >= lrc[linePos + 1].start) {
-        // Line changes based on the time
+        // line changes based on the time
         setLineJustChanged(true);
         setLinePos(linePos + 1);
         setWordPos(0);
       } else if (seconds > curSongLength + 10) {
-        // Ends the typing session
+        // ends the typing session
         setIsActive(false);
         setCurWord('');
       }
     }
-    
 
-    // Runs a timer that updates every half second
+    // runs a timer that updates every half second
     let interval = null;
     if (isActive) {
       interval = setInterval(() => {
@@ -179,13 +174,14 @@ const Typing = () => {
   return (
     <>
       <ReactPlayer
+        key={playerKey}
         url={curSongUrl}
         playing={isActive}
         volume={volume}
         style={{ display: 'none' }}
       />
 
-      <div className="flex col-span-1 h-20 justify-end bg-gray-200">
+      <div className="flex flex-col col-span-1 h-20 justify-center">
         <Stats
           wpm={correctWordCount === 0 ? 'XX' : Math.round((correctWordCount / seconds) * 60)}
           acc={correctWordCount === 0 ? 'XX' : Math.round((correctWordCount / typedWordCount) * 100)}
@@ -193,11 +189,11 @@ const Typing = () => {
         />
       </div>
 
-      <div className="flex col-span-2 h-12 items-center justify-center bg-gray-200">
-        <Line strokeWidth="4" trailWidth="4" percent={seconds > curSongLength ? 100 : (seconds / curSongLength) * 100} />
+      <div className="flex flex-col col-span-2 h-12 items-center justify-center">
+        <Line strokeWidth="1" percent={seconds > curSongLength ? 100 : (seconds / curSongLength) * 100} />
       </div>
 
-      <div className="flex col-span-2 h-48 bg-gray-200">
+      <div className="flex col-span-2 h-48">
         <div className="w-full border-2 rounded-lg border-gray-400 bg-white p-3 flex flex-col text-center leading-relaxed">
           <div className="mb-4">
             <div className="flex justify-start items-center">
@@ -232,8 +228,7 @@ const Typing = () => {
           </div>
 
           <div className="flex justify-between">
-          <input className={`w-11/12 border-2 rounded-lg border-gray-400 text-xl p-1 ${isActive ? "text-gray-700": "text-gray-500" }`} type="text" value= {
-            isActive ?  (seconds < lrc[0].start ? `Begin in ${Math.floor(lrc[0].start - seconds)}s...` : curWord) : defaultTextBox} onChange={handleCurWordChange} spellCheck="false" autoComplete="off" autoCorrect="off" autoCapitalize="off" />
+            <input className={`w-11/12 border-2 rounded-lg border-gray-400 text-xl p-1 ${isActive ? 'text-gray-700' : 'text-gray-500'}`} type="text" value={curWord} placeholder={isActive ?  (seconds < lrc[0].start ? `starting in ${Math.floor(lrc[0].start - seconds)}s` : curWord) : 'type-any-key-to-start'} onChange={handleCurWordChange} spellCheck="false" autoComplete="off" autoCorrect="off" autoCapitalize="off" />
             <button className="py-2 px-4 border-2 rounded-lg border-gray-400" type="submit" onClick={reset}>
               redo
             </button>

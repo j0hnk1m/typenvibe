@@ -5,116 +5,11 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap');
 
 body {
-  margin: 25;
-  min-height: 100vh;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
   font-family: Roboto Mono;
-  line-height: 1.6rem;
-}
-
-*[onclick] {
-  cursor: pointer;
-}
-
-.bar {
-  width: 50%; 
-  margin: left;
-  float: left; 
-  margin-bottom: 5vh;
-}
-
-.header {
-  margin: 2.5vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-} 
-
-.command-center {
-  margin: 0 0.4rem;
-  width: 100%;
-  max-width: 40rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  transform: translateY(-2vh);
-}
-
-.theme-button:hover{
-  cursor: pointer;
-  box-shadow: inset 0 0 100px 100px rgba(255, 255, 255, 0.2);
-}
-
-.text-display {
-  margin-bottom: 1rem;
-  overflow: hidden;
-}
-
-    .redo-button {
-  margin-left: 0.7rem;
-  border: none;
-  font: inherit;
-  padding: 0.4rem 1rem;
-  border-radius: 0.2rem;
-  font-size: 1.2rem;
-  cursor: pointer;
-}
-
-.hidden{ 
-  display: none !important;
-}
-
-body, .header, .left-wing, .right-wing, .typing-area, .theme-area, .theme-center,
-.text-display, .redo-button, .footer, .highlight {
-  transition: all .4s ease-in-out 0s;
-
-}
-
-.react-switch {
-  vertical-align: middle;
-  margin-left: 4px;
-}
-
-.footer-button {
-  margin-left: 0.7rem;
-  border: none;
-  font: inherit;
-  padding: 0.4rem 1rem;
-  border-radius: 0.2rem;
-  font-size: 1.2rem;
-  cursor: pointer;
 }
 
 .container {
   margin: auto;
   width: 80%;
   height: 100%;
-}
-
-.score {
-  float: right;
-  width: 50%; 
-  height: 50%;
-  text-align: right;
-  margin-top: 1vh;
-  margin-bottom: 5vh;
-}
-
-.alignBoom {
-  justify-content: space-between;
-  width: 70%;
-  margin: auto;
-  margin-top: 5vh;
-}
-
-.progress-bar {
-  margin: auto;
-  width: 50%;
-}
-
-.text-input-bar {
-  margin: 1vh;
-  justify-items: flex-start;
 }
