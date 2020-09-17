@@ -3,10 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import Select from 'react-select';
 import { getLrc, setCurSong, setCurSongUrl } from 'state/app';
 
-const customStyles = {
-
-};
-
 const Boombox = () => {
   const songs = useSelector((state) => state.app.songs);
   const curSong = useSelector((state) => state.app.curSong);
@@ -37,7 +33,7 @@ const Boombox = () => {
 
   return (
     <>
-      <div className="bar">
+      <div className="w-full">
         <Select
           value={sel}
           options={options}
