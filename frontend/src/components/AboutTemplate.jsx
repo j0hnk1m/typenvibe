@@ -9,9 +9,9 @@ export default function AboutTemplate({ data }) {
 
   return (
     <Layout title={frontmatter.title}>
-      <p onClick={navigateHome}>back</p>
+      {/* <p onClick={navigateHome}>back</p> */}
 
-      <div className="userguide">
+      <div className="userguide prose">
         <h1>{frontmatter.title}</h1>
         <div
           className="content"

@@ -14,7 +14,9 @@
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
   },
   "dependencies": {
+    "@mdx-js/mdx": "^1.6.18",
     "@mdx-js/react": "^1.6.17",
+    "@tailwindcss/typography": "^0.2.0",
     "axios": "^0.20.0",
     "gatsby": "^2.24.50",
     "gatsby-alias-imports": "^1.0.4",

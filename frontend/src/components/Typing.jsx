@@ -83,9 +83,9 @@ const Typing = () => {
   };
 
   const addWordListStatus = (newStatus) => setWordListStatus([...wordListStatus, newStatus]);
-  const handleCurWordChange = (e) => {
-    if (!isActive || seconds >= lrc[0].start) setCurWord(e.target.value);
-  }
+  const handleCurWordChange = (e) => { setCurWord(e.target.value) }
+    // if (!isActive || seconds >= lrc[0].start) setCurWord(e.target.value);
+
 
 
   useEffect(() => {
