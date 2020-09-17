@@ -28,7 +28,7 @@ const Home = () => {
                 </div>
                 <Typing />
               </div>
-              <Auth />
+              {/* <Auth /> */}
             </>
           ) : (
             <>
