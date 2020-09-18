@@ -13,7 +13,11 @@ const Boombox = () => {
   useEffect(() => {
     if (sel.value !== null) {
       dispatch(setCurSong(sel.value));
-      dispatch(getLrc(songs[sel.value].lrc, typingMode));
+      dispatch(getLrc({
+        key: songs[sel.value].lrc,
+        delay: songs[sel.value].delay,
+        typingMode,
+      }));
     }
   }, [sel]);
 

@@ -193,9 +193,9 @@ const Typing = () => {
         <Line strokeWidth="1" percent={seconds > curSongLength ? 100 : (seconds / curSongLength) * 100} />
       </div>
 
-      <div className="flex col-span-2 h-56">
-        <div className="w-full border-2 rounded-lg border-gray-400 bg-white p-3 flex flex-col text-center leading-relaxed">
-          <div className="mb-4">
+      <div className="flex-col col-span-2 h-56">
+        <div className="flex flex-col justify-between w-full border-2 rounded-lg border-gray-400 bg-white p-3 flex flex-col text-center leading-relaxed">
+          <div className="mb-6">
             <div className="flex justify-start items-center break-normal flex-wrap w-9/12">
               {wordList.map((word, i) => {
                 let color = 'text-gray-600';

@@ -2,7 +2,7 @@ import axios from 'axios';
 import lrcParser from 'lrc-parser';
 
 const REVERSE_PROXY = 'https://cors-anywhere.herokuapp.com';
-const SONGLIST = 'songlist_5.txt';
+const SONGLIST = 'songlist_6.txt';
 
 const initialState = {
   songs: {},
@@ -72,21 +72,25 @@ export const setCurSongLength = (curSongLength) => (dispatch) => {
 };
 
 // Parses the LRC file received from action GET_LRC and sets curSongLength, lrc, and lrcPunc
-const parseLrc = (lrc, typingMode) => (dispatch) => {
+const parseLrc = ({ lrc, delay, typingMode } = {}) => (dispatch) => {
   const data = lrcParser(lrc.toString('utf8'));
 
   if (data) {
     const length = data.scripts[data.scripts.length - 1].end;
+    const offset = delay ? Number(delay) : 0;
     dispatch(setCurSongLength(length));
 
     // Trims garbage if LRC file is from RentAnAdviser.com
     let cleaned = data.scripts.filter((line) => !line.text.includes('RentAnAdviser'));
-    cleaned = cleaned.map(({ start, text, end }) => ({ start, text: text.trim(), end })).filter((line) => line.text);
+
+    cleaned = cleaned.map(({ start, text, end }) => ({ start: start - offset, text: text.trim(), end: end - offset })).filter((line) => line.text);
     cleaned = cleaned.flatMap((line, i) => {
       if (i < cleaned.length - 1 && i % 2 === 0) return { start: line.start, text: line.text.concat(' ', cleaned[i + 1].text), end: cleaned[i + 1].end };
       if (i % 2 === 0) return line;
       return [];
     });
+
+    console.log(cleaned)
     const lrcProper = cleaned.map(({ start, text, end }) => ({ start, text: text.trim(), end }));
     const lrcUpper = lrcProper.map(({ start, text, end }) => ({ start, text: text.replace(/[^\w\s]|_/g, '').replace(/\s+/g, ' '), end }));
     const lrcPunc = lrcProper.map(({ start, text, end }) => ({ start, text: text.toLowerCase(), end }));
@@ -106,13 +110,17 @@ const parseLrc = (lrc, typingMode) => (dispatch) => {
   return null;
 };
 
-export const getLrc = (key, typingMode) => (dispatch) => {
+export const getLrc = ({ key, delay, typingMode } = {}) => (dispatch) => {
   dispatch(startLoading());
   axios.get(`https://${process.env.CLOUDFRONT_URL}/${key}`, config())
     .then((res) => {
       dispatch({
         type: GET_LRC,
-        payload: dispatch(parseLrc(res.data, typingMode)),
+        payload: dispatch(parseLrc({
+          lrc: res.data,
+          delay,
+          typingMode,
+        })),
       });
       dispatch(endLoading());
     })
@@ -153,7 +161,6 @@ const reducer = (state = initialState, action) => {
     case GET_LRC:
       return { ...state, lrc: action.payload };
     case SET_CURSONG:
-      console.log(action.payload)
       return { ...state, curSong: action.payload };
     case SET_CURSONGLENGTH:
       return { ...state, curSongLength: action.payload };
