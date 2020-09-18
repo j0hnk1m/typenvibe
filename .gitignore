@@ -2,11 +2,12 @@
 .DS_Store
 
 frontend/.*
-frontned/.*/
+frontend/.*/
 frontend/node_modules
 frontend/yarn.lock
 
-backend/env
-backend/songs/__pycache__
-backend/songs/migrations
-backend/typenvibe/__pycache__
+api/.*
+api/env
+api/songs/__pycache__
+api/songs/migrations
+api/typenvibe/__pycache__

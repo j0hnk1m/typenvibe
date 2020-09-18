@@ -3,6 +3,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import Select from 'react-select';
 import { getLrc, setCurSong } from 'state/app';
 
+// const selectStyle = {
+//   control: styles => ({ ...styles, backgroundColor: 'white' }),
+//   option: (styles, { data, isDisabled, isFocused, isSelected }) => {
+//     return {
+//       ...styles,
+//       backgroundColor: '#1a1a1a',
+//       color: '#FFF',
+//       cursor: isDisabled ? 'not-allowed' : 'default',
+//     };
+//   },
+// };
+
 const Boombox = () => {
   const songs = useSelector((state) => state.app.songs);
   const curSong = useSelector((state) => state.app.curSong);
@@ -32,6 +44,7 @@ const Boombox = () => {
           value={sel}
           options={options}
           onChange={setSel}
+          // styles={selectStyle}
         />
       </div>
     </>

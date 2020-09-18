@@ -15,11 +15,11 @@ const Header = () => {
   return (
     <>
       <header className="flex relative h-20 justify-center items-center">
-        <span className="font-bold text-2xl">
-          <Link to="/">
+        <Link to="/">
+          <span className="font-bold text-2xl text-primary">
             {query.site.siteMetadata.title}
-          </Link>
-        </span>
+          </span>
+        </Link>
       </header>
     </>
   );

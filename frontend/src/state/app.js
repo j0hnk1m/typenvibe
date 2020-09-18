@@ -9,7 +9,7 @@ const initialState = {
   curSong: null,
   curSongLength: 0,
   volume: 0.5,
-  typingMode: 'basic',
+  typingMode: 'light',
   lrc: [],
   theme: 'default',
   loading: false,
@@ -32,6 +32,7 @@ const SET_CURSONG = 'SET_CURSONG';
 const SET_CURSONGLENGTH = 'SET_CURSONGLENGTH';
 const GET_LRC = 'GET_LRC';
 const SET_VOLUME = 'SET_VOLUME';
+const SET_THEME = 'SET_THEME';
 const SET_TYPINGMODE = 'SET_TYPINGMODE';
 const RESET = 'RESET';
 
@@ -90,7 +91,6 @@ const parseLrc = ({ lrc, delay, typingMode } = {}) => (dispatch) => {
       return [];
     });
 
-    console.log(cleaned)
     const lrcProper = cleaned.map(({ start, text, end }) => ({ start, text: text.trim(), end }));
     const lrcUpper = lrcProper.map(({ start, text, end }) => ({ start, text: text.replace(/[^\w\s]|_/g, '').replace(/\s+/g, ' '), end }));
     const lrcPunc = lrcProper.map(({ start, text, end }) => ({ start, text: text.toLowerCase(), end }));
@@ -134,6 +134,13 @@ export const setVolume = (volume) => (dispatch) => {
   });
 };
 
+export const setTheme = (theme) => (dispatch) => {
+  dispatch({
+    type: SET_THEME,
+    payload: theme,
+  });
+};
+
 export const setTypingMode = (typingMode) => (dispatch) => {
   dispatch({
     type: SET_TYPINGMODE,
@@ -166,6 +173,10 @@ const reducer = (state = initialState, action) => {
       return { ...state, curSongLength: action.payload };
     case SET_TYPINGMODE:
       return { ...state, typingMode: action.payload };
+    case SET_VOLUME:
+      return { ...state, volume: action.payload };
+    case SET_THEME:
+      return { ...state, theme: action.payload };
     case START_LOADING:
       return { ...state, loading: true };
     case END_LOADING:

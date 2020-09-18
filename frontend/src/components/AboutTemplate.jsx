@@ -9,17 +9,9 @@ export default function AboutTemplate({ data }) {
 
   return (
     <Layout title={frontmatter.title}>
-      {/* <p onClick={navigateHome}>back</p> */}
-
-      <div className="userguide prose">
-        <h1>{frontmatter.title}</h1>
-        <div
-          className="content"
-          dangerouslySetInnerHTML={{ __html: html }}
-        />
-      </div>
+      <h1 className="text-secondary">{frontmatter.title}</h1>
+      <div className="flex-col text-center text-secondary" dangerouslySetInnerHTML={{ __html: html }} />
     </Layout>
-
   );
 }
 

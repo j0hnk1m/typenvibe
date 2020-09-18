@@ -26,6 +26,7 @@
     "gatsby-transformer-remark": "^2.8.34",
     "lrc-parser": "^1.0.1",
     "rc-progress": "^3.1.0",
+    "rc-slider": "^9.4.1",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-helmet": "^6.1.0",

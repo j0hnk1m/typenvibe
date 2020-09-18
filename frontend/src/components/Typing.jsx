@@ -50,6 +50,9 @@ const Typing = () => {
   const curSongLength = useSelector((state) => state.app.curSongLength);
   const volume = useSelector((state) => state.app.volume);
   const lrc = useSelector((state) => state.app.lrc);
+  const theme = useSelector((state) => state.app.theme);
+
+  const borderColor = theme === 'light' ? 'border-primary' : 'border-transparent';
 
   // local typing state
   const [linePos, setLinePos] = useState(0);
@@ -193,20 +196,20 @@ const Typing = () => {
         <Line strokeWidth="1" percent={seconds > curSongLength ? 100 : (seconds / curSongLength) * 100} />
       </div>
 
-      <div className="flex-col col-span-2 h-56">
-        <div className="flex flex-col justify-between w-full border-2 rounded-lg border-gray-400 bg-white p-3 flex flex-col text-center leading-relaxed">
+      <div className="flex-col col-span-2 h-48">
+        <div className={`flex flex-col justify-between w-full h-full bg-typing border-2 rounded-lg ${borderColor} bg-white p-3 flex flex-col text-center leading-relaxed`}>
           <div className="mb-6">
             <div className="flex justify-start items-center break-normal flex-wrap w-9/12">
               {wordList.map((word, i) => {
-                let color = 'text-gray-600';
+                let color = 'text-secondary';
                 let fontSize = 'text-base';
                 let fontWeight = 'font-normal';
                 if (i === wordListStatus.length && seconds >= lrc[0].start) {
-                  color = 'text-gray-900';
+                  color = 'text-current';
                   fontSize = 'text-3xl';
                   fontWeight = 'font-extrabold';
                 } else if (i < wordListStatus.length) {
-                  color = wordListStatus[i] ? 'text-green-400' : 'text-red-400';
+                  color = wordListStatus[i] ? 'text-correct' : 'text-wrong';
                 }
 
                 const styles = `${color} ${fontSize} ${fontWeight} text-opacity-100 mx-1`;
@@ -220,7 +223,7 @@ const Typing = () => {
             </div>
             <div className="flex justify-end float-right items-center flex-wrap w-9/12">
               {nextWordList.map((word, i) => (
-                <p key={i} className="inline text-gray-600 text-opacity-50 mx-1 break-normal">
+                <p key={i} className="inline text-secondary text-opacity-50 mx-1 break-normal">
                   {word}
                 </p>
               ))}
@@ -228,8 +231,8 @@ const Typing = () => {
           </div>
 
           <div className="flex justify-between">
-            <input className={`w-11/12 border-2 rounded-lg border-gray-400 text-xl p-1 ${isActive ? 'text-gray-700' : 'text-gray-500'}`} type="text" value={curWord} placeholder={isActive ?  (seconds < lrc[0].start ? `starting in ${Math.floor(lrc[0].start - seconds)}s` : curWord) : 'type-any-key-to-start'} onChange={handleCurWordChange} spellCheck="false" autoComplete="off" autoCorrect="off" autoCapitalize="off" />
-            <button className="transition duration-300 ease-in-out bg-blue-500 hover:bg-red-500 transform hover:scale-110 py-2 px-2 rounded-lg text-white" type="submit" onClick={reset}>
+            <input className="w-11/12 bg-input border-2 rounded-lg border-transparent text-xl p-1 text-secondary placeholder-primary" type="text" value={curWord} placeholder={isActive ?  (seconds < lrc[0].start ? `starting in ${Math.floor(lrc[0].start - seconds)}s` : curWord) : 'type-any-key-to-start'} onChange={handleCurWordChange} spellCheck="false" autoComplete="off" autoCorrect="off" autoCapitalize="off" />
+            <button className="transition duration-300 ease-in-out bg-redo hover:bg-redo-hover transform hover:scale-110 py-2 px-2 rounded-lg text-primary" type="submit" onClick={reset}>
               redo
             </button>
           </div>
