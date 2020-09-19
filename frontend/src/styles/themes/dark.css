@@ -14,5 +14,5 @@
   --color-text-redo: theme('colors.white');
   --color-text-display: theme('colors.white');
   --color-placeholder-primary: theme('colors.white');
-  --color-placeholder-primary: theme('colors.gray.600');
+  --color-border-primary: theme('colors.white');
 }

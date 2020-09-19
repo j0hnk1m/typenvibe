@@ -2,7 +2,7 @@ import axios from 'axios';
 import lrcParser from 'lrc-parser';
 
 const REVERSE_PROXY = 'https://cors-anywhere.herokuapp.com';
-const SONGLIST = 'songlist_6.txt';
+const SONGLIST = 'songlist_8.txt';
 
 const initialState = {
   songs: {},
@@ -54,7 +54,13 @@ export const getSongs = () => (dispatch) => {
       const songs = res.data.split('\n').map((song) => {
         const parts = song.split(',');
         const [title, artist] = parts[0].split(' - ');
-        return { title, artist, lrc: parts[1].trim(), url: parts[2].trim(), delay: parts[3] };
+        return {
+          title,
+          artist,
+          key: parts[1],
+          url: `https://${process.env.GATSBY_CLOUDFRONT_URL}/${parts[1]}/${parts[1]}.mp3`,
+          delay: parts[2],
+        };
       });
 
       dispatch({
@@ -81,15 +87,17 @@ const parseLrc = ({ lrc, delay, typingMode } = {}) => (dispatch) => {
     const offset = delay ? Number(delay) : 0;
     dispatch(setCurSongLength(length));
 
-    // Trims garbage if LRC file is from RentAnAdviser.com
+    // trims garbage if LRC file is from RentAnAdviser.com
     let cleaned = data.scripts.filter((line) => !line.text.includes('RentAnAdviser'));
 
     cleaned = cleaned.map(({ start, text, end }) => ({ start: start - offset, text: text.trim(), end: end - offset })).filter((line) => line.text);
-    cleaned = cleaned.flatMap((line, i) => {
-      if (i < cleaned.length - 1 && i % 2 === 0) return { start: line.start, text: line.text.concat(' ', cleaned[i + 1].text), end: cleaned[i + 1].end };
-      if (i % 2 === 0) return line;
-      return [];
-    });
+
+    // joins two verses into one line
+    // cleaned = cleaned.flatMap((line, i) => {
+    //   if (i < cleaned.length - 1 && i % 2 === 0) return { start: line.start, text: line.text.concat(' ', cleaned[i + 1].text), end: cleaned[i + 1].end };
+    //   if (i % 2 === 0) return line;
+    //   return [];
+    // });
 
     const lrcProper = cleaned.map(({ start, text, end }) => ({ start, text: text.trim(), end }));
     const lrcUpper = lrcProper.map(({ start, text, end }) => ({ start, text: text.replace(/[^\w\s]|_/g, '').replace(/\s+/g, ' '), end }));
@@ -112,7 +120,7 @@ const parseLrc = ({ lrc, delay, typingMode } = {}) => (dispatch) => {
 
 export const getLrc = ({ key, delay, typingMode } = {}) => (dispatch) => {
   dispatch(startLoading());
-  axios.get(`https://${process.env.GATSBY_CLOUDFRONT_URL}/${key}`, config())
+  axios.get(`https://${process.env.GATSBY_CLOUDFRONT_URL}/${key}/${key}.lrc`, config())
     .then((res) => {
       dispatch({
         type: GET_LRC,

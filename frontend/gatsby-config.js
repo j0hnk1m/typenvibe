@@ -13,6 +13,7 @@ module.exports = {
     title: 'typenvibe',
     description: 'a web app to practice typing in rythm with your favorite songs',
     siteUrl: 'https://typenvibe.netlify.app',
+    author: 'John Kim, Rishi Gundakaram',
   },
   plugins: [
     {
@@ -43,6 +44,7 @@ module.exports = {
         trackingId: 'UA-178440772-1',
       },
     },
+    'gatsby-plugin-robots-txt',
     'gatsby-plugin-netlify',
     'gatsby-plugin-offline',
     // {
@@ -50,8 +52,9 @@ module.exports = {
     //   options: {
     //     printRejected: true,
     //     tailwind: true,
-    //     develop: true, // Enable while using `gatsby develop`
-    //     purgeOnly: ['components/', 'styles/style.css'],
+    //     develop: true,
+    //     ignore: ['rc-slider/', 'styles/themes/'],
+    //     whiteListPatterns: [],
     //   },
     // },
   ],

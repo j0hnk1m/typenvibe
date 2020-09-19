@@ -26,7 +26,7 @@ const Boombox = () => {
     if (sel.value !== null) {
       dispatch(setCurSong(sel.value));
       dispatch(getLrc({
-        key: songs[sel.value].lrc,
+        key: songs[sel.value].key,
         delay: songs[sel.value].delay,
         typingMode,
       }));

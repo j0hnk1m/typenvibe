@@ -2,14 +2,14 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import Header from './Header';
 import Footer from './Footer';
-import Head from '../Head';
+import SEO from '../Seo';
 
 const Layout = ({ title, children }) => {
   const theme = useSelector((state) => state.app.theme);
 
   return (
     <>
-      <Head title={title} />
+      <SEO title={title} />
       <div className={`theme-${theme}`}>
         <div className="flex flex-col min-h-screen justify-between bg-primary">
           <Header />

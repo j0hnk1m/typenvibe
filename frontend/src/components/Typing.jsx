@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import ReactPlayer from 'react-player/youtube';
+import ReactPlayer from 'react-player/file';
 import { Line } from 'rc-progress';
 import Stats from './Stats';
 
@@ -229,7 +229,17 @@ const Typing = () => {
           </div>
 
           <div className="flex justify-between">
-            <input className={`w-11/12 bg-input border-2 rounded-lg ${theme === 'light' ? 'border-primary' : 'border-transparent'} text-xl p-1 text-secondary placeholder-primary`} type="text" value={curWord} placeholder={isActive ?  (seconds < lrc[0].start ? `starting in ${Math.floor(lrc[0].start - seconds)}s` : curWord) : 'type-any-key-to-start'} onChange={handleCurWordChange} spellCheck="false" autoComplete="off" autoCorrect="off" autoCapitalize="off" />
+            <input
+              className="w-11/12 mr-3 bg-input border-2 rounded-lg border-transparent text-xl p-1 text-secondary placeholder-primary"
+              type="text"
+              value={curWord}
+              placeholder={(isActive && seconds < lrc[0].start) ? `starting in ${Math.floor(lrc[0].start - seconds)}s` : 'type-any-key-to-start'}
+              onChange={handleCurWordChange}
+              spellCheck="false"
+              autoComplete="off"
+              autoCorrect="off"
+              autoCapitalize="off"
+            />
             <button className="transition duration-300 ease-in-out bg-redo hover:bg-redo-hover transform hover:scale-110 py-2 px-2 rounded-lg text-primary" type="submit" onClick={reset}>
               redo
             </button>

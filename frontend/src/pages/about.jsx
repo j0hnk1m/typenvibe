@@ -14,12 +14,12 @@ const About = () => (
               typenvibe is a place where you can practice typing in rythm to your favorite songs.
               The site is currently still under development, so we'd love your feedback!
               Let us know what you think
-              <a className="underline text-secondary px-2" href="https://docs.google.com/forms/d/e/1FAIpQLScSF3rbz6QHUwwMll1AbwFXiBHKaB0aPCQFufgxq_6YNlq2Yg/viewform?usp=sf_link">here.</a>
+              <a className="underline text-secondary px-2" href="https://docs.google.com/forms/d/e/1FAIpQLScSF3rbz6QHUwwMll1AbwFXiBHKaB0aPCQFufgxq_6YNlq2Yg/viewform?usp=sf_link">here</a>
             </p>
           </div>
           <div className="mb-4">
             <p className="text-secondary inline">If you guys would like to support the development of future projects or simply appreciate what we built, you can</p>
-            <a className="underline text-secondary px-2" href="https://www.buymeacoffee.com/typenvibe">buy me a coffee.</a>
+            <a className="underline text-secondary px-2" href="https://www.buymeacoffee.com/typenvibe">buy us a coffee!</a>
           </div>
           <div className="mt-4">
               <p className="text-secondary inline">source code:</p>
@@ -35,7 +35,9 @@ const About = () => (
 
           <img src={lineChange2} className="w-3/4 mx-auto" alt="current word" />
           <p className="text-secondary text-center pb-5">... or 2) the new word</p>
-          <p className="text-secondary">Notice above that the accuracy stays at 100% in both cases. In case you still type wrong, the Levenshtein distance is computed for both possibilities in order to determine what you were trying to type</p>
+          <p className="text-secondary pb-10">Notice above that the accuracy stays at 100% in both cases. In case you still type wrong, something called the Levenshtein distance is computed for both possibilities in order to determine what you were trying to type.</p>
+
+          <p className="text-secondary text-center">Now type n vibe away!</p>
         </div>
       </div>
     </Layout>
