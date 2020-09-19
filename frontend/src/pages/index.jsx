@@ -28,7 +28,7 @@ const Home = () => {
             </>
           ) : (
             <>
-              <div className="flex flex-col justify-center items-center">
+              <div className="flex flex-col w-3/5 justify-center items-center">
                 <Boombox />
               </div>
             </>

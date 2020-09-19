@@ -1,61 +1,15 @@
-/*
-Inspired by GMK Yuri by T0mb3ry
-https://drop.com/buy/massdrop-x-t0mb3ry-gmk-yuri-custom-keycap-set
-orange: #ea4221
-navy: #293649
-light blue: #abc6dc
-*/
-
-body {
-  background: #293649;
-}
-
-#header {
-  color: #ea4221;
-}
-
-#left-wing {
-  color: #ea4221;
-}
-
-#right-wing {
-  color: #ea4221;
-}
-
-#typing-area, #theme-area {
-  background: #abc6dc;
-}
-
-#text-display {
-  color: #293649;
-}
-
-#input-field {
-  background: #97afc2;
-  color: #293649;
-}
-
-#input-field.wrong {
-  background: rgba(198, 38, 46, 0.3);
-}
-
-#redo-button {
-  background: #ea4221;
-  color: #293649;
-}
-
-#footer {
-  color: #ea4221;
-}
-
-.highlight {
-  color: #a56de2;
-}
-
-.correct {
-  color: #6a7e93;
-}
-
-.wrong {
-  color: #c6262e;
+.theme-moderndolch {
+  --color-bg-primary: theme('colors.black');
+  --color-bg-typing: #333333;
+  --color-bg-input: theme('colors.black');
+  --color-bg-redo: theme('colors.black');
+  --color-bg-redo-hover: theme('colors.red.500');
+  --color-text-primary: theme('colors.white');
+  --color-text-secondary: theme('colors.white');
+  --color-text-current: theme('colors.white');
+  --color-text-correct: theme('colors.green.400');
+  --color-text-wrong: theme('colors.red.400');
+  --color-text-stats: theme('colors.white');
+  --color-text-nav: theme('colors.red.500');
+  --color-placeholder-primary: theme('colors.white');
 }

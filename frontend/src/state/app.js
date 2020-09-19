@@ -9,9 +9,9 @@ const initialState = {
   curSong: null,
   curSongLength: 0,
   volume: 0.5,
-  typingMode: 'light',
+  typingMode: 'basic',
   lrc: [],
-  theme: 'default',
+  theme: 'light',
   loading: false,
 };
 
@@ -49,7 +49,7 @@ export const endLoading = () => (dispatch) => {
 };
 
 export const getSongs = () => (dispatch) => {
-  axios.get(`https://${process.env.CLOUDFRONT_URL}/${SONGLIST}`, config())
+  axios.get(`https://${process.env.GATSBY_CLOUDFRONT_URL}/${SONGLIST}`, config())
     .then((res) => {
       const songs = res.data.split('\n').map((song) => {
         const parts = song.split(',');
@@ -112,7 +112,7 @@ const parseLrc = ({ lrc, delay, typingMode } = {}) => (dispatch) => {
 
 export const getLrc = ({ key, delay, typingMode } = {}) => (dispatch) => {
   dispatch(startLoading());
-  axios.get(`https://${process.env.CLOUDFRONT_URL}/${key}`, config())
+  axios.get(`https://${process.env.GATSBY_CLOUDFRONT_URL}/${key}`, config())
     .then((res) => {
       dispatch({
         type: GET_LRC,

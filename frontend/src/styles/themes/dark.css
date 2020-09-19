@@ -1,53 +1,15 @@
-body {
-  background: #1a1a1a;
-}
-
-#header {
-  color: #fafafa;
-}
-
-#left-wing {
-  color: #fafafa;
-}
-
-#right-wing {
-  color: #fafafa;
-}
-
-#typing-area, #theme-area {
-  background: #333333;
-}
-
-#text-display {
-  color: #fafafa;
-}
-
-#input-field {
-  background: #1a1a1a;
-  color: #fafafa;
-}
-
-#input-field.wrong {
-  background: rgba(198, 38, 46, 0.3);
-}
-
-#redo-button {
-  background: #1a1a1a;
-  color: #fafafa;
-}
-
-#footer {
-  color: #fafafa;
-}
-
-.highlight {
-  color: #a56de2;
-}
-
-.correct {
-  color: #68b723;
-}
-
-.wrong {
-  color: #c6262e;
+.theme-dark {
+  --color-bg-primary: theme('colors.black');
+  --color-bg-typing: #333333;
+  --color-bg-input: theme('colors.black');
+  --color-bg-redo: theme('colors.black');
+  --color-bg-redo-hover: theme('colors.red.500');
+  --color-text-primary: theme('colors.white');
+  --color-text-secondary: theme('colors.white');
+  --color-text-current: theme('colors.white');
+  --color-text-correct: theme('colors.green.400');
+  --color-text-wrong: theme('colors.red.400');
+  --color-text-stats: theme('colors.white');
+  --color-text-nav: theme('colors.red.500');
+  --color-placeholder-primary: theme('colors.white');
 }

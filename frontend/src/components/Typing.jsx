@@ -52,8 +52,6 @@ const Typing = () => {
   const lrc = useSelector((state) => state.app.lrc);
   const theme = useSelector((state) => state.app.theme);
 
-  const borderColor = theme === 'light' ? 'border-primary' : 'border-transparent';
-
   // local typing state
   const [linePos, setLinePos] = useState(0);
   const [wordPos, setWordPos] = useState(0);
@@ -197,7 +195,7 @@ const Typing = () => {
       </div>
 
       <div className="flex-col col-span-2 h-48">
-        <div className={`flex flex-col justify-between w-full h-full bg-typing border-2 rounded-lg ${borderColor} bg-white p-3 flex flex-col text-center leading-relaxed`}>
+        <div className={`flex flex-col justify-between w-full h-full bg-typing border-2 rounded-lg ${theme === 'light' ? 'border-primary' : 'border-transparent'} bg-white p-3 flex flex-col text-center leading-relaxed`}>
           <div className="mb-6">
             <div className="flex justify-start items-center break-normal flex-wrap w-9/12">
               {wordList.map((word, i) => {
@@ -231,7 +229,7 @@ const Typing = () => {
           </div>
 
           <div className="flex justify-between">
-            <input className="w-11/12 bg-input border-2 rounded-lg border-transparent text-xl p-1 text-secondary placeholder-primary" type="text" value={curWord} placeholder={isActive ?  (seconds < lrc[0].start ? `starting in ${Math.floor(lrc[0].start - seconds)}s` : curWord) : 'type-any-key-to-start'} onChange={handleCurWordChange} spellCheck="false" autoComplete="off" autoCorrect="off" autoCapitalize="off" />
+            <input className={`w-11/12 bg-input border-2 rounded-lg ${theme === 'light' ? 'border-primary' : 'border-transparent'} text-xl p-1 text-secondary placeholder-primary`} type="text" value={curWord} placeholder={isActive ?  (seconds < lrc[0].start ? `starting in ${Math.floor(lrc[0].start - seconds)}s` : curWord) : 'type-any-key-to-start'} onChange={handleCurWordChange} spellCheck="false" autoComplete="off" autoCorrect="off" autoCapitalize="off" />
             <button className="transition duration-300 ease-in-out bg-redo hover:bg-redo-hover transform hover:scale-110 py-2 px-2 rounded-lg text-primary" type="submit" onClick={reset}>
               redo
             </button>

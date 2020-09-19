@@ -8,36 +8,24 @@ body {
   font-family: Roboto Mono;
 }
 
-.theme-light {
-  --color-bg-primary: theme('colors.white');
-  --color-bg-typing: theme('colors.white');
-  --color-bg-input: theme('colors.white');
-  --color-bg-redo: theme('colors.blue.500');
-  --color-bg-redo-hover: theme('colors.red.500');
-  --color-bg-nav: theme('colors.red.500');
-  --color-bg-nav-active: theme('colors.red.500');
-  --color-text-primary: theme('colors.gray.900');
-  --color-text-secondary: theme('colors.gray.600');
-  --color-text-current: theme('colors.gray.900');
-  --color-text-correct: theme('colors.green.400');
-  --color-text-wrong: theme('colors.red.400');
-  --color-text-stats: theme('colors.gray.500');
-  --color-placeholder-primary: theme('colors.gray.600');
-}
-
-.theme-dark {
-  --color-bg-primary: theme('colors.black');
-  --color-bg-typing: #333333;
-  --color-bg-input: theme('colors.black');
-  --color-bg-redo: theme('colors.black');
-  --color-bg-redo-hover: theme('colors.red.500');
-  --color-bg-nav: theme('colors.red.500');
-  --color-bg-nav-active: theme('colors.red.500');
-  --color-text-primary: theme('colors.white');
-  --color-text-secondary: theme('colors.white');
-  --color-text-current: theme('colors.white');
-  --color-text-correct: theme('colors.green.400');
-  --color-text-wrong: theme('colors.red.400');
-  --color-text-stats: theme('colors.white');
-  --color-placeholder-primary: theme('colors.white');
-}
+@import url('themes/light.css');
+@import url('themes/dark.css');
+@import url('themes/8008.css');
+@import url('themes/9009.css');
+@import url('themes/carbon.css');
+@import url('themes/eclipse.css');
+@import url('themes/dots.css');
+@import url('themes/sublimetext.css');
+@import url('themes/monokai.css');
+@import url('themes/solarizedlight.css');
+@import url('themes/moderndolch.css');
+@import url('themes/yuri.css');
+@import url('themes/bento.css');
+@import url('themes/pulse.css');
+@import url('themes/blink.css');
+@import url('themes/lime.css');
+@import url('themes/nautilus2.css');
+@import url('themes/striker.css');
+@import url('themes/redsuns.css');
+@import url('themes/laser.css');
+@import url('themes/granite.css');
