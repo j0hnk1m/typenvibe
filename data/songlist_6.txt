@@ -1,6 +1,0 @@
-Dynamite - BTS,dynamite_bts_2.lrc,https://www.youtube.com/watch?v=OiMWFojB9Ok,
-Blinding Lights - The Weeknd,blindingLights_weeknd.lrc,https://www.youtube.com/watch?v=fHI8X4OXluQ,
-Believer - Imagine Dragons,believer_imagineDragons_1.lrc,https://www.youtube.com/watch?v=IhP3J0j9JmY,
-All of Me - John Legend,allOfMe_johnLegend.lrc,https://www.youtube.com/watch?v=7IUYZV4ijt8,7
-The A Team - Ed Sheeran,theATeam_edSheeran_2.lrc,https://www.youtube.com/watch?v=WYABDdnBu0w,
-Hello - Adele,hello_adele_2.lrc,https://www.youtube.com/watch?v=4-jBiumYmXk,-0.5

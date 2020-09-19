@@ -1,6 +1,6 @@
 .theme-light {
   --color-bg-primary: theme('colors.white');
-  --color-bg-typing: theme('colors.white');
+  --color-bg-typing: #eaeaea;
   --color-bg-input: theme('colors.white');
   --color-bg-redo: theme('colors.blue.500');
   --color-bg-redo-hover: theme('colors.red.500');
@@ -10,6 +10,9 @@
   --color-text-correct: theme('colors.green.400');
   --color-text-wrong: theme('colors.red.400');
   --color-text-stats: theme('colors.gray.600');
+  --color-text-redo: theme('colors.white');
   --color-text-nav: theme('colors.red.500');
+  --color-text-display: theme('colors.black');
   --color-placeholder-primary: theme('colors.gray.600');
+  --color-border-primary: theme('colors.gray.500');
 }

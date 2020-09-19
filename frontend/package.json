@@ -14,14 +14,17 @@
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
   },
   "dependencies": {
-    "@tailwindcss/typography": "^0.2.0",
     "axios": "^0.20.0",
     "gatsby": "^2.24.50",
     "gatsby-alias-imports": "^1.0.4",
     "gatsby-cli": "^2.12.92",
+    "gatsby-plugin-google-analytics": "^2.3.14",
+    "gatsby-plugin-manifest": "^2.4.30",
     "gatsby-plugin-netlify": "^2.3.14",
+    "gatsby-plugin-offline": "^3.2.28",
     "gatsby-plugin-postcss": "^2.3.12",
     "gatsby-plugin-react-helmet": "^3.3.10",
+    "gatsby-plugin-sitemap": "^2.4.13",
     "gatsby-source-filesystem": "^2.3.29",
     "gatsby-transformer-remark": "^2.8.34",
     "lrc-parser": "^1.0.1",

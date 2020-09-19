@@ -64,16 +64,16 @@ const Settings = () => {
     <>
       <Layout title="settings">
         <div className="flex w-full h-64 justify-center">
-          <div className="overflow-hidden overflow-y-scroll scrolling-auto w-1/2 h-full mx-2 p-2 border-2 rounded-lg justify-center items-center">
+          <div className="overflow-hidden overflow-y-scroll scrolling-auto w-1/2 h-full mx-2 p-2 border-2 border-primary rounded-lg justify-center items-center">
             <div className="grid grid-cols-2 gap-3">
               {THEMES.map((choice) => (
-                <button key={choice} className={`w-full h-16 border-2 rounded-lg transition duration-300 ease-in-out bg-white transform hover:scale-110 py-2 px-2 rounded-lg theme-${choice} bg-primary`} onClick={() => setThemeChoice(choice)}>
-                  <p className="text-secondary">{choice}</p>
+                <button key={choice} className={`w-full h-16 border-2 rounded-lg transition duration-300 ease-in-out bg-white transform hover:scale-110 py-2 px-2 rounded-lg theme-${choice} bg-primary border-primary`} onClick={() => setThemeChoice(choice)}>
+                  <p className="text-display">{choice}</p>
                 </button>
               ))}
             </div>
           </div>
-          <div className="w-1/2 h-full mx-2 p-2 border-2 rounded-lg justify-center items-center">
+          <div className="w-1/2 h-full mx-2 p-2 border-2 rounded-lg border-primary justify-center items-center">
             <div className="flex justify-start items-center m-2">
               <Switch onChange={toggleUpper} checked={upper} />
               <p className="px-3 text-secondary">uppercase</p>

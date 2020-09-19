@@ -138,11 +138,16 @@ module.exports = {
       wrong: 'var(--color-text-wrong)',
       stats: 'var(--color-text-stats)',
       nav: 'var(--color-text-nav)',
+      display: 'var(--color-text-display)',
     },
     placeholderColor: {
       primary: 'var(--color-placeholder-primary)',
     },
+    borderColor: (theme) => ({
+      ...theme('colors'),
+      primary: 'var(--color-border-primary)',
+    }),
   },
   variants: {},
-  plugins: [require('@tailwindcss/typography')],
+  plugins: [],
 };

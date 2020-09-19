@@ -1,15 +1,18 @@
 .theme-moderndolch {
-  --color-bg-primary: theme('colors.black');
-  --color-bg-typing: #333333;
-  --color-bg-input: theme('colors.black');
-  --color-bg-redo: theme('colors.black');
-  --color-bg-redo-hover: theme('colors.red.500');
+  --color-bg-primary: #494b4f;
+  --color-bg-typing: #7c7e81;
+  --color-bg-input: #494b4f;
+  --color-bg-redo: #81d8d0;
+  --color-bg-redo-hover:#bc5868;
   --color-text-primary: theme('colors.white');
   --color-text-secondary: theme('colors.white');
-  --color-text-current: theme('colors.white');
+  --color-text-current: #81d8d0;
   --color-text-correct: theme('colors.green.400');
-  --color-text-wrong: theme('colors.red.400');
+  --color-text-wrong: #bc5868;
   --color-text-stats: theme('colors.white');
-  --color-text-nav: theme('colors.red.500');
+  --color-text-nav: #bc5868;
+  --color-text-redo: theme('colors.white');
+  --color-text-display: #81d8d0;
   --color-placeholder-primary: theme('colors.white');
+  --color-border-primary: theme('colors.white');
 }

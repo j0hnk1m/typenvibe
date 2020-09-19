@@ -195,7 +195,7 @@ const Typing = () => {
       </div>
 
       <div className="flex-col col-span-2 h-48">
-        <div className={`flex flex-col justify-between w-full h-full bg-typing border-2 rounded-lg ${theme === 'light' ? 'border-primary' : 'border-transparent'} bg-white p-3 flex flex-col text-center leading-relaxed`}>
+        <div className="flex flex-col justify-between w-full h-full bg-typing border-2 rounded-lg border-transparent bg-white p-3 text-center leading-relaxed">
           <div className="mb-6">
             <div className="flex justify-start items-center break-normal flex-wrap w-9/12">
               {wordList.map((word, i) => {

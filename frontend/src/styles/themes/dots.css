@@ -1,15 +1,15 @@
-.theme-light {
-  --color-bg-primary: theme('colors.white');
-  --color-bg-typing: theme('colors.white');
-  --color-bg-input: theme('colors.white');
-  --color-bg-redo: theme('colors.blue.500');
-  --color-bg-redo-hover: theme('colors.red.500');
-  --color-text-primary: theme('colors.gray.900');
+.theme-dots {
+  --color-bg-primary: #191b25;
+  --color-bg-typing: #232533;
+  --color-bg-input: #2c2e40;
+  --color-bg-redo: #3cc5f8;
+  --color-bg-redo-hover: #ffd543;
+  --color-text-primary: theme('colors.white');
   --color-text-secondary: theme('colors.gray.600');
-  --color-text-current: theme('colors.gray.900');
-  --color-text-correct: theme('colors.green.400');
-  --color-text-wrong: theme('colors.red.400');
-  --color-text-stats: theme('colors.gray.600');
-  --color-text-nav: theme('colors.red.500');
+  --color-text-current: #9261ff;
+  --color-text-correct: #4acb8a;
+  --color-text-wrong: #f94348;
+  --color-text-stats: #ff9349;
+  --color-text-nav: #f94348;
   --color-placeholder-primary: theme('colors.gray.600');
 }
