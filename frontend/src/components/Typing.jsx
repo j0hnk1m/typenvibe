@@ -233,7 +233,7 @@ const Typing = () => {
               className="w-11/12 mr-3 bg-input border-2 rounded-lg border-transparent text-xl p-1 text-secondary placeholder-primary"
               type="text"
               value={curWord}
-              placeholder={(isActive && seconds < lrc[0].start) ? `starting in ${Math.floor(lrc[0].start - seconds)}s` : 'type-any-key-to-start'}
+              placeholder={isActive ? (seconds < lrc[0].start ? `starting in ${Math.floor(lrc[0].start - seconds)}s` : curWord) : 'type-any-key-to-start'}
               onChange={handleCurWordChange}
               spellCheck="false"
               autoComplete="off"
