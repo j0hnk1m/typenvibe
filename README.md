@@ -1,11 +1,3 @@
-
-[![Website][website-shield]][website-url]
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
-
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
@@ -20,7 +12,30 @@
     <br />
     <a href="https://typenvibe.netlify.app"><strong>Visit the site »</strong></a>
     <br />
-    <br />
+  </p>
+
+  <p align="center">
+    <a href="https://typenvibe.netlify.app">
+      <img alt="Website status" src="https://img.shields.io/website?url=https%3A%2F%2Ftypenvibe.netlify.app">
+    </a>
+    <a href="https://github.com/j0hnk1m/typenvibe/graphs/contributors">
+      <img alt="Contributors" src="https://img.shields.io/github/contributors/j0hnk1m/typenvibe">
+    </a>
+    <a href="https://github.com/j0hnk1m/typenvibe/network/members">
+      <img alt="Forks" src="https://img.shields.io/github/forks/j0hnk1m/typenvibe">
+    </a>
+    <a href="https://github.com/j0hnk1m/typenvibe/stargazers">
+      <img alt="Stargazers" src="https://img.shields.io/github/contributors/j0hnk1m/typenvibe">
+    </a>
+    <a href="https://github.com/j0hnk1m/typenvibe/issues">
+      <img alt="Issues" src="https://img.shields.io/github/issues/j0hnk1m/typenvibe">
+    </a>
+    <a href="./LICENSE.md">
+      <img alt="MIT License" src="https://img.shields.io/github/license/j0hnk1m/typenvibe">
+    </a>
+  </p>
+
+  <p align="center">
     <a href="https://github.com/j0hnk1m/typenvibe/blob/master/README.md">View Docs</a>
     ·
     <a href="https://github.com/j0hnk1m/typenvibe/issues">Report Bug</a>
@@ -31,47 +46,45 @@
 
 
 
-<!-- TABLE OF CONTENTS -->
-## Table of Contents
+## Table Of Contents <!-- omit in toc -->
 
-- [Table of Contents](#table-of-contents)
-- [:star: About](#️-about)
+- [:zap: About](#zap-about)
   - [Built With](#built-with)
   - [Infrastructure](#infrastructure)
-- [:rocket: Getting Started](#-getting-started)
-- [:fire: Documentation](#-documentation)
-- [:grey_question: Roadmap](#-roadmap)
-- [:wink: Contributing](#-contributing)
-- [:memo: License](#-license)
-- [:email: Contact](#️-contact)
-- [:loudspeaker: Acknowledgements](#-acknowledgements)
-- [:dollar: Donations](#-donations)
+- [:rocket: Getting Started](#rocket-getting-started)
+- [:fire: Documentation](#fire-documentation)
+- [:earth_africa: Roadmap](#earth_africa-roadmap)
+- [:wink: Contributing](#wink-contributing)
+- [:memo: License](#memo-license)
+- [:email: Contact](#️email-contact)
+- [:loudspeaker: Acknowledgements](#loudspeaker-acknowledgements)
+- [:dollar: Donations](#dollar-donations)
 
 
 
 <!-- ABOUT THE PROJECT -->
-## :star: About
+## :zap: About
 
-<figure class="image">
+<p class="image">
   <a href="https://typenvibe.netlify.app">
     <img src="figures/website.png">
   </a>
-  <figcaption align="center">typenvibe</figcaption>
-</figure>
+  <p align="center">typenvibe</p>
+</p>
 <br />
 
 The objective of the game is to type the lyrics in rythm to the song. The lyrics you can type will be constantly updating based on the line that the artist is currently on. If the line changes while you are typing, never fear, you have the option to type either:
 
 <p class="image" align="center">
   <img src="figures/line_change_mechanism_1.gif" width=500>
-  <figcaption align="center">1) the word you were going to type before</figcaption>
+  <p align="center">1) the word you were going to type before</p>
 </p>
 
 <br />
 
 <p class="image" align="center">
   <img src="figures/line_change_mechanism_2.gif" width=500>
-  <figcaption align="center">... or 2) the new word</figcaption>
+  <p align="center">... or 2) the new word</p>
 </p>
 
 Notice above that the accuracy stays at 100% in both cases. In case you still type wrong, something called the Levenshtein distance is computed for both possibilities in order to determine what you were trying to type. Now type n vibe away!
@@ -137,7 +150,7 @@ Please refer to the [documentation](https://example.com)
 
 
 <!-- ROADMAP -->
-## :grey_question: Roadmap
+## :earth_africa: Roadmap
 
 See the [open issues](https://github.com/j0hnk1m/typenvibe/issues) for a list of proposed features (and known issues).
 
@@ -180,21 +193,6 @@ Rishi Gundakaram - rishi.gundakaram@gmail.com
 
 
 
-
-
-<!-- MARKDOWN LINKS & IMAGES -->
-[contributors-shield]: https://img.shields.io/github/contributors/j0hnk1m/typenvibe
-[contributors-url]: https://github.com/j0hnk1m/typenvibe/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/j0hnk1m/typenvibe
-[forks-url]: https://github.com/j0hnk1m/typenvibe/network/members
-[stars-shield]: https://img.shields.io/github/stars/j0hnk1m/typenvibe
-[stars-url]: https://github.com/othneildrew/Best-README-Template/stargazers
-[issues-shield]: https://img.shields.io/github/issues/j0hnk1m/typenvibe
-[issues-url]: https://github.com/othneildrew/Best-README-Template/issues
-[license-shield]: https://img.shields.io/github/license/j0hnk1m/typenvibe
-[license-url]: LICENSE
-[website-shield]: https://img.shields.io/website?url=https%3A%2F%2Ftypenvibe.netlify.app
-[website-url]: https://typenvibe.netlify.app
 
 ## :dollar: Donations
 This is free, open-source software. If you guys would like to support the development of future projects or simply appreciate what we built, you can [buy me a coffee :)](https://www.buymeacoffee.com/typenvibe)
