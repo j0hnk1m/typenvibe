@@ -1,5 +1,4 @@
 
-[![Website][website-shield]][website-url]
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
@@ -35,12 +34,12 @@
 ## Table of Contents
 
 - [Table of Contents](#table-of-contents)
-- [:star: About](#️-about)
+- [About](#about)
   - [Built With](#built-with)
   - [Infrastructure](#infrastructure)
 - [:rocket: Getting Started](#-getting-started)
-- [:fire: Documentation](#-documentation)
-- [:grey_question: Roadmap](#-roadmap)
+- [Documentation](#documentation)
+- [Roadmap](#roadmap)
 - [:wink: Contributing](#-contributing)
 - [:memo: License](#-license)
 - [:email: Contact](#️-contact)
@@ -50,7 +49,7 @@
 
 
 <!-- ABOUT THE PROJECT -->
-## :star: About
+## About
 
 <figure class="image">
   <a href="https://typenvibe.netlify.app">
@@ -131,13 +130,13 @@ As the site is still under development and since we are broke college students, 
 
 
 <!-- USAGE EXAMPLES -->
-## :fire: Documentation
-Please refer to the [documentation](https://example.com)
+## Documentation
+Please refer to the [Documentation](https://example.com)
 
 
 
 <!-- ROADMAP -->
-## :grey_question: Roadmap
+## Roadmap
 
 See the [open issues](https://github.com/j0hnk1m/typenvibe/issues) for a list of proposed features (and known issues).
 
@@ -193,8 +192,7 @@ Rishi Gundakaram - rishi.gundakaram@gmail.com
 [issues-url]: https://github.com/othneildrew/Best-README-Template/issues
 [license-shield]: https://img.shields.io/github/license/j0hnk1m/typenvibe
 [license-url]: LICENSE
-[website-shield]: https://img.shields.io/website?url=https%3A%2F%2Ftypenvibe.netlify.app
-[website-url]: https://typenvibe.netlify.app
+[product-screenshot]: images/screenshot.png
 
 ## :dollar: Donations
 This is free, open-source software. If you guys would like to support the development of future projects or simply appreciate what we built, you can [buy me a coffee :)](https://www.buymeacoffee.com/typenvibe)
