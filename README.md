@@ -1,7 +1,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
-  <a href="https://github.com/othneildrew/Best-README-Template">
+  <a href="https://github.com/j0hnk1m/typenvibe">
     <img src="figures/keyboard.png" alt="Logo" width="100" height="100">
   </a>
 
@@ -17,9 +17,6 @@
   <p align="center">
     <a href="https://typenvibe.netlify.app">
       <img alt="status" src="https://img.shields.io/website?url=https%3A%2F%2Ftypenvibe.netlify.app">
-    </a>
-    <a href="https://github.com/j0hnk1m/typenvibe/graphs/contributors">
-      <img alt="Contributors" src="https://img.shields.io/github/contributors/j0hnk1m/typenvibe">
     </a>
     <a href="https://github.com/j0hnk1m/typenvibe/network/members">
       <img alt="Forks" src="https://img.shields.io/github/forks/j0hnk1m/typenvibe">
@@ -127,7 +124,7 @@ As the site is still under development and since we are broke college students, 
          npm install -g gatsby-cli
          ```
       * ```shell
-         yarn global add -g gatsby-cli
+         yarn global add gatsby-cli
          ```
 
 2.  **Start developing.**
