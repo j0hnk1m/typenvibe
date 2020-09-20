@@ -16,7 +16,7 @@
 
   <p align="center">
     <a href="https://typenvibe.netlify.app">
-      <img alt="Website status" src="https://img.shields.io/website?url=https%3A%2F%2Ftypenvibe.netlify.app">
+      <img alt="status" src="https://img.shields.io/website?url=https%3A%2F%2Ftypenvibe.netlify.app">
     </a>
     <a href="https://github.com/j0hnk1m/typenvibe/graphs/contributors">
       <img alt="Contributors" src="https://img.shields.io/github/contributors/j0hnk1m/typenvibe">
@@ -25,7 +25,7 @@
       <img alt="Forks" src="https://img.shields.io/github/forks/j0hnk1m/typenvibe">
     </a>
     <a href="https://github.com/j0hnk1m/typenvibe/stargazers">
-      <img alt="Stargazers" src="https://img.shields.io/github/contributors/j0hnk1m/typenvibe">
+      <img alt="Stargazers" src="https://img.shields.io/github/stars/j0hnk1m/typenvibe">
     </a>
     <a href="https://github.com/j0hnk1m/typenvibe/issues">
       <img alt="Issues" src="https://img.shields.io/github/issues/j0hnk1m/typenvibe">
@@ -105,7 +105,7 @@ Notice above that the accuracy stays at 100% in both cases. In case you still ty
 * ReactJS
 * Gatsby
 * Tailwindcss
-* cups of coffee and thai tea
+* a lot of coffee and thai tea
 
 ### Infrastructure
 <p align="center">
@@ -195,4 +195,4 @@ Rishi Gundakaram - rishi.gundakaram@gmail.com
 
 
 ## :dollar: Donations
-This is free, open-source software. If you guys would like to support the development of future projects or simply appreciate what we built, you can [buy me a coffee :)](https://www.buymeacoffee.com/typenvibe)
+This is free, open-source software. If you guys would like to support the development of future projects or simply appreciate what we built, you can [buy us a coffee :)](https://www.buymeacoffee.com/typenvibe)

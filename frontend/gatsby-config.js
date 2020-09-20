@@ -47,6 +47,13 @@ module.exports = {
     'gatsby-plugin-robots-txt',
     'gatsby-plugin-netlify',
     'gatsby-plugin-offline',
+    {
+      resolve: 'gatsby-plugin-s3',
+      options: {
+        bucketName: process.env.GATSBY_S3_BUCKET,
+        protocol: 'https',
+      },
+    },
     // {
     //   resolve: 'gatsby-plugin-purgecss',
     //   options: {
