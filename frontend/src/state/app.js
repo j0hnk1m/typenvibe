@@ -1,7 +1,6 @@
 import axios from 'axios';
 import lrcParser from 'lrc-parser';
 
-const REVERSE_PROXY = 'https://cors-anywhere.herokuapp.com';
 const SONGLIST = 'songlist_8.txt';
 
 const initialState = {
@@ -49,7 +48,7 @@ export const endLoading = () => (dispatch) => {
 };
 
 export const getSongs = () => (dispatch) => {
-  axios.get(`https://${process.env.GATSBY_CLOUDFRONT_URL}/${SONGLIST}`, config())
+  axios.get(`https://${process.env.CLOUDFRONT_URL}/${SONGLIST}`, config())
     .then((res) => {
       const songs = res.data.split('\n').map((song) => {
         const parts = song.split(',');
@@ -58,7 +57,7 @@ export const getSongs = () => (dispatch) => {
           title,
           artist,
           key: parts[1],
-          url: `https://${process.env.GATSBY_CLOUDFRONT_URL}/${parts[1]}/${parts[1]}.mp3`,
+          url: `https://${process.env.CLOUDFRONT_URL}/${parts[1]}/${parts[1]}.mp3`,
           delay: parts[2],
         };
       });
@@ -120,7 +119,7 @@ const parseLrc = ({ lrc, delay, typingMode } = {}) => (dispatch) => {
 
 export const getLrc = ({ key, delay, typingMode } = {}) => (dispatch) => {
   dispatch(startLoading());
-  axios.get(`https://${process.env.GATSBY_CLOUDFRONT_URL}/${key}/${key}.lrc`, config())
+  axios.get(`https://${process.env.CLOUDFRONT_URL}/${key}/${key}.lrc`, config())
     .then((res) => {
       dispatch({
         type: GET_LRC,

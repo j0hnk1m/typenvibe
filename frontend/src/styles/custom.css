@@ -1,7 +1,8 @@
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
 
+/* purgecss start ignore */
 @import url('https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap');
 
 body {
@@ -29,3 +30,4 @@ body {
 @import url('themes/redsuns.css');
 @import url('themes/laser.css');
 @import url('themes/granite.css');
+/* purgecss end ignore */

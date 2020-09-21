@@ -4,8 +4,9 @@
   --color-bg-input: theme('colors.black');
   --color-bg-redo: theme('colors.black');
   --color-bg-redo-hover: theme('colors.red.500');
-  --color-text-primary: theme('colors.white');
-  --color-text-secondary: theme('colors.white');
+  --color-text-header: theme('colors.white');
+  --color-text-typing: theme('colors.white');
+  --color-text-inverse: theme('colors.white');
   --color-text-current: theme('colors.white');
   --color-text-correct: theme('colors.green.400');
   --color-text-wrong: theme('colors.red.400');

@@ -1,15 +1,19 @@
 .theme-9009 {
-  --color-bg-primary: theme('colors.black');
-  --color-bg-typing: #333333;
-  --color-bg-input: theme('colors.black');
-  --color-bg-redo: theme('colors.black');
-  --color-bg-redo-hover: theme('colors.red.500');
-  --color-text-primary: theme('colors.white');
-  --color-text-secondary: theme('colors.white');
-  --color-text-current: theme('colors.white');
-  --color-text-correct: theme('colors.green.400');
-  --color-text-wrong: theme('colors.red.400');
+  --color-bg-primary: #b6b09a;
+  --color-bg-typing: #d9d2c8;
+  --color-bg-input: #b6b09a;
+  --color-bg-redo: #6f8c70;
+  --color-bg-redo-hover: #6f8c70;
+  --color-text-header: #2e2f33;
+  --color-text-typing: #2e2f33;
+  --color-text-inverse: #2e2f33;
+  --color-text-current: #96907a;
+  --color-text-correct: #6f8c70;
+  --color-text-wrong: #d28782;
   --color-text-stats: theme('colors.white');
-  --color-text-nav: theme('colors.red.500');
+  --color-text-nav: #2e2f33;
+  --color-text-redo: #d9d2c8;
+  --color-text-display: theme('colors.red.500');
   --color-placeholder-primary: theme('colors.white');
+  --color-border-primary: #2e2f33;
 }

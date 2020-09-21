@@ -5,8 +5,6 @@ import Boombox from 'components/Boombox';
 import Typing from 'components/Typing';
 import { getSongs } from 'state/app';
 
-import 'styles/style.css';
-
 const Home = () => {
   const curSong = useSelector((state) => state.app.curSong);
   const lrc = useSelector((state) => state.app.lrc);

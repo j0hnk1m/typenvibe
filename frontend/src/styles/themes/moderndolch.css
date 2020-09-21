@@ -4,8 +4,9 @@
   --color-bg-input: #494b4f;
   --color-bg-redo: #81d8d0;
   --color-bg-redo-hover:#bc5868;
-  --color-text-primary: theme('colors.white');
-  --color-text-secondary: theme('colors.white');
+  --color-text-header: theme('colors.white');
+  --color-text-typing: theme('colors.white');
+  --color-text-inverse: theme('colors.white');
   --color-text-current: #81d8d0;
   --color-text-correct: theme('colors.green.400');
   --color-text-wrong: #bc5868;
