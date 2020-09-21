@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import ReactPlayer from 'react-player/file';
+import AudioSpectrum from 'react-audio-spectrum';
 import { Line } from 'rc-progress';
 import Stats from './Stats';
+import { element } from 'prop-types';
 
 // levenshtein distance
 const editDistance = (str1, str2) => {
@@ -67,6 +69,18 @@ const Typing = () => {
   const [playerKey, setPlayerKey] = useState(0);
   const wordList = lrc[linePos].text.split(' ');
   const nextWordList = (linePos <= lrc.length - 2) ? lrc[linePos + 1].text.split(' ') : [];
+
+  // Song state
+  const audioTag = 'react-player';
+  const audioEl = useRef(null);
+  const [tag, setTag] = useState(false);
+
+  if ((!tag && audioEl.current) && audioEl.current.wrapper) {
+    console.log('here');
+    console.log(audioEl.current.wrapper);
+    audioEl.current.wrapper.children[0].setAttribute('id', audioTag);
+    setTag(true);
+  }
 
   const reset = () => {
     setIsActive(false);
@@ -180,6 +194,7 @@ const Typing = () => {
         playing={isActive}
         volume={volume}
         style={{ display: 'none' }}
+        ref={audioEl}
       />
 
       <div className="flex flex-col col-span-1 h-20 justify-center">
