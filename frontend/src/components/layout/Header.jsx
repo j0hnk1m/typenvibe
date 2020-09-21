@@ -16,7 +16,7 @@ const Header = () => {
     <>
       <header className="flex relative h-20 justify-center items-center">
         <Link to="/">
-          <span className="font-bold text-2xl text-primary">
+          <span className="font-bold text-2xl text-header">
             {query.site.siteMetadata.title}
           </span>
         </Link>

@@ -4,12 +4,16 @@
   --color-bg-input: #2c2e40;
   --color-bg-redo: #3cc5f8;
   --color-bg-redo-hover: #ffd543;
-  --color-text-primary: theme('colors.white');
-  --color-text-secondary: theme('colors.gray.600');
+  --color-text-header: theme('colors.white');
+  --color-text-typing: theme('colors.white');
+  --color-text-inverse: theme('colors.white');
   --color-text-current: #9261ff;
   --color-text-correct: #4acb8a;
   --color-text-wrong: #f94348;
   --color-text-stats: #ff9349;
-  --color-text-nav: #f94348;
-  --color-placeholder-primary: theme('colors.gray.600');
+  --color-text-nav: #ffd751;
+  --color-text-redo: theme('colors.red.500');
+  --color-text-display: theme('colors.red.500');
+  --color-placeholder-primary: theme('colors.white');
+  --color-border-primary: #36c1f6;
 }

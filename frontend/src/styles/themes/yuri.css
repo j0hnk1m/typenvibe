@@ -4,13 +4,17 @@
   --color-bg-input: #97afc2;
   --color-bg-redo: #ea4221;
   --color-bg-redo-hover: theme('colors.red.500');
-  --color-text-primary: #ea4221;
-  --color-text-secondary: #293649;
+  --color-text-header: #ea4221;
+  --color-text-typing: #293649;
+  --color-text-inverse: #293649;
   --color-text-current: theme('colors.white');
   --color-text-correct: theme('colors.green.400');
   --color-text-wrong: theme('colors.red.400');
   --color-text-stats: theme('colors.white');
   --color-text-redo: theme('colors.white');
   --color-text-nav: theme('colors.white');
+  --color-text-redo: theme('colors.red.500');
+  --color-text-display: theme('colors.red.500');
   --color-placeholder-primary: #293649;
+  --color-border-primary: #36c1f6;
 }

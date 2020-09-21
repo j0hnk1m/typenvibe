@@ -209,56 +209,54 @@ const Typing = () => {
         <Line strokeWidth="1" percent={seconds > curSongLength ? 100 : (seconds / curSongLength) * 100} />
       </div>
 
-      <div className="flex-col col-span-2 h-48">
-        <div className="flex flex-col justify-between w-full h-full bg-typing border-2 rounded-lg border-transparent bg-white p-3 text-center leading-relaxed">
-          <div className="mb-6">
-            <div className="flex justify-start items-center break-normal flex-wrap w-9/12">
-              {wordList.map((word, i) => {
-                let color = 'text-secondary';
-                let fontSize = 'text-base';
-                let fontWeight = 'font-normal';
-                if (i === wordListStatus.length && seconds >= lrc[0].start) {
-                  color = 'text-current';
-                  fontSize = 'text-3xl';
-                  fontWeight = 'font-extrabold';
-                } else if (i < wordListStatus.length) {
-                  color = wordListStatus[i] ? 'text-correct' : 'text-wrong';
-                }
+      <div className="flex flex-col col-span-2 h-48 justify-between w-full bg-typing border-2 rounded-lg border-transparent bg-white p-3 text-center leading-relaxed">
+        <div className="mb-6">
+          <div className="flex justify-start items-center break-normal flex-wrap w-9/12">
+            {wordList.map((word, i) => {
+              let color = 'text-typing';
+              let fontSize = 'text-base';
+              let fontWeight = 'font-normal';
+              if (i === wordListStatus.length && seconds >= lrc[0].start) {
+                color = 'text-current';
+                fontSize = 'text-3xl';
+                fontWeight = 'font-extrabold';
+              } else if (i < wordListStatus.length) {
+                color = wordListStatus[i] ? 'text-correct' : 'text-wrong';
+              }
 
-                const styles = `${color} ${fontSize} ${fontWeight} text-opacity-100 mx-1`;
+              const styles = `${color} ${fontSize} ${fontWeight} text-opacity-100 mx-1`;
 
-                return (
-                  <p key={i} className={styles}>
-                    {word}
-                  </p>
-                );
-              })}
-            </div>
-            <div className="flex justify-end float-right items-center flex-wrap w-9/12">
-              {nextWordList.map((word, i) => (
-                <p key={i} className="inline text-secondary text-opacity-50 mx-1 break-normal">
+              return (
+                <p key={i} className={styles}>
                   {word}
                 </p>
-              ))}
-            </div>
+              );
+            })}
           </div>
+          <div className="flex justify-end float-right items-center flex-wrap w-9/12">
+            {nextWordList.map((word, i) => (
+              <p key={i} className="inline text-typing text-opacity-50 mx-1 break-normal">
+                {word}
+              </p>
+            ))}
+          </div>
+        </div>
 
-          <div className="flex justify-between">
-            <input
-              className="w-11/12 mr-3 bg-input border-2 rounded-lg border-transparent text-xl p-1 text-secondary placeholder-primary"
-              type="text"
-              value={curWord}
-              placeholder={isActive ? (seconds < lrc[0].start ? `starting in ${Math.floor(lrc[0].start - seconds)}s` : curWord) : 'type-any-key-to-start'}
-              onChange={handleCurWordChange}
-              spellCheck="false"
-              autoComplete="off"
-              autoCorrect="off"
-              autoCapitalize="off"
-            />
-            <button className="transition duration-300 ease-in-out bg-redo hover:bg-redo-hover transform hover:scale-110 py-2 px-2 rounded-lg text-primary" type="submit" onClick={reset}>
-              redo
-            </button>
-          </div>
+        <div className="flex justify-between">
+          <input
+            className="w-11/12 mr-3 bg-input border-2 rounded-lg border-transparent text-xl p-1 text-typing placeholder-primary"
+            type="text"
+            value={curWord}
+            placeholder={isActive ? (seconds < lrc[0].start ? `starting in ${Math.floor(lrc[0].start - seconds)}s` : curWord) : 'type-any-key-to-start'}
+            onChange={handleCurWordChange}
+            spellCheck="false"
+            autoComplete="off"
+            autoCorrect="off"
+            autoCapitalize="off"
+          />
+          <button className="transition duration-300 ease-in-out bg-redo hover:bg-redo-hover transform hover:scale-110 py-2 px-2 rounded-lg text-redo" type="submit" onClick={reset}>
+            redo
+          </button>
         </div>
       </div>
     </>

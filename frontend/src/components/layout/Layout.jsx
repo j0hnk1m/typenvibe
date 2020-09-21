@@ -4,6 +4,8 @@ import Header from './Header';
 import Footer from './Footer';
 import SEO from '../Seo';
 
+import 'styles/custom.css';
+
 const Layout = ({ title, children }) => {
   const theme = useSelector((state) => state.app.theme);
 

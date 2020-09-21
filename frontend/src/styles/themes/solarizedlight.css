@@ -4,13 +4,16 @@
   --color-bg-input: #f0ead8;
   --color-bg-redo: #f0ead8;
   --color-bg-redo-hover: theme('colors.red.500');
-  --color-text-primary: theme('colors.black');
-  --color-text-secondary: theme('colors.black');
+  --color-text-header: theme('colors.black');
+  --color-text-typing: theme('colors.black');
+  --color-text-inverse: theme('colors.black');
   --color-text-current: theme('colors.black');
   --color-text-correct: #859900;
   --color-text-wrong: #dc322f;
   --color-text-stats: theme('colors.black');
   --color-text-nav: theme('colors.red.500');
+  --color-text-redo: theme('colors.red.500');
+  --color-text-display: theme('colors.red.500');
   --color-placeholder-primary: theme('colors.black');
   --color-border-primary: theme('colors.black');
 }

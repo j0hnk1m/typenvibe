@@ -12,7 +12,7 @@ module.exports = {
   siteMetadata: {
     title: 'typenvibe',
     description: 'a web app to practice typing in rythm with your favorite songs',
-    siteUrl: 'https://typenvibe.netlify.app',
+    siteUrl: 'https://typenvibe.com',
     author: 'John Kim, Rishi Gundakaram',
   },
   plugins: [
@@ -28,7 +28,6 @@ module.exports = {
         },
       },
     },
-    'gatsby-plugin-postcss',
     'gatsby-plugin-react-helmet',
     {
       resolve: 'gatsby-plugin-manifest',
@@ -38,20 +37,22 @@ module.exports = {
       },
     },
     'gatsby-plugin-sitemap',
-    {
-      resolve: 'gatsby-plugin-google-analytics',
-      options: {
-        trackingId: 'UA-178440772-1',
-      },
-    },
+    // {
+    //   resolve: 'gatsby-plugin-google-analytics',
+    //   options: {
+    //     trackingId: 'UA-178440772-1',
+    //   },
+    // },
     'gatsby-plugin-robots-txt',
-    'gatsby-plugin-netlify',
+    'gatsby-plugin-postcss',
     'gatsby-plugin-offline',
     {
       resolve: 'gatsby-plugin-s3',
       options: {
-        bucketName: process.env.GATSBY_S3_BUCKET,
+        bucketName: process.env.S3_BUCKET,
+        acl: null,
         protocol: 'https',
+        hostname: 'typenvibe.com',
       },
     },
     // {
@@ -59,9 +60,10 @@ module.exports = {
     //   options: {
     //     printRejected: true,
     //     tailwind: true,
-    //     develop: true,
+    //     // develop: true,
     //     ignore: ['rc-slider/', 'styles/themes/'],
-    //     whiteListPatterns: [],
+    //     whitelist: [],
+    //     whitelistPatterns: [],
     //   },
     // },
   ],

@@ -67,21 +67,21 @@ const Settings = () => {
           <div className="overflow-hidden overflow-y-scroll scrolling-auto w-1/2 h-full mx-2 p-2 border-2 border-primary rounded-lg justify-center items-center">
             <div className="grid grid-cols-2 gap-3">
               {THEMES.map((choice) => (
-                <button key={choice} className={`w-full h-16 border-2 rounded-lg transition duration-300 ease-in-out bg-white transform hover:scale-110 py-2 px-2 rounded-lg theme-${choice} bg-primary border-primary`} onClick={() => setThemeChoice(choice)}>
+                <button key={choice} className={`w-full h-16 border-2 rounded-lg transition duration-300 ease-in-out bg-white transform hover:scale-110 py-2 px-2 theme-${choice} bg-primary border-primary`} onClick={() => setThemeChoice(choice)}>
                   <p className="text-display">{choice}</p>
                 </button>
               ))}
             </div>
           </div>
-          <div className="w-1/2 h-full mx-2 p-2 border-2 rounded-lg border-primary justify-center items-center">
+          <div className="w-1/2 h-full mx-2 p-2 border-2 rounded-lg border-primary justify-center items-center text-inverse">
             <div className="flex justify-start items-center m-2">
               <Switch onChange={toggleUpper} checked={upper} />
-              <p className="px-3 text-secondary">uppercase</p>
+              <p className="px-3">uppercase</p>
               <svg className="w-6 h-6 hover:" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clipRule="evenodd"></path></svg>
             </div>
             <div className="flex justify-start items-center m-2">
               <Switch onChange={togglePunc} checked={punc} />
-              <p className="px-3 text-secondary">punctuation</p>
+              <p className="px-3">punctuation</p>
               <svg className="w-6 h-6 hover:" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clipRule="evenodd"></path></svg>
             </div>
             <div className="flex justify-start items-center m-2 pt-4">
