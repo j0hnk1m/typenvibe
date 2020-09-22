@@ -104,13 +104,8 @@ Notice above that the accuracy stays at 100% in both cases. In case you still ty
 * Tailwindcss
 * a lot of coffee and thai tea
 
-### Infrastructure
-<p align="center">
-  <img src="figures/infrastructure.png" width=500>
-  <p>web infrastructure</p>
-</p>
-
-As the site is still under development and since we are broke college students, the most viable option to store the data (lyrics, mp3 file, etc.) was with Amazon S3. Cloudfront is used as an Origin Access Identity (OAI) to secure the files and allow for faster distribution by using caching and edge locations. Currently, a custom REST API is under development.
+### Data
+Currently the data for the lyrics and audio exist as files in a private S3 bucket. As there may be copyright issues with this method, we are currently adding support for Youtube links and Spotify's Web Playback SDK (which is unforunately still in beta). Until then, only a few approved songs will be available to try out - sorry about that!
 
 <!-- GETTING STARTED -->
 ## :rocket: Getting Started
