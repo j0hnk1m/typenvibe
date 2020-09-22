@@ -1,20 +1,20 @@
 <!-- PROJECT LOGO -->
 <br />
-<p style="text-align: center;">
+<p align="center">
   <a href="https://github.com/j0hnk1m/typenvibe">
     <img src="figures/keyboard.png" alt="Logo" width="100" height="100">
   </a>
 
-  <h2 style="text-align: center;">typenvibe</h2>
+  <h2 align="center">typenvibe</h2>
 
-  <p style="text-align: center;">
+  <p align="center">
     a web app to practice typing in rythm with your favorite songs
     <br />
     <a href="https://typenvibe.com"><strong>Visit the site »</strong></a>
     <br />
   </p>
 
-  <p style="text-align: center;">
+  <p align="center">
     <a href="https://typenvibe.com">
       <img alt="status" src="https://img.shields.io/website?url=https%3A%2F%2Ftypenvibe.netlify.app">
     </a>
@@ -32,7 +32,7 @@
     </a>
   </p>
 
-  <p style="text-align: center;">
+  <p align="center">
     <a href="https://github.com/j0hnk1m/typenvibe/blob/master/README.md">View Docs</a>
     ·
     <a href="https://github.com/j0hnk1m/typenvibe/issues">Report Bug</a>
@@ -66,28 +66,28 @@
   <a href="https://typenvibe.netlify.app">
     <img src="figures/website.png">
   </a>
-  <p style="text-align: center;">typenvibe</p>
+  <p align="center">typenvibe</p>
 </p>
 <br />
 
 The objective of the game is to type the lyrics in rythm to the song. The lyrics you can type will be constantly updating based on the line that the artist is currently on. If the line changes while you are typing, never fear, you have the option to type either:
 
-<p class="image" style="text-align: center;">
+<p class="image" align="center">
   <img src="figures/line_change_mechanism_1.gif" width=500>
-  <p style="text-align: center;">1) the word you were going to type before</p>
+  <p align="center">1) the word you were going to type before</p>
 </p>
 
 <br />
 
-<p class="image" style="text-align: center;">
+<p class="image" align="center">
   <img src="figures/line_change_mechanism_2.gif" width=500>
-  <p style="text-align: center;">... or 2) the new word</p>
+  <p align="center">... or 2) the new word</p>
 </p>
 
 Notice above that the accuracy stays at 100% in both cases. In case you still type wrong, something called the Levenshtein distance is computed for both possibilities in order to determine what you were trying to type. Now type n vibe away!
 
 ### Built With
-<p style="text-align: center;">
+<p align="center">
   <a href="https://reactjs.org/">
     <img alt="React" src="https://ui-router.github.io/images/logos/react.png" width=60 />
   </a>
@@ -105,7 +105,7 @@ Notice above that the accuracy stays at 100% in both cases. In case you still ty
 * a lot of coffee and thai tea
 
 ### Infrastructure
-<p style="text-align: center;">
+<p align="center">
   <img src="figures/infrastructure.png" width=500>
   <p>web infrastructure</p>
 </p>
@@ -194,8 +194,8 @@ Rishi Gundakaram - rishi.gundakaram@gmail.com
 ## :dollar: Donations
 This is free, open-source software. If you guys would like to support the development of future projects or simply appreciate what we built, you can donate below:
 
-<div style="text-align: center;">
-  <a href="https://www.buymeacoffee.com/j0hnk1m" style="text-align: center;">
+<div align="center">
+  <a href="https://www.buymeacoffee.com/j0hnk1m" align="center">
     <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 12px" />
   </a>
 </div>

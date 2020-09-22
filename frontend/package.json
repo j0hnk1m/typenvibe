@@ -13,7 +13,7 @@
     "clean": "gatsby clean",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1",
     "preload-fonts": "gatsby-preload-fonts",
-    "deploy": "gatsby-plugin-s3 deploy --yes && aws cloudfront create-invalidation --distribution-id EJ8C0KY2IRH64 --paths \"/*\""
+    "deploy": "gatsby build && gatsby-plugin-s3 deploy --yes && aws cloudfront create-invalidation --distribution-id EJ8C0KY2IRH64 --paths \"/*\""
   },
   "dependencies": {
     "axios": "^0.20.0",
