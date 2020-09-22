@@ -56,6 +56,7 @@ module.exports = {
         hostname: 'typenvibe.com',
       },
     },
+    'gatsby-plugin-styled-components',
     // {
     //   resolve: 'gatsby-plugin-purgecss',
     //   options: {

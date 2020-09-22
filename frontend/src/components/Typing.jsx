@@ -197,8 +197,8 @@ const Typing = () => {
 
       <div className="flex flex-col col-span-1 h-20 justify-center">
         <Stats
-          wpm={correctWordCount === 0 ? 'XX' : Math.round((correctWordCount / seconds) * 60)}
-          acc={correctWordCount === 0 ? 'XX' : Math.round((correctWordCount / typedWordCount) * 100)}
+          wpm={correctWordCount === 0 ? '0' : Math.round((correctWordCount / seconds) * 60)}
+          acc={correctWordCount === 0 ? '0' : Math.round((correctWordCount / typedWordCount) * 100)}
           score={score}
         />
       </div>
@@ -209,12 +209,12 @@ const Typing = () => {
 
       <div className="flex flex-col col-span-2 h-48 justify-between w-full bg-typing border-2 rounded-lg border-transparent bg-white p-3 text-center leading-relaxed">
         <div className="mb-6">
-          <div className="flex justify-start items-center break-normal flex-wrap w-9/12">
+          <div className="flex justify-start items-center break-normal flex-wrap w-9/12 h-12 overflow-hidden">
             {wordList.map((word, i) => {
               let color = 'text-typing';
               let fontSize = 'text-base';
               let fontWeight = 'font-normal';
-              if (i === wordListStatus.length && seconds >= lrc[0].start) {
+              if (i === wordListStatus.length) {
                 color = 'text-current';
                 fontSize = 'text-3xl';
                 fontWeight = 'font-extrabold';
@@ -231,7 +231,7 @@ const Typing = () => {
               );
             })}
           </div>
-          <div className="flex justify-end float-right items-center flex-wrap w-9/12">
+          <div className="flex justify-end float-right items-center flex-wrap w-9/12 h-12 overflow-hidden">
             {nextWordList.map((word, i) => (
               <p key={i} className="inline text-typing text-opacity-500 mx-1 break-normal">
                 {word}
@@ -242,7 +242,7 @@ const Typing = () => {
 
         <div className="flex justify-between">
           <input
-            className="w-11/12 mr-3 bg-input border-2 rounded-lg border-transparent text-xl p-1 text-typing placeholder-primary"
+            className="w-11/12 mr-3 bg-input border-2 rounded-lg border-transparent text-xl p-1 text-typing placeholder-input"
             type="text"
             value={curWord}
             placeholder={isActive ? (seconds < lrc[0].start ? `starting in ${Math.floor(lrc[0].start - seconds)}s` : curWord) : 'type-any-key-to-start'}

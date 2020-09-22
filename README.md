@@ -10,12 +10,12 @@
   <p align="center">
     a web app to practice typing in rythm with your favorite songs
     <br />
-    <a href="https://typenvibe.netlify.app"><strong>Visit the site »</strong></a>
+    <a href="https://typenvibe.com"><strong>Visit the site »</strong></a>
     <br />
   </p>
 
   <p align="center">
-    <a href="https://typenvibe.netlify.app">
+    <a href="https://typenvibe.com">
       <img alt="status" src="https://img.shields.io/website?url=https%3A%2F%2Ftypenvibe.netlify.app">
     </a>
     <a href="https://github.com/j0hnk1m/typenvibe/network/members">
@@ -192,4 +192,10 @@ Rishi Gundakaram - rishi.gundakaram@gmail.com
 
 
 ## :dollar: Donations
-This is free, open-source software. If you guys would like to support the development of future projects or simply appreciate what we built, you can [buy us a coffee :)](https://www.buymeacoffee.com/typenvibe)
+This is free, open-source software. If you guys would like to support the development of future projects or simply appreciate what we built, you can donate below:
+
+<div align="center">
+  <a href="https://www.buymeacoffee.com/j0hnk1m" align="center">
+    <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 38px" />
+  </a>
+</div>

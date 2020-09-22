@@ -4,6 +4,7 @@
   --color-bg-input: #b6b09a;
   --color-bg-redo: #6f8c70;
   --color-bg-redo-hover: #6f8c70;
+  
   --color-text-header: #2e2f33;
   --color-text-typing: #2e2f33;
   --color-text-inverse: #2e2f33;
@@ -11,9 +12,11 @@
   --color-text-correct: #6f8c70;
   --color-text-wrong: #d28782;
   --color-text-stats: theme('colors.white');
-  --color-text-nav: #2e2f33;
+  --color-text-nav: #96907a;
   --color-text-redo: #d9d2c8;
-  --color-text-display: theme('colors.red.500');
-  --color-placeholder-primary: theme('colors.white');
+  --color-text-display: theme('colors.black');
+
+  --color-placeholder-input: theme('colors.white');
+
   --color-border-primary: #2e2f33;
 }

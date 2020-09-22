@@ -4,6 +4,7 @@
   --color-bg-input: theme('colors.black');
   --color-bg-redo: theme('colors.black');
   --color-bg-redo-hover: theme('colors.red.500');
+  
   --color-text-header: theme('colors.white');
   --color-text-typing: theme('colors.white');
   --color-text-inverse: theme('colors.white');
@@ -14,6 +15,8 @@
   --color-text-nav: theme('colors.red.500');
   --color-text-redo: theme('colors.red.500');
   --color-text-display: theme('colors.red.500');
-  --color-placeholder-primary: theme('colors.white');
+
+  --color-placeholder-input: theme('colors.white');
+
   --color-border-primary: theme('colors.white');
 }

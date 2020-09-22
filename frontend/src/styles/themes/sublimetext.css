@@ -1,19 +1,22 @@
 .theme-sublimetext {
-  --color-bg-primary: theme('colors.white');
-  --color-bg-typing: theme('colors.white');
-  --color-bg-input: theme('colors.white');
-  --color-bg-redo: theme('colors.blue.500');
-  --color-bg-redo-hover: theme('colors.red.500');
-  --color-text-header: theme('colors.gray.900');
-  --color-text-typing: theme('colors.gray.600');
-  --color-text-inverse: theme('colors.gray.600');
+  --color-bg-primary: #4C4C4C;
+  --color-bg-typing: #787676;
+  --color-bg-input: #4C4C4C;
+  --color-bg-redo: #FF9800;
+  --color-bg-redo-hover: #FF9800;
+
+  --color-text-header: #FF9800;
+  --color-text-typing: theme('colors.white');
+  --color-text-inverse: theme('colors.white');
   --color-text-current: theme('colors.gray.900');
   --color-text-correct: theme('colors.green.400');
   --color-text-wrong: theme('colors.red.400');
-  --color-text-stats: theme('colors.gray.600');
-  --color-text-nav: theme('colors.red.500');
-  --color-text-redo: theme('colors.red.500');
-  --color-text-display: theme('colors.red.500');
-  --color-placeholder-primary: theme('colors.gray.600');
-  --color-border-primary: #36c1f6;
+  --color-text-stats: theme('colors.white');
+  --color-text-nav: theme('colors.white');
+  --color-text-redo: theme('colors.black');
+  --color-text-display: #FF9800;
+
+  --color-placeholder-input: theme('colors.gray.600');
+
+  --color-border-primary: theme('colors.white');
 }

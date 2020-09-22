@@ -15,7 +15,7 @@ const Layout = ({ title, children }) => {
       <div className={`theme-${theme}`}>
         <div className="flex flex-col min-h-screen justify-between bg-primary">
           <Header />
-          <div className="flex flex-col justify-center items-center mx-auto h-full w-3/5 max-w-screen-md p-3">
+          <div className="flex-col justify-center items-center mx-auto h-full max-w-screen-md p-3 w-full sm:w-3/5">
             {children}
           </div>
           <Footer />

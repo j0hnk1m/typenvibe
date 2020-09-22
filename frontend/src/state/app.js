@@ -9,7 +9,8 @@ const initialState = {
   curSong: null,
   curSongLength: 0,
   volume: 0.5,
-  typingMode: 'basic',
+  mode: 'default',
+  grammar: 'basic',
   lrc: [],
   theme: 'light',
   loading: false,
@@ -30,7 +31,8 @@ const SET_CURSONGLENGTH = 'SET_CURSONGLENGTH';
 const GET_LRC = 'GET_LRC';
 const SET_VOLUME = 'SET_VOLUME';
 const SET_THEME = 'SET_THEME';
-const SET_TYPINGMODE = 'SET_TYPINGMODE';
+const SET_GRAMMAR = 'SET_GRAMMAR';
+const SET_MODE = 'SET_MODE';
 const RESET = 'RESET';
 
 export const startLoading = () => (dispatch) => {
@@ -46,6 +48,7 @@ export const endLoading = () => (dispatch) => {
 };
 
 export const getSongs = () => (dispatch) => {
+  // dispatch(startLoading());
   axios.get(`${CORS_PROXY}/https://${process.env.CLOUDFRONT_URL}/${SONGLIST}`, config())
     .then((res) => {
       const data = res.data.split('\n').filter((line) => line);
@@ -67,6 +70,7 @@ export const getSongs = () => (dispatch) => {
         type: GET_SONGS,
         payload: { ...songs },
       });
+      // dispatch(endLoading());
     })
     .catch((err) => console.log(err));
 };
@@ -79,7 +83,7 @@ export const setCurSongLength = (curSongLength) => (dispatch) => {
 };
 
 // Parses the LRC file received from action GET_LRC and sets curSongLength, lrc, and lrcPunc
-const parseLrc = ({ lrc, delay, typingMode } = {}) => (dispatch) => {
+const parseLrc = ({ lrc, delay, grammar } = {}) => (dispatch) => {
   const data = lrcParser(lrc.toString('utf8'));
 
   if (data) {
@@ -104,7 +108,7 @@ const parseLrc = ({ lrc, delay, typingMode } = {}) => (dispatch) => {
     const lrcPunc = lrcProper.map(({ start, text, end }) => ({ start, text: text.toLowerCase(), end }));
     const lrcBasic = lrcUpper.map(({ start, text, end }) => ({ start, text: text.toLowerCase(), end }));
 
-    switch (typingMode) {
+    switch (grammar) {
       case 'basic':
         return lrcBasic;
       case 'punc':
@@ -118,7 +122,7 @@ const parseLrc = ({ lrc, delay, typingMode } = {}) => (dispatch) => {
   return null;
 };
 
-export const getLrc = ({ key, delay, typingMode } = {}) => (dispatch) => {
+export const getLrc = ({ key, delay, grammar } = {}) => (dispatch) => {
   dispatch(startLoading());
   axios.get(`${CORS_PROXY}/https://${process.env.CLOUDFRONT_URL}/${key}/${key}.lrc`, config())
     .then((res) => {
@@ -127,7 +131,7 @@ export const getLrc = ({ key, delay, typingMode } = {}) => (dispatch) => {
         payload: dispatch(parseLrc({
           lrc: res.data,
           delay,
-          typingMode,
+          grammar,
         })),
       });
       dispatch(endLoading());
@@ -149,10 +153,17 @@ export const setTheme = (theme) => (dispatch) => {
   });
 };
 
-export const setTypingMode = (typingMode) => (dispatch) => {
+export const setGrammar = (grammar) => (dispatch) => {
   dispatch({
-    type: SET_TYPINGMODE,
-    payload: typingMode,
+    type: SET_GRAMMAR,
+    payload: grammar,
+  });
+};
+
+export const setMode = (mode) => (dispatch) => {
+  dispatch({
+    type: SET_MODE,
+    payload: mode,
   });
 };
 
@@ -179,8 +190,10 @@ const reducer = (state = initialState, action) => {
       return { ...state, curSong: action.payload };
     case SET_CURSONGLENGTH:
       return { ...state, curSongLength: action.payload };
-    case SET_TYPINGMODE:
-      return { ...state, typingMode: action.payload };
+    case SET_GRAMMAR:
+      return { ...state, grammar: action.payload };
+    case SET_MODE:
+      return { ...state, mode: action.payload };
     case SET_VOLUME:
       return { ...state, volume: action.payload };
     case SET_THEME:

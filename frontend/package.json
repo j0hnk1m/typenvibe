@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "axios": "^0.20.0",
+    "babel-plugin-styled-components": "^1.11.1",
     "gatsby": "^2.24.50",
     "gatsby-alias-imports": "^1.0.4",
     "gatsby-cli": "^2.12.92",
@@ -29,6 +30,7 @@
     "gatsby-plugin-robots-txt": "^1.5.2",
     "gatsby-plugin-s3": "^0.3.5",
     "gatsby-plugin-sitemap": "^2.4.13",
+    "gatsby-plugin-styled-components": "^3.3.11",
     "gatsby-source-filesystem": "^2.3.29",
     "lrc-parser": "^1.0.1",
     "prop-types": "^15.7.2",
@@ -42,10 +44,12 @@
     "react-redux": "^7.2.1",
     "react-select": "^3.1.0",
     "react-switch": "^5.0.1",
+    "react-tooltip": "^4.2.10",
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8",
     "redux-localstorage": "^0.4.1",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "styled-components": "^5.2.0"
   },
   "devDependencies": {
     "@hot-loader/react-dom": "^16.13.0",

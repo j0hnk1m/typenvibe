@@ -1,19 +1,22 @@
 .theme-eclipse {
-  --color-bg-primary: theme('colors.white');
-  --color-bg-typing: theme('colors.white');
-  --color-bg-input: theme('colors.white');
-  --color-bg-redo: theme('colors.blue.500');
+  --color-bg-primary: #314f6f;
+  --color-bg-typing: #3a3a3a;
+  --color-bg-input: #333333;
+  --color-bg-redo: #abc6dc;
   --color-bg-redo-hover: theme('colors.red.500');
-  --color-text-header: theme('colors.gray.900');
-  --color-text-typing: theme('colors.gray.600');
-  --color-text-inverse: theme('colors.gray.600');
-  --color-text-current: theme('colors.gray.900');
+
+  --color-text-header: #abc6dc;
+  --color-text-typing: #abc6dc;
+  --color-text-inverse: #abc6dc;
+  --color-text-current: #a56de2;
   --color-text-correct: theme('colors.green.400');
   --color-text-wrong: theme('colors.red.400');
-  --color-text-stats: theme('colors.gray.600');
+  --color-text-stats: #abc6dc;
   --color-text-nav: theme('colors.red.500');
-  --color-text-redo: theme('colors.red.500');
-  --color-text-display: theme('colors.red.500');
-  --color-placeholder-primary: theme('colors.gray.600');
-  --color-border-primary: #36c1f6;
+  --color-text-redo: #3a3a3a;
+  --color-text-display: #abc6dc;
+
+  --color-placeholder-input: theme('colors.gray.600');
+
+  --color-border-primary: #3a3a3a;
 }

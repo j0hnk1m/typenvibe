@@ -13,6 +13,6 @@
   --color-text-stats: theme('colors.white');
   --color-text-nav: theme('colors.red.500');
   --color-text-display: theme('colors.red.500');
-  --color-placeholder-primary: theme('colors.white');
+  --color-placeholder-input: theme('colors.white');
   --color-border-primary: #36c1f6;
 }

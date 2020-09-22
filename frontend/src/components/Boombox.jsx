@@ -6,7 +6,7 @@ import { getLrc, setCurSong } from 'state/app';
 const Boombox = () => {
   const songs = useSelector((state) => state.app.songs);
   const curSong = useSelector((state) => state.app.curSong);
-  const typingMode = useSelector((state) => state.app.typingMode);
+  const grammar = useSelector((state) => state.app.grammar);
   const [sel, setSel] = useState({ value: curSong, label: curSong !== null ? `${songs[curSong].title} - ${songs[curSong].artist}` : '' });
   const dispatch = useDispatch();
 
@@ -16,7 +16,7 @@ const Boombox = () => {
       dispatch(getLrc({
         key: songs[sel.value].key,
         delay: songs[sel.value].delay,
-        typingMode,
+        grammar,
       }));
     }
   }, [sel]);

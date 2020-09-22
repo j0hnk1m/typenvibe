@@ -4,6 +4,7 @@
   --color-bg-input: #adbac9;
   --color-bg-redo: #3c4756;
   --color-bg-redo-hover: #3c4756;
+
   --color-text-header: #f44c7f;
   --color-text-typing: theme('colors.black');
   --color-text-inverse: theme('colors.white');
@@ -14,6 +15,8 @@
   --color-text-nav: theme('colors.white');
   --color-text-redo: theme('colors.red.500');
   --color-text-display: theme('colors.red.500');
-  --color-placeholder-primary: theme('colors.black');
+
+  --color-placeholder-input: theme('colors.black');
+  
   --color-border-primary: #a2aebd;
 }

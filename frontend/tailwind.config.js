@@ -29,7 +29,7 @@ module.exports = {
         display: 'var(--color-text-display)',
       },
       placeholderColor: {
-        primary: 'var(--color-placeholder-typing)',
+        input: 'var(--color-placeholder-input)',
       },
       borderColor: {
         primary: 'var(--color-border-primary)',

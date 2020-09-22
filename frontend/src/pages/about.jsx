@@ -11,24 +11,27 @@ const About = () => (
           <p className="text-center text-display text-2xl font-bold mb-4">Overview</p>
           <div className="mb-3">
             <p className="text-left">
-              typenvibe is a place where you can practice typing in rythm to your favorite songs.
+              typenvibe is a site where you can practice typing in rythm to your favorite songs.
               The site is currently still under development, so we'd love your feedback!
               Let us know what you think
               <a className="underline px-2" href="https://docs.google.com/forms/d/e/1FAIpQLScSF3rbz6QHUwwMll1AbwFXiBHKaB0aPCQFufgxq_6YNlq2Yg/viewform?usp=sf_link">here</a>
             </p>
           </div>
           <div className="mb-4">
-            <p className="inline">If you guys would like to support the development of future projects or simply appreciate what we built, you can</p>
-            <a className="underline px-2" href="https://www.buymeacoffee.com/typenvibe">buy us a coffee!</a>
+            <p className="inline">If you guys would like to support the development of future projects or simply appreciate what we built, you can donate here:</p>
+            <a className="flex justify-center my-3" href="https://www.buymeacoffee.com/j0hnk1m">
+              <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" className="h-12" />
+            </a>
           </div>
           <div className="mt-4">
             <p className="inline">source code:</p>
             <a className="underline px-2 inline" href="https://github.com/j0hnk1m/typenvibe">github</a>
           </div>
         </div>
+
         <div className="flex-col border-2 rounded-lg border-primary p-2 items-end">
           <p className="text-center text-display text-2xl font-bold pb-3">User Guide</p>
-          <p className="text-left pb-5">The objective of the game is to type the lyrics in rythm to the song. The lyrics you can type will be constantly updating based on the line that the artist is currently on.</p>
+          <p className="text-left pb-5">The objective of the game is to type the lyrics in rythm to the song. The line that you can type will automatically change in accordance to the timing of the song.</p>
           <p className="text-left pb-5">If the line changes while you are typing, never fear, you have the option to type either:</p>
           <img src={lineChange1} className="w-3/4 mx-auto" alt="prev word" />
           <p className="text-center pb-10">1) the word you were going to type before</p>
