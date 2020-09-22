@@ -191,6 +191,6 @@ This is free, open-source software. If you guys would like to support the develo
 
 <p align="center">
   <a href="https://www.buymeacoffee.com/j0hnk1m" align="center">
-    <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" height="16" />
+    <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 100px !important;width: 174px !important;" />
   </a>
 </p> 
