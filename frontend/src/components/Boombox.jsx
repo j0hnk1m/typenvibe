@@ -3,18 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import Select from 'react-select';
 import { getLrc, setCurSong } from 'state/app';
 
-// const selectStyle = {
-//   control: styles => ({ ...styles, backgroundColor: 'white' }),
-//   option: (styles, { data, isDisabled, isFocused, isSelected }) => {
-//     return {
-//       ...styles,
-//       backgroundColor: '#1a1a1a',
-//       color: '#FFF',
-//       cursor: isDisabled ? 'not-allowed' : 'default',
-//     };
-//   },
-// };
-
 const Boombox = () => {
   const songs = useSelector((state) => state.app.songs);
   const curSong = useSelector((state) => state.app.curSong);
@@ -33,9 +21,11 @@ const Boombox = () => {
     }
   }, [sel]);
 
-  const options = songs
-    ? Object.keys(songs).map((i) => ({ value: Number(i), label: `${songs[i].title} - ${songs[i].artist}` }))
-    : [];
+  const difficulties = ['easy', 'medium', 'hard', 'difficult', 'impossible'];
+  const options = difficulties.map((difficulty) => ({ label: difficulty, options: [] }));
+  Object.keys(songs).forEach((i) => {
+    options.find((group) => group.label === songs[i].difficulty).options.push({ label: `${songs[i].title} - ${songs[i].artist}`, value: Number(i) })
+  });
 
   return (
     <>
@@ -44,7 +34,7 @@ const Boombox = () => {
           value={sel}
           options={options}
           onChange={setSel}
-          // styles={selectStyle}
+          noOptionsMessage="failed to retrieve songs, try reloading"
         />
       </div>
     </>

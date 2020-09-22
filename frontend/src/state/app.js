@@ -1,7 +1,8 @@
 import axios from 'axios';
 import lrcParser from 'lrc-parser';
 
-const SONGLIST = 'songlist_8.txt';
+const CORS_PROXY = 'https://cors-anywhere.herokuapp.com';
+const SONGLIST = 'songlist.csv';
 
 const initialState = {
   songs: {},
@@ -16,10 +17,7 @@ const initialState = {
 
 const config = () => (
   {
-    headers: {
-      'Content-Type': null,
-      Accept: '*/*',
-    },
+    headers: {},
   }
 );
 
@@ -48,17 +46,20 @@ export const endLoading = () => (dispatch) => {
 };
 
 export const getSongs = () => (dispatch) => {
-  axios.get(`https://${process.env.CLOUDFRONT_URL}/${SONGLIST}`, config())
+  axios.get(`${CORS_PROXY}/https://${process.env.CLOUDFRONT_URL}/${SONGLIST}`, config())
     .then((res) => {
-      const songs = res.data.split('\n').map((song) => {
+      const data = res.data.split('\n').filter((line) => line);
+      data.shift();
+      const songs = data.map((song) => {
         const parts = song.split(',');
         const [title, artist] = parts[0].split(' - ');
         return {
           title,
           artist,
-          key: parts[1],
+          key: parts[1].trim(),
           url: `https://${process.env.CLOUDFRONT_URL}/${parts[1]}/${parts[1]}.mp3`,
-          delay: parts[2],
+          delay: parts[2].trim(),
+          difficulty: parts[3].trim(),
         };
       });
 
@@ -119,7 +120,7 @@ const parseLrc = ({ lrc, delay, typingMode } = {}) => (dispatch) => {
 
 export const getLrc = ({ key, delay, typingMode } = {}) => (dispatch) => {
   dispatch(startLoading());
-  axios.get(`https://${process.env.CLOUDFRONT_URL}/${key}/${key}.lrc`, config())
+  axios.get(`${CORS_PROXY}/https://${process.env.CLOUDFRONT_URL}/${key}/${key}.lrc`, config())
     .then((res) => {
       dispatch({
         type: GET_LRC,

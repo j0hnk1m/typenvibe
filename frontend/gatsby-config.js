@@ -37,13 +37,14 @@ module.exports = {
       },
     },
     'gatsby-plugin-sitemap',
-    // {
-    //   resolve: 'gatsby-plugin-google-analytics',
-    //   options: {
-    //     trackingId: 'UA-178440772-1',
-    //   },
-    // },
+    {
+      resolve: 'gatsby-plugin-google-analytics',
+      options: {
+        trackingId: 'UA-178440772-1',
+      },
+    },
     'gatsby-plugin-robots-txt',
+    'gatsby-plugin-preload-fonts',
     'gatsby-plugin-postcss',
     'gatsby-plugin-offline',
     {

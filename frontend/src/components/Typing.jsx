@@ -4,7 +4,6 @@ import ReactPlayer from 'react-player/file';
 import AudioSpectrum from 'react-audio-spectrum';
 import { Line } from 'rc-progress';
 import Stats from './Stats';
-import { element } from 'prop-types';
 
 // levenshtein distance
 const editDistance = (str1, str2) => {
@@ -52,7 +51,6 @@ const Typing = () => {
   const curSongLength = useSelector((state) => state.app.curSongLength);
   const volume = useSelector((state) => state.app.volume);
   const lrc = useSelector((state) => state.app.lrc);
-  const theme = useSelector((state) => state.app.theme);
 
   // local typing state
   const [linePos, setLinePos] = useState(0);
@@ -76,8 +74,8 @@ const Typing = () => {
   const [tag, setTag] = useState(false);
 
   if ((!tag && audioEl.current) && audioEl.current.wrapper) {
-    console.log('here');
-    console.log(audioEl.current.wrapper);
+    // console.log('here');
+    // console.log(audioEl.current.wrapper);
     audioEl.current.wrapper.children[0].setAttribute('id', audioTag);
     setTag(true);
   }
@@ -235,7 +233,7 @@ const Typing = () => {
           </div>
           <div className="flex justify-end float-right items-center flex-wrap w-9/12">
             {nextWordList.map((word, i) => (
-              <p key={i} className="inline text-typing text-opacity-50 mx-1 break-normal">
+              <p key={i} className="inline text-typing text-opacity-500 mx-1 break-normal">
                 {word}
               </p>
             ))}

@@ -5,14 +5,15 @@
   "version": "0.1.0",
   "license": "0BSD",
   "scripts": {
-    "build": "gatsby build",
+    "build": "yarn preload-fonts && gatsby build",
     "develop": "gatsby develop",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
     "start": "npm run develop",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1",
-    "deploy": "gatsby-plugin-s3 deploy --yes && aws cloudfront create-invalidation --distribution-id EJ8C0KY2IRH64 --paths \"/*\""
+    "preload-fonts": "gatsby-preload-fonts",
+    "deploy": "gatsby build && gatsby-plugin-s3 deploy --yes && aws cloudfront create-invalidation --distribution-id EJ8C0KY2IRH64 --paths \"/*\""
   },
   "dependencies": {
     "axios": "^0.20.0",
@@ -23,6 +24,7 @@
     "gatsby-plugin-manifest": "^2.4.30",
     "gatsby-plugin-offline": "^3.2.28",
     "gatsby-plugin-postcss": "^2.3.12",
+    "gatsby-plugin-preload-fonts": "^1.2.25",
     "gatsby-plugin-react-helmet": "^3.3.10",
     "gatsby-plugin-robots-txt": "^1.5.2",
     "gatsby-plugin-s3": "^0.3.5",
@@ -33,7 +35,6 @@
     "rc-progress": "^3.1.0",
     "rc-slider": "^9.4.1",
     "react": "^16.12.0",
-    "react-audio-player": "^0.13.0",
     "react-audio-spectrum": "^0.1.0",
     "react-dom": "^16.12.0",
     "react-helmet": "^6.1.0",
