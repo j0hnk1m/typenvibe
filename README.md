@@ -189,8 +189,8 @@ Rishi Gundakaram - rishi.gundakaram@gmail.com
 ## :dollar: Donations
 This is free, open-source software. If you guys would like to support the development of future projects or simply appreciate what we built, you can donate below:
 
-<div align="center">
+<p align="center">
   <a href="https://www.buymeacoffee.com/j0hnk1m" align="center">
-    <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 12px" />
+    <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" height="16" />
   </a>
-</div>
+</p> 

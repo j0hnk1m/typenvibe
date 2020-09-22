@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Table Of Contents <!-- omit in toc --></title>
+        <style>
+</style>
+        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item { list-style-type: none; } .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
+</style>
+        
+        
+        
+    </head>
+    <body class="vscode-light">
+        <!-- PROJECT LOGO -->
+<br />
+<p align="center">
+  <a href="https://github.com/j0hnk1m/typenvibe">
+    <img src="file:///c:\Users\John Kim\Documents\git\typenvibe\figures\keyboard.png" alt="Logo" width="100" height="100">
+  </a>
+  <h2 align="center">typenvibe</h2>
+  <p align="center">
+    a web app to practice typing in rythm with your favorite songs
+    <br />
+    <a href="https://typenvibe.com"><strong>Visit the site »</strong></a>
+    <br />
+  </p>
+  <p align="center">
+    <a href="https://typenvibe.com">
+      <img alt="status" src="https://img.shields.io/website?url=https%3A%2F%2Ftypenvibe.netlify.app">
+    </a>
+    <a href="https://github.com/j0hnk1m/typenvibe/network/members">
+      <img alt="Forks" src="https://img.shields.io/github/forks/j0hnk1m/typenvibe">
+    </a>
+    <a href="https://github.com/j0hnk1m/typenvibe/stargazers">
+      <img alt="Stargazers" src="https://img.shields.io/github/stars/j0hnk1m/typenvibe">
+    </a>
+    <a href="https://github.com/j0hnk1m/typenvibe/issues">
+      <img alt="Issues" src="https://img.shields.io/github/issues/j0hnk1m/typenvibe">
+    </a>
+    <a href="./LICENSE.html">
+      <img alt="MIT License" src="https://img.shields.io/github/license/j0hnk1m/typenvibe">
+    </a>
+  </p>
+  <p align="center">
+    <a href="https://github.com/j0hnk1m/typenvibe/blob/master/README.html">View Docs</a>
+    ·
+    <a href="https://github.com/j0hnk1m/typenvibe/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/j0hnk1m/typenvibe/issues">Request a Feature</a>
+  </p>
+</p>
+<h2 id="table-of-contents-">Table Of Contents <!-- omit in toc --></h2>
+<ul>
+<li><a href="#zap-about">⚡️ About</a>
+<ul>
+<li><a href="#built-with">Built With</a></li>
+<li><a href="#infrastructure">Infrastructure</a></li>
+</ul>
+</li>
+<li><a href="#rocket-getting-started">🚀 Getting Started</a></li>
+<li><a href="#fire-documentation">🔥 Documentation</a></li>
+<li><a href="#earth_africa-roadmap">🌍 Roadmap</a></li>
+<li><a href="#wink-contributing">😉 Contributing</a></li>
+<li><a href="#memo-license">📝 License</a></li>
+<li><a href="#%EF%B8%8Femail-contact">✉️ Contact</a></li>
+<li><a href="#loudspeaker-acknowledgements">📢 Acknowledgements</a></li>
+<li><a href="#dollar-donations">💵 Donations</a></li>
+</ul>
+<!-- ABOUT THE PROJECT -->
+<h2 id="️-about">⚡️ About</h2>
+<p class="image">
+  <a href="https://typenvibe.netlify.app">
+    <img src="file:///c:\Users\John Kim\Documents\git\typenvibe\figures\website.png">
+  </a>
+  <p align="center">typenvibe</p>
+</p>
+<br />
+<p>The objective of the game is to type the lyrics in rythm to the song. The lyrics you can type will be constantly updating based on the line that the artist is currently on. If the line changes while you are typing, never fear, you have the option to type either:</p>
+<p class="image" align="center">
+  <img src="file:///c:\Users\John Kim\Documents\git\typenvibe\figures\line_change_mechanism_1.gif" width=500>
+  <p align="center">1) the word you were going to type before</p>
+</p>
+<br />
+<p class="image" align="center">
+  <img src="file:///c:\Users\John Kim\Documents\git\typenvibe\figures\line_change_mechanism_2.gif" width=500>
+  <p align="center">... or 2) the new word</p>
+</p>
+<p>Notice above that the accuracy stays at 100% in both cases. In case you still type wrong, something called the Levenshtein distance is computed for both possibilities in order to determine what you were trying to type. Now type n vibe away!</p>
+<h3 id="built-with">Built With</h3>
+<p align="center">
+  <a href="https://reactjs.org/">
+    <img alt="React" src="https://ui-router.github.io/images/logos/react.png" width=60 />
+  </a>
+  <a href="https://www.gatsbyjs.com">
+    <img alt="Gatsby" src="https://www.gatsbyjs.com/Gatsby-Monogram.svg" width=60 />
+  </a>
+  <a href="https://tailwindcss.com/" target="_blank">
+    <img alt="TailwindCSS" src="https://tailwindcss.com/_next/static/media/twitter-square.18b32c43e6fa4c8ee7db66330112a331.png" width=60/>
+  </a>
+</p>
+<ul>
+<li>ReactJS</li>
+<li>Gatsby</li>
+<li>Tailwindcss</li>
+<li>a lot of coffee and thai tea</li>
+</ul>
+<h3 id="data">Data</h3>
+<p>Currently the data for the lyrics and audio exist as files in a private S3 bucket. As there may be copyright issues with this method, we are currently adding support for Youtube links and Spotify's Web Playback SDK (which is unforunately still in beta). Until then, only a few approved songs will be available to try out - sorry about that!</p>
+<!-- GETTING STARTED -->
+<h2 id="-getting-started">🚀 Getting Started</h2>
+<ol>
+<li>
+<p><strong>Install requirements</strong></p>
+<ul>
+<li>npm  : Download Node.js and npm from the <a href="https://www.npmjs.com/get-npm">official website</a></li>
+<li>yarn: Follow instructions <a href="https://classic.yarnpkg.com/en/docs/install">here</a></li>
+<li>gatsby
+<ul>
+<li>
+<pre><code class="language-shell"><div> npm install -g gatsby-cli
+</div></code></pre>
+</li>
+<li>
+<pre><code class="language-shell"><div> yarn global add gatsby-cli
+</div></code></pre>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Start developing.</strong></p>
+<p>Clone the repo and navigate into the frontend directory to start it up.</p>
+<pre><code class="language-shell"><div>git clone https://github.com/j0hnk1m/typenvibe.git
+cd typenvibe/frontend
+yarn install
+gatsby develop
+</div></code></pre>
+</li>
+</ol>
+<!-- USAGE EXAMPLES -->
+<h2 id="-documentation">🔥 Documentation</h2>
+<p>Please refer to the <a href="https://example.com">documentation</a></p>
+<!-- ROADMAP -->
+<h2 id="-roadmap">🌍 Roadmap</h2>
+<p>See the <a href="https://github.com/j0hnk1m/typenvibe/issues">open issues</a> for a list of proposed features (and known issues).</p>
+<!-- CONTRIBUTING -->
+<h2 id="-contributing">😉 Contributing</h2>
+<p>Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are <strong>greatly appreciated</strong>.</p>
+<ol>
+<li>Fork the Project</li>
+<li>Create your Feature Branch (<code>git checkout -b feature/AmazingFeature</code>)</li>
+<li>Commit your Changes (<code>git commit -m 'Add some AmazingFeature'</code>)</li>
+<li>Push to the Branch (<code>git push origin feature/AmazingFeature</code>)</li>
+<li>Open a Pull Request</li>
+</ol>
+<!-- LICENSE -->
+<h2 id="-license">📝 License</h2>
+<p>Distributed under the MIT License. See <code>LICENSE</code> for more information.</p>
+<!-- CONTACT -->
+<h2 id="️-contact">✉️ Contact</h2>
+<p>John Kim - <a href="mailto:kim.john228@gmail.com">kim.john228@gmail.com</a><br>
+Rishi Gundakaram - <a href="mailto:rishi.gundakaram@gmail.com">rishi.gundakaram@gmail.com</a></p>
+<!-- ACKNOWLEDGEMENTS -->
+<h2 id="-acknowledgements">📢 Acknowledgements</h2>
+<ul>
+<li><a href="https://typings.gg">typings.gg</a> for UI inspiration</li>
+<li><a href="https://www.webpagefx.com/tools/emoji-cheat-sheet">GitHub Emoji Cheat Sheet</a></li>
+<li><a href="https://shields.io">Img Shields</a></li>
+<li>Base logo vector made by <a href="https://www.flaticon.com/authors/freepik">Freepik from Flaticon</a></li>
+</ul>
+<h2 id="-donations">💵 Donations</h2>
+<p>This is free, open-source software. If you guys would like to support the development of future projects or simply appreciate what we built, you can donate below:</p>
+<p align="center">
+  <a href="https://www.buymeacoffee.com/j0hnk1m" align="center">
+    <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" height="12" />
+  </a>
+</p> 
+    </body>
+    </html>
