@@ -51,11 +51,14 @@ const Typing = () => {
   const curSongLength = useSelector((state) => state.app.curSongLength);
   const volume = useSelector((state) => state.app.volume);
   const lrc = useSelector((state) => state.app.lrc);
+  const mode = useSelector((state) => state.app.mode);
 
   // local typing state
   const [linePos, setLinePos] = useState(0);
   const [wordPos, setWordPos] = useState(0);
   const [lineJustChanged, setLineJustChanged] = useState(false);
+  const [wordList, setWordList] = useState([]);
+  const [nextWordList, setNextWordList] = useState([]);
   const [wordListStatus, setWordListStatus] = useState([]);
   const [correctWordCount, setCorrectWordCount] = useState(0);
   const [typedWordCount, setTypedWordCount] = useState(0);
@@ -65,8 +68,6 @@ const Typing = () => {
   const [seconds, setSeconds] = useState(0);
   const [score, setScore] = useState(0);
   const [playerKey, setPlayerKey] = useState(0);
-  const wordList = lrc[linePos].text.split(' ');
-  const nextWordList = (linePos <= lrc.length - 2) ? lrc[linePos + 1].text.split(' ') : [];
 
   // Song state
   const audioTag = 'react-player';
@@ -85,8 +86,10 @@ const Typing = () => {
     setSeconds(0);
     setLinePos(0);
     setWordPos(0);
-    setLineJustChanged(false);
+    setWordList([]);
+    setNextWordList([]);
     setWordListStatus([]);
+    setLineJustChanged(false);
     setCorrectWordCount(0);
     setTypedWordCount(0);
     setCurWord('');
@@ -100,52 +103,90 @@ const Typing = () => {
     // start the song + timer if user has typed something
     if (!isActive) setIsActive(true);
 
-    // prevents user from typing before the start
-    else if (seconds >= lrc[0].start) setCurWord(e.target.value);
+    switch (mode) {
+      case 'default':
+        // prevents user from typing before the start (actual 0 s start or next line start)
+        if (seconds >= lrc[0].start && (linePos < lrc.length - 1 && seconds < lrc[linePos + 1].start)) {
+          setCurWord(e.target.value);
+        }
+        break;
+      case 'chill':
+        setCurWord(e.target.value);
+        break;
+      default:
+    }
   };
 
+  // since change in curSong results in delayed change in lrc, lrc is dependency
   useEffect(() => {
     reset();
-  }, [curSong]);
+    switch (mode) {
+      case 'default':
+        setWordList(lrc[linePos].text.split(' '));
+        setNextWordList((linePos <= lrc.length - 2) ? lrc[linePos + 1].text.split(' ') : []);
+        break;
+      case 'chill':
+        const wordsStr = lrc.map((line) => line.text).join(' ');
+        setWordList(wordsStr.slice(0, Math.floor(wordsStr.length / 2)).split(' ').filter((word) => word));
+        setNextWordList(wordsStr.slice(Math.floor(wordsStr.length / 2), wordsStr.length).split(' ').filter((word) => word));
+        break;
+      default:
+    }
+  }, [lrc]);
 
   useEffect(() => {
     const actual = wordList[wordPos];
     const typed = curWord.trim();
-    let correct;
+    let correct = false;
 
-    // if user entered word (by pressing space), evaluate word
-    if (seconds > lrc[0].start && (typed.length > 0 && curWord.indexOf(' ') >= 0 && wordListStatus.length <= wordList.length)) {
-      setCurWord('');
-      setTypedWordCount(typedWordCount + 1);
+    switch (mode) {
+      case 'default':
+        // user entered word (by pressing space), evaluate word
+        if (seconds > lrc[0].start && (typed.length > 0 && curWord.indexOf(' ') >= 0 && wordListStatus.length <= wordList.length)) {
+          setCurWord('');
+          setTypedWordCount(typedWordCount + 1);
 
-      if (lineJustChanged && prevWord) {
-        /*
-        two cases: user can either type prev word or current word.
-        we decide what the user was trying to type based on Levenshtein distance
-        https://en.wikipedia.org/wiki/Levenshtein_distance
-        */
-        const prevWordMatch = similarity(typed, prevWord);
-        const actualMatch = similarity(typed, actual);
-        if (prevWordMatch > actualMatch) {
-          // if user intended to type prev word
-          correct = (typed === prevWord);
-        } else {
-          // if user intended to type cur word
-          correct = (typed === actual);
+          if (lineJustChanged && prevWord) {
+            /*
+            two cases: user can either type prev word or current word.
+            we decide what the user was trying to type based on Levenshtein distance
+            https://en.wikipedia.org/wiki/Levenshtein_distance
+            */
+            const prevWordMatch = similarity(typed, prevWord);
+            const actualMatch = similarity(typed, actual);
+            if (prevWordMatch > actualMatch) {
+              // if user intended to type prev word
+              correct = (typed === prevWord);
+            } else {
+              // if user intended to type cur word
+              correct = (typed === actual);
+              addWordListStatus(correct);
+              setWordPos(wordPos + 1);
+            }
+            setLineJustChanged(false);
+          } else {
+            correct = (typed === actual);
+            addWordListStatus(correct);
+            setWordPos(wordPos + 1);
+          }
+        }
+        break;
+      case 'chill':
+        if (typed.length > 0 && curWord.indexOf(' ') >= 0 && wordListStatus.length <= wordList.length) {
+          setCurWord('');
+          setTypedWordCount(typedWordCount + 1);
+          correct = actual === typed;
           addWordListStatus(correct);
           setWordPos(wordPos + 1);
         }
-        setLineJustChanged(false);
-      } else {
-        correct = (typed === actual);
-        addWordListStatus(correct);
-        setWordPos(wordPos + 1);
-      }
+        break;
+      default:
+    }
 
-      if (correct) {
-        setScore(score + actual.length);
-        setCorrectWordCount(correctWordCount + 1);
-      }
+    // update info if correct
+    if (correct) {
+      setScore(score + actual.length);
+      setCorrectWordCount(correctWordCount + 1);
     }
   }, [curWord]);
 
@@ -154,21 +195,47 @@ const Typing = () => {
   }, [wordPos]);
 
   useEffect(() => {
-    if (linePos === lrc.length) reset();
-    else setWordListStatus([]);
+    switch (mode) {
+      case 'default':
+        if (linePos === lrc.length) {
+          reset();
+        } else {
+          setWordListStatus([]);
+          setWordList(nextWordList);
+          setNextWordList(linePos + 1 < lrc.length ? lrc[linePos + 1].text.split(' ') : []);
+        }
+        break;
+      case 'chill':
+      default:
+    }
   }, [linePos]);
 
   useEffect(() => {
     if (isActive) {
-      if (linePos < lrc.length - 1 && seconds >= lrc[linePos + 1].start) {
-        // line changes based on the time
-        setLineJustChanged(true);
-        setLinePos(linePos + 1);
-        setWordPos(0);
-      } else if (seconds > curSongLength + 10) {
-        // ends the typing session
-        setIsActive(false);
-        setCurWord('');
+      switch (mode) {
+        case 'default':
+          // line changes based on the time
+          if (linePos < lrc.length - 1 && seconds >= lrc[linePos + 1].start) {
+            setLineJustChanged(true);
+            setLinePos(linePos + 1);
+            setWordPos(0);
+          }
+
+          // song ended, so end the typing session
+          if (seconds > curSongLength + 5) {
+            setIsActive(false);
+            setCurWord('');
+          }
+          break;
+        case 'chill':
+          if (wordPos >= wordList.length && nextWordList) {
+            setWordPos(0);
+            setWordListStatus([]);
+            setWordList(nextWordList);
+            setNextWordList([]);
+          }
+          break;
+        default:
       }
     }
 
@@ -183,6 +250,14 @@ const Typing = () => {
     }
     return () => clearInterval(interval);
   }, [isActive, seconds]);
+
+  // placeholder text for the input field
+  let inputPlaceholder;
+  if (!isActive) {
+    inputPlaceholder = 'type-any-key-to-start';
+  } else if (mode === 'default' && seconds < lrc[0].start) {
+    inputPlaceholder = `starting in ${Math.floor(lrc[0].start - seconds)}s`;
+  }
 
   return (
     <>
@@ -207,12 +282,12 @@ const Typing = () => {
         <Line strokeWidth="1" percent={seconds > curSongLength ? 100 : (seconds / curSongLength) * 100} />
       </div>
 
-      <div className="flex flex-col col-span-2 h-48 justify-between w-full bg-typing border-2 rounded-lg border-transparent bg-white p-3 text-center leading-relaxed">
-        <div className="mb-6">
-          <div className="flex justify-start items-center break-normal flex-wrap w-9/12 h-12 overflow-hidden">
+      <div className="flex flex-col col-span-2 justify-between w-full bg-typing border-2 rounded-lg border-transparent bg-white p-3 text-center leading-relaxed">
+        <div className="mb-3">
+          <div className={`flex ${mode === 'default' ? 'justify-center' : 'justify-start'} items-center flex-wrap w-full overflow-hidden`}>
             {wordList.map((word, i) => {
               let color = 'text-typing';
-              let fontSize = 'text-base';
+              let fontSize = mode === 'default' ? 'text-xl' : 'text-base';
               let fontWeight = 'font-normal';
               if (i === wordListStatus.length) {
                 color = 'text-current';
@@ -223,7 +298,6 @@ const Typing = () => {
               }
 
               const styles = `${color} ${fontSize} ${fontWeight} text-opacity-100 mx-1`;
-
               return (
                 <p key={i} className={styles}>
                   {word}
@@ -231,21 +305,20 @@ const Typing = () => {
               );
             })}
           </div>
-          <div className="flex justify-end float-right items-center flex-wrap w-9/12 h-12 overflow-hidden">
-            {nextWordList.map((word, i) => (
-              <p key={i} className="inline text-typing text-opacity-500 mx-1 break-normal">
-                {word}
-              </p>
-            ))}
+
+          <div className="h-8 w-4/5 mx-auto">
+            <p className="text-typing text-center opacity-50 mx-1 truncate">
+              {nextWordList.join(' ')}
+            </p>
           </div>
         </div>
 
-        <div className="flex justify-between">
+        <div className="flex justify-between mb-2">
           <input
             className="w-11/12 mr-3 bg-input border-2 rounded-lg border-transparent text-xl p-1 text-typing placeholder-input"
             type="text"
             value={curWord}
-            placeholder={isActive ? (seconds < lrc[0].start ? `starting in ${Math.floor(lrc[0].start - seconds)}s` : curWord) : 'type-any-key-to-start'}
+            placeholder={inputPlaceholder}
             onChange={handleCurWordChange}
             spellCheck="false"
             autoComplete="off"

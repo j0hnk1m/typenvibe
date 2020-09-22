@@ -48,7 +48,6 @@ export const endLoading = () => (dispatch) => {
 };
 
 export const getSongs = () => (dispatch) => {
-  // dispatch(startLoading());
   axios.get(`${CORS_PROXY}/https://${process.env.CLOUDFRONT_URL}/${SONGLIST}`, config())
     .then((res) => {
       const data = res.data.split('\n').filter((line) => line);
@@ -70,7 +69,6 @@ export const getSongs = () => (dispatch) => {
         type: GET_SONGS,
         payload: { ...songs },
       });
-      // dispatch(endLoading());
     })
     .catch((err) => console.log(err));
 };

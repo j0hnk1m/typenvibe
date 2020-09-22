@@ -13,12 +13,10 @@ const Home = () => {
   const dispatch = useDispatch();
   dispatch(getSongs());
 
-  const songPicked = curSong !== null && lrc && lrc.length !== 0;
-
   return (
     <>
       <Layout>
-        {songPicked
+        {curSong !== null && lrc && lrc.length !== 0
           ? (
             <>
               <div className="grid grid-cols-2 gap-4">

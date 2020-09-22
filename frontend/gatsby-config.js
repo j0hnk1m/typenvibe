@@ -40,7 +40,7 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-google-analytics',
       options: {
-        trackingId: 'UA-178440772-1',
+        trackingId: process.env.GA_TRACKING_ID,
       },
     },
     'gatsby-plugin-robots-txt',
@@ -52,8 +52,6 @@ module.exports = {
       options: {
         bucketName: process.env.S3_BUCKET,
         acl: null,
-        protocol: 'https',
-        hostname: 'typenvibe.com',
       },
     },
     'gatsby-plugin-styled-components',

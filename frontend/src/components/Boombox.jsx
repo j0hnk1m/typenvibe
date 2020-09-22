@@ -34,7 +34,6 @@ const Boombox = () => {
           value={sel}
           options={options}
           onChange={setSel}
-          noOptionsMessage="failed to retrieve songs, try reloading"
         />
       </div>
     </>
