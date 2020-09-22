@@ -19,7 +19,7 @@ const About = () => (
           </div>
           <div className="mb-4">
             <span className="inline">If you guys would like to support the development of future projects or simply appreciate what we built, you can donate here:</span>
-            <a className="flex justify-center my-3" href="https://www.buymeacoffee.com/j0hnk1m">
+            <a className="flex justify-center my-3" href="https://www.buymeacoffee.com/typenvibe">
               <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" className="h-12" />
             </a>
           </div>
