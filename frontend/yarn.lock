@@ -11314,6 +11314,11 @@ react-side-effect@^2.1.0:
   resolved "https://registry.yarnpkg.com/react-side-effect/-/react-side-effect-2.1.0.tgz#1ce4a8b4445168c487ed24dab886421f74d380d3"
   integrity sha512-IgmcegOSi5SNX+2Snh1vqmF0Vg/CbkycU9XZbOHJlZ6kMzTmi3yc254oB1WCkgA7OQtIAoLmcSFuHTc/tlcqXg==
 
+react-spotify-api@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/react-spotify-api/-/react-spotify-api-3.0.0.tgz#7a8d92ce76267fa757e2ea51321c0d60b25f7bf0"
+  integrity sha512-q7X/fIBRVpx1iZfPocDl7Q7qv8nU+MFpMqQMMEcveQD9wQ8DWnDeSbkbiH9TW7NlyOc+G4IpuZ/9jk5Z306Itw==
+
 react-style-singleton@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/react-style-singleton/-/react-style-singleton-2.1.0.tgz#7396885332e9729957f9df51f08cadbfc164e1c4"

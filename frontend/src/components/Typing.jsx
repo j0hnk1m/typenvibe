@@ -69,18 +69,6 @@ const Typing = () => {
   const [score, setScore] = useState(0);
   const [playerKey, setPlayerKey] = useState(0);
 
-  // Song state
-  const audioTag = 'react-player';
-  const audioEl = useRef(null);
-  const [tag, setTag] = useState(false);
-
-  if ((!tag && audioEl.current) && audioEl.current.wrapper) {
-    // console.log('here');
-    // console.log(audioEl.current.wrapper);
-    audioEl.current.wrapper.children[0].setAttribute('id', audioTag);
-    setTag(true);
-  }
-
   const reset = () => {
     setIsActive(false);
     setSeconds(0);
@@ -106,7 +94,7 @@ const Typing = () => {
     switch (mode) {
       case 'default':
         // prevents user from typing before the start (actual 0 s start or next line start)
-        if (seconds >= lrc[0].start && (linePos < lrc.length - 1 && seconds < lrc[linePos + 1].start)) {
+        if (seconds >= lrc[0].start && wordPos < wordList.length && ((linePos + 1 < lrc.length && seconds < lrc[linePos + 1].start) || (linePos === lrc.length - 1))) {
           setCurWord(e.target.value);
         }
         break;
@@ -267,7 +255,6 @@ const Typing = () => {
         playing={isActive}
         volume={volume}
         style={{ display: 'none' }}
-        ref={audioEl}
       />
 
       <div className="flex flex-col col-span-1 h-20 justify-center">
