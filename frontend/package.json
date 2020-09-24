@@ -16,9 +16,7 @@
     "deploy": "gatsby build && gatsby-plugin-s3 deploy --yes && aws cloudfront create-invalidation --distribution-id EJ8C0KY2IRH64 --paths \"/*\""
   },
   "dependencies": {
-    "add": "^2.0.6",
     "axios": "^0.20.0",
-    "babel-plugin-styled-components": "^1.11.1",
     "gatsby": "^2.24.50",
     "gatsby-alias-imports": "^1.0.4",
     "gatsby-cli": "^2.12.92",
@@ -31,8 +29,8 @@
     "gatsby-plugin-robots-txt": "^1.5.2",
     "gatsby-plugin-s3": "^0.3.5",
     "gatsby-plugin-sitemap": "^2.4.13",
-    "gatsby-plugin-styled-components": "^3.3.11",
     "gatsby-source-filesystem": "^2.3.29",
+    "js-cookie": "^2.2.1",
     "lrc-parser": "^1.0.1",
     "prop-types": "^15.7.2",
     "rc-progress": "^3.1.0",
@@ -51,9 +49,7 @@
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8",
     "redux-localstorage": "^0.4.1",
-    "redux-thunk": "^2.3.0",
-    "styled-components": "^5.2.0",
-    "yarn": "^1.22.5"
+    "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
     "@hot-loader/react-dom": "^16.13.0",

@@ -14,6 +14,7 @@ const initialState = {
   lrc: [],
   theme: 'light',
   loading: false,
+  auth: null,
 };
 
 const config = () => (
@@ -32,6 +33,7 @@ const GET_LRC = 'GET_LRC';
 const SET_VOLUME = 'SET_VOLUME';
 const SET_THEME = 'SET_THEME';
 const SET_GRAMMAR = 'SET_GRAMMAR';
+const SET_AUTH = 'SET_AUTH';
 const SET_MODE = 'SET_MODE';
 const RESET = 'RESET';
 
@@ -158,6 +160,13 @@ export const setGrammar = (grammar) => (dispatch) => {
   });
 };
 
+export const setAuth = (auth) => (dispatch) => {
+  dispatch({
+    type: SET_AUTH,
+    payload: auth,
+  });
+};
+
 export const setMode = (mode) => (dispatch) => {
   dispatch({
     type: SET_MODE,
@@ -190,6 +199,8 @@ const reducer = (state = initialState, action) => {
       return { ...state, curSongLength: action.payload };
     case SET_GRAMMAR:
       return { ...state, grammar: action.payload };
+    case SET_AUTH:
+      return { ...state, auth: action.payload };
     case SET_MODE:
       return { ...state, mode: action.payload };
     case SET_VOLUME:
