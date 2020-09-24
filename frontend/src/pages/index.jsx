@@ -13,6 +13,8 @@ const Home = () => {
   const dispatch = useDispatch();
   dispatch(getSongs());
 
+  console.log(localStorage.getItem('spotifyAuthToken'));
+
   return (
     <>
       <Layout>
@@ -41,7 +43,8 @@ const Home = () => {
               </div>
             </>
           )}
-      </Layout>
+
+      </Layout >
     </>
   );
 };
