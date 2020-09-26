@@ -12,7 +12,6 @@
     "serve": "gatsby serve",
     "clean": "gatsby clean",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1",
-    "preload-fonts": "gatsby-preload-fonts",
     "deploy": "gatsby build && gatsby-plugin-s3 deploy --yes && aws cloudfront create-invalidation --distribution-id EJ8C0KY2IRH64 --paths \"/*\""
   },
   "dependencies": {
@@ -24,7 +23,6 @@
     "gatsby-plugin-manifest": "^2.4.30",
     "gatsby-plugin-offline": "^3.2.28",
     "gatsby-plugin-postcss": "^2.3.12",
-    "gatsby-plugin-preload-fonts": "^1.2.25",
     "gatsby-plugin-react-helmet": "^3.3.10",
     "gatsby-plugin-robots-txt": "^1.5.2",
     "gatsby-plugin-s3": "^0.3.5",
@@ -44,6 +42,7 @@
     "react-select": "^3.1.0",
     "react-spotify-api": "^3.0.0",
     "react-spotify-auth": "^1.1.1",
+    "react-spotify-web-playback": "^0.7.0",
     "react-switch": "^5.0.1",
     "react-tooltip": "^4.2.10",
     "redux": "^4.0.5",

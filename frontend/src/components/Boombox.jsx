@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useTrack } from 'react-spotify-api';
 import Select from 'react-select';
 import { getLrc, setCurSong } from 'state/app';
 
@@ -14,12 +15,15 @@ const Boombox = () => {
     if (sel.value !== null) {
       dispatch(setCurSong(sel.value));
       dispatch(getLrc({
-        key: songs[sel.value].key,
-        delay: songs[sel.value].delay,
+        song: songs[sel.value],
         grammar,
       }));
     }
   }, [sel]);
+
+  // if (sel.value !== null) {
+  //   const { data, loading, error } = useTrack(songs[sel.value].spotifyTrackId);
+  // }
 
   const difficulties = ['easy', 'medium', 'hard', 'difficult', 'impossible'];
   const options = difficulties.map((difficulty) => ({ label: difficulty, options: [] }));

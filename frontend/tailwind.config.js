@@ -14,7 +14,6 @@ module.exports = {
         typing: 'var(--color-bg-typing)',
         input: 'var(--color-bg-input)',
         redo: 'var(--color-bg-redo)',
-        'redo-hover': 'var(--color-bg-redo-hover)',
       },
       textColor: {
         header: 'var(--color-text-header)',

@@ -1,6 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import ReactPlayer from 'react-player/file';
+import SpotifyPlayer from 'react-spotify-web-playback';
+import Cookies, { set } from 'js-cookie';
 import AudioSpectrum from 'react-audio-spectrum';
 import { Line } from 'rc-progress';
 import Stats from './Stats';
@@ -49,7 +50,8 @@ const Typing = () => {
   const songs = useSelector((state) => state.app.songs);
   const curSong = useSelector((state) => state.app.curSong);
   const curSongLength = useSelector((state) => state.app.curSongLength);
-  const volume = useSelector((state) => state.app.volume);
+  // const volume = useSelector((state) => state.app.volume);
+  const theme = useSelector((state) => state.app.theme);
   const lrc = useSelector((state) => state.app.lrc);
   const mode = useSelector((state) => state.app.mode);
 
@@ -68,6 +70,33 @@ const Typing = () => {
   const [seconds, setSeconds] = useState(0);
   const [score, setScore] = useState(0);
   const [playerKey, setPlayerKey] = useState(0);
+
+  // spotify web playback
+  const [status, setStatus] = useState('');
+  const handleSpotifyCallback = (state) => {
+    // console.log(state.status);
+    setStatus(state.status);
+  };
+  const spotifyStyles = {
+    bgColor: '',
+    color: '#000',
+    loaderColor: '#a0aec0',
+    sliderColor: '#4fd1c5',
+    savedColor: '#1DB954',
+    trackNameColor: '#000',
+    trackArtistColor: '#a0aec0',
+  };
+  switch (theme) {
+    case 'moderndolch':
+    case '8008':
+    case 'carbon':
+    case 'dots':
+    case 'dark':
+      spotifyStyles.color = '#fff';
+      spotifyStyles.trackNameColor = '#fff';
+      break;
+    default:
+  }
 
   const reset = () => {
     setIsActive(false);
@@ -249,14 +278,6 @@ const Typing = () => {
 
   return (
     <>
-      <ReactPlayer
-        key={playerKey}
-        url={songs[curSong].url}
-        playing={isActive}
-        volume={volume}
-        style={{ display: 'none' }}
-      />
-
       <div className="flex flex-col col-span-1 h-20 justify-center">
         <Stats
           wpm={correctWordCount === 0 ? '0' : Math.round((correctWordCount / seconds) * 60)}
@@ -266,7 +287,18 @@ const Typing = () => {
       </div>
 
       <div className="flex flex-col col-span-2 h-12 items-center justify-center">
-        <Line strokeWidth="1" percent={seconds > curSongLength ? 100 : (seconds / curSongLength) * 100} />
+        {/* <Line strokeWidth="1" percent={seconds > curSongLength ? 100 : (seconds / curSongLength) * 100} /> */}
+        <SpotifyPlayer
+          token={Cookies.get('spotifyAuthToken')}
+          uris={`spotify:track:${songs[curSong].spotifyTrackId}`}
+          play={isActive}
+          callback={handleSpotifyCallback}
+          name="typenvibe"
+          showSaveIcon
+          updateSavedStatus
+          persistDeviceSelection
+          styles={spotifyStyles}
+        />
       </div>
 
       <div className="flex flex-col col-span-2 justify-between w-full bg-typing border-2 rounded-lg border-transparent bg-white p-3 text-center leading-relaxed">

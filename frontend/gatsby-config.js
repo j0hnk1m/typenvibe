@@ -44,7 +44,6 @@ module.exports = {
       },
     },
     'gatsby-plugin-robots-txt',
-    'gatsby-plugin-preload-fonts',
     'gatsby-plugin-postcss',
     'gatsby-plugin-offline',
     {
@@ -54,7 +53,6 @@ module.exports = {
         acl: null,
       },
     },
-    'gatsby-plugin-styled-components',
     // {
     //   resolve: 'gatsby-plugin-purgecss',
     //   options: {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Spotify from './Spotify';
 import Cookies from 'js-cookie';
@@ -8,33 +8,28 @@ import 'react-spotify-auth/dist/index.css';
 
 const Auth = () => {
   const auth = useSelector((state) => state.app.auth);
-  const [tokenName, setTokenName] = useState();
   const dispatch = useDispatch();
 
-  const deleteToken = () => {
-    dispatch(setAuth(null));
-    Cookies.remove(tokenName, { path: '' });
-    console.log(`removed ${tokenName}`);
-    console.log(Cookies.get(tokenName))
-  };
-
-  useEffect(() => {
+  const logout = () => {
     switch (auth) {
       case 'spotify':
-        setTokenName('spotifyAuthToken');
+        Cookies.remove('spotifyAuthToken');
         break;
       default:
     }
-  }, [auth]);
+    dispatch(setAuth('logged out'));
+  };
+
+  if (!Cookies.get('spotifyAuthToken')) dispatch(setAuth(null));
 
   return (
     <>
       {auth
         ? (
           <>
-            <div className="flex-col justify-center items-center w-40 text-center">
-              <p className="text-inverse">using {auth}</p>
-              <button className="text-inverse" type="submit" onClick={deleteToken}>logout</button>
+            <div className="flex-col justify-center items-center w-56 text-center">
+              <p className="text-inverse">authorized with {auth}</p>
+              <button className="text-green-500 border-2 rounded-lg transition duration-300 ease-in-out transform hover:scale-110 p-1 mt-2" type="submit" onClick={logout}>logout</button>
             </div>
           </>
         ) : (

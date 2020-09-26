@@ -1,21 +1,22 @@
 #!/bin/bash
 
-printf "song title: "
+printf "Title: "
 read -r title
-title=$(echo $title | sed 's/.*/\L&/; s/[a-z]*/\u&/g')
 
-printf "song artist: "
+printf "Artist: "
 read -r artist
-artist=$(echo $artist | sed 's/.*/\L&/; s/[a-z]*/\u&/g')
 
-name="${title} - ${artist}"
-
-title=$(echo ${title//[[:blank:]]/} | sed 's/^[A-Z]/\L&/')
-artist=$(echo ${artist//[[:blank:]]/} | sed 's/^[A-Z]/\L&/')
-key="${title}_${artist}"
+title_key=$(echo $title | sed 's/.*/\L&/; s/[a-z]*/\u&/g')
+artist_key=$(echo ${artist//[[:blank:]]/} | sed 's/^[A-Z]/\L&/')
+title_key=$(echo ${title_key//[[:blank:]]/} | sed 's/^[A-Z]/\L&/')
+artist_key=$(echo $artist_key | sed 's/.*/\L&/; s/[a-z]*/\u&/g')
+key="${title_key}_${artist_key}"
 echo $key
 
-printf "lrc file is ahead by ??? s: "
+printf "Spotify Track ID (ex: spotify:track:0VjIjW4GlUZAMYd2vXMi3b): "
+read -r spotify_track_id
+
+printf "Lrc file is ahead by ??? s: "
 read -r delay
 
 PS3='Please enter your choice: '
@@ -39,8 +40,7 @@ do
     esac
 done
 
-mkdir $key
 touch $key/$key.lrc
 
 songlist=$(ls | grep "^songlist")
-echo -e "${name},${key},${delay},${difficulty}" >> $songlist
+echo -e "${title},${artist},${key},${spotify_track_id},${delay},${difficulty}" >> $songlist

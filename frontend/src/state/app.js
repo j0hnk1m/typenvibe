@@ -54,16 +54,16 @@ export const getSongs = () => (dispatch) => {
     .then((res) => {
       const data = res.data.split('\n').filter((line) => line);
       data.shift();
-      const songs = data.map((song) => {
+      const songs = data.filter((line) => line).map((song) => {
         const parts = song.split(',');
-        const [title, artist] = parts[0].split(' - ');
+        const [title, artist, key, spotifyTrackId, delay, difficulty] = parts || {};
         return {
           title,
           artist,
-          key: parts[1].trim(),
-          url: `https://${process.env.CLOUDFRONT_URL}/${parts[1]}/${parts[1]}.mp3`,
-          delay: parts[2].trim(),
-          difficulty: parts[3].trim(),
+          key,
+          spotifyTrackId,
+          delay,
+          difficulty: difficulty.trim(),
         };
       });
 
@@ -122,15 +122,15 @@ const parseLrc = ({ lrc, delay, grammar } = {}) => (dispatch) => {
   return null;
 };
 
-export const getLrc = ({ key, delay, grammar } = {}) => (dispatch) => {
+export const getLrc = ({ song, grammar } = {}) => (dispatch) => {
   dispatch(startLoading());
-  axios.get(`${CORS_PROXY}/https://${process.env.CLOUDFRONT_URL}/${key}/${key}.lrc`, config())
+  axios.get(`${CORS_PROXY}/https://${process.env.CLOUDFRONT_URL}/${song.key}.lrc`, config())
     .then((res) => {
       dispatch({
         type: GET_LRC,
         payload: dispatch(parseLrc({
           lrc: res.data,
-          delay,
+          delay: song.delay,
           grammar,
         })),
       });

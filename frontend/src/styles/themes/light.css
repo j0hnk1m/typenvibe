@@ -3,7 +3,7 @@
   --color-bg-typing: #eaeaea;
   --color-bg-input: theme('colors.white');
   --color-bg-redo: theme('colors.blue.500');
-  --color-bg-redo-hover: theme('colors.red.500');
+
   --color-text-header: theme('colors.black');
   --color-text-typing: theme('colors.gray.600');
   --color-text-inverse: theme('colors.black');
@@ -14,6 +14,8 @@
   --color-text-redo: theme('colors.white');
   --color-text-nav: theme('colors.red.500');
   --color-text-display: theme('colors.black');
-  --color-placeholder-input: theme('colors.gray.100');
+
+  --color-placeholder-input: theme('colors.black');
+
   --color-border-primary: theme('colors.gray.500');
 }
