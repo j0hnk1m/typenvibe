@@ -1,18 +1,21 @@
 .theme-pulse {
-  --color-bg-primary: theme('colors.black');
-  --color-bg-typing: #333333;
-  --color-bg-input: theme('colors.black');
-  --color-bg-redo: theme('colors.black');
-  --color-bg-redo-hover: theme('colors.red.500');
-  --color-text-header: theme('colors.white');
+  --color-bg-primary: #171417;
+  --color-bg-typing: #02b7be;
+  --color-bg-input: #171417;
+  --color-bg-redo: #171417;
+  
+  --color-text-header: #02b7be;
   --color-text-typing: theme('colors.white');
   --color-text-inverse: theme('colors.white');
-  --color-text-current: theme('colors.white');
-  --color-text-correct: theme('colors.green.400');
-  --color-text-wrong: theme('colors.red.400');
-  --color-text-stats: theme('colors.white');
-  --color-text-nav: theme('colors.red.500');
-  --color-text-display: theme('colors.red.500');
-  --color-placeholder-input: theme('colors.white');
-  --color-border-primary: #36c1f6;
+  --color-text-current: #171417;
+  --color-text-correct: theme('colors.green.500');
+  --color-text-wrong: theme('colors.red.500');
+  --color-text-stats: #02b7be;
+  --color-text-nav: theme('colors.white');
+  --color-text-redo: #02b7be;
+  --color-text-display: #02b7be;
+
+  --color-placeholder-input: #02b7be;
+
+  --color-border-primary: #02b7be;
 }

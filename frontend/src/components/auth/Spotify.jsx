@@ -1,22 +1,22 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { SpotifyAuth } from 'react-spotify-auth';
 import { setAuth } from 'state/app';
 
 const Spotify = () => {
-  const auth = useSelector((state) => state.app.auth);
   const dispatch = useDispatch();
-  const handleToken = () => {
-    if (auth !== 'logged out') dispatch(setAuth('spotify'));
-  };
+  const handleToken = () => dispatch(setAuth('spotify'));
   const webPlaybackToken = 'BQC2JykMfT_WJDgk5LALTc5j30Rd0d4KhtKL_8ZhC2CL-RXGNCtPvivYasQtVfnp5bINNDOEiTDvQbU6_rdmRWOSVWOi3rBM8sIrk1cbVBCthIzh88xENymM_w7L9KFg-wFC_lqrEX2jcLb2AYkCY6fmbhSBaq2qlyAKYcw';
+
+  const CLIENT_ID = '84f2cf566f484061b80fa5795146f2c3';
+  const REDIRECT_URI = typeof window !== 'undefined' ? window.location.href : '';
 
   // TODO: using cookies allows for 2 hr expiry, but can't delete cookie since it's filled up instantaneously
   return (
     <>
       <SpotifyAuth
-        redirectUri={process.env.SPOTIFY_REDIRECT_URI}
-        clientID={process.env.SPOTIFY_CLIENT_ID}
+        redirectUri={REDIRECT_URI}
+        clientID={CLIENT_ID}
         scopes={[
           'user-read-private',
           'user-read-email',

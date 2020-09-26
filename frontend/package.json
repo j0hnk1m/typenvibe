@@ -5,7 +5,7 @@
   "version": "0.1.0",
   "license": "0BSD",
   "scripts": {
-    "build": "yarn preload-fonts && gatsby build",
+    "build": "gatsby build",
     "develop": "gatsby develop",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
     "start": "npm run develop",
@@ -32,7 +32,6 @@
     "lrc-parser": "^1.0.1",
     "prop-types": "^15.7.2",
     "rc-progress": "^3.1.0",
-    "rc-slider": "^9.4.1",
     "react": "^16.12.0",
     "react-audio-spectrum": "^0.1.0",
     "react-dom": "^16.12.0",

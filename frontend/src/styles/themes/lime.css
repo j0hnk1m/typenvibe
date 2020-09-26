@@ -1,19 +1,21 @@
 .theme-lime {
-  --color-bg-primary: theme('colors.black');
-  --color-bg-typing: #333333;
-  --color-bg-input: theme('colors.black');
-  --color-bg-redo: theme('colors.black');
-  --color-bg-redo-hover: theme('colors.red.500');
-  --color-text-header: theme('colors.white');
+  --color-bg-primary: #7e898f;
+  --color-bg-typing: #c0cdd5;
+  --color-bg-input: #7e898f;
+  --color-bg-redo: #96c35a;
+  
+  --color-text-header: #96c35a;
   --color-text-typing: theme('colors.white');
   --color-text-inverse: theme('colors.white');
-  --color-text-current: theme('colors.white');
+  --color-text-current: theme('colors.black');
   --color-text-correct: theme('colors.green.400');
   --color-text-wrong: theme('colors.red.400');
-  --color-text-stats: theme('colors.white');
-  --color-text-nav: theme('colors.red.500');
-  --color-text-redo: theme('colors.red.500');
-  --color-text-display: theme('colors.red.500');
+  --color-text-stats:  #96c35a;
+  --color-text-nav: theme('colors.white');
+  --color-text-redo: theme('colors.white');
+  --color-text-display: #96c35a;
+
   --color-placeholder-input: theme('colors.white');
-  --color-border-primary: #36c1f6;
+
+  --color-border-primary: #96c35a;
 }

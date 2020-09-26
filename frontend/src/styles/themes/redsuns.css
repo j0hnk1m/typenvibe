@@ -1,19 +1,21 @@
 .theme-redsuns {
-  --color-bg-primary: theme('colors.black');
-  --color-bg-typing: #333333;
-  --color-bg-input: theme('colors.black');
-  --color-bg-redo: theme('colors.black');
-  --color-bg-redo-hover: theme('colors.red.500');
-  --color-text-header: theme('colors.white');
+  --color-bg-primary: #2f3334;
+  --color-bg-typing: #602d3a;
+  --color-bg-input: #2f3334;
+  --color-bg-redo: #2f3334;
+  
+  --color-text-header: #a89257;
   --color-text-typing: theme('colors.white');
   --color-text-inverse: theme('colors.white');
-  --color-text-current: theme('colors.white');
-  --color-text-correct: theme('colors.green.400');
-  --color-text-wrong: theme('colors.red.400');
+  --color-text-current: #a89257;
+  --color-text-correct: theme('colors.green.500');
+  --color-text-wrong: theme('colors.red.500');
   --color-text-stats: theme('colors.white');
-  --color-text-nav: theme('colors.red.500');
-  --color-text-redo: theme('colors.red.500');
-  --color-text-display: theme('colors.red.500');
+  --color-text-nav: #602d3a;
+  --color-text-redo: #a89257;
+  --color-text-display: #602d3a;
+
   --color-placeholder-input: theme('colors.white');
-  --color-border-primary: #36c1f6;
+
+  --color-border-primary: #602d3a;
 }

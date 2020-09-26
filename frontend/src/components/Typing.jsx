@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import SpotifyPlayer from 'react-spotify-web-playback';
 import Cookies, { set } from 'js-cookie';
@@ -133,6 +133,11 @@ const Typing = () => {
       default:
     }
   };
+
+  const input = useRef(null);
+  useEffect(() => {
+    input.current.focus();
+  }, []);
 
   // since change in curSong results in delayed change in lrc, lrc is dependency
   useEffect(() => {
@@ -343,8 +348,9 @@ const Typing = () => {
             autoComplete="off"
             autoCorrect="off"
             autoCapitalize="off"
+            ref={input}
           />
-          <button className="transition duration-300 ease-in-out bg-redo hover:bg-redo-hover transform hover:scale-110 py-2 px-2 rounded-lg text-redo" type="submit" onClick={reset}>
+          <button className="transition duration-300 ease-in-out bg-redo transform hover:scale-110 py-2 px-2 rounded-lg text-redo" type="submit" onClick={reset}>
             redo
           </button>
         </div>

@@ -3,11 +3,6 @@
   --color-bg-typing: #333333;
   --color-bg-input: theme('colors.black');
   --color-bg-redo: theme('colors.black');
-  --color-bg-spotify: theme('colors.black');
-  --color-bg-spotifySaveColor: #1DB954;
-  --color-bg-spotifySlider: theme('colors.blue.700');
-  --color-bg-spotifySliderTrack: theme('colors.gray.500');
-  --color-bg-spotifyControls: theme('colors.white');
 
   --color-text-header: theme('colors.white');
   --color-text-typing: theme('colors.white');
@@ -19,8 +14,6 @@
   --color-text-nav: theme('colors.red.500');
   --color-text-redo: theme('colors.white');
   --color-text-display: theme('colors.white');
-  --color-text-spotifyTrackName: theme('colors.white');
-  --color-text-spotifyTrackArtist: theme('colors.gray.400');
 
   --color-placeholder-input: theme('colors.white');
 

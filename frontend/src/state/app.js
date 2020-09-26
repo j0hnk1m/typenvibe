@@ -1,6 +1,8 @@
 import axios from 'axios';
 import lrcParser from 'lrc-parser';
 
+// constants
+const CLOUDFRONT_URL = 'darjms2fiq11j.cloudfront.net';
 const CORS_PROXY = 'https://cors-anywhere.herokuapp.com';
 const SONGLIST = 'songlist.csv';
 
@@ -8,7 +10,6 @@ const initialState = {
   songs: {},
   curSong: null,
   curSongLength: 0,
-  volume: 0.5,
   mode: 'default',
   grammar: 'basic',
   lrc: [],
@@ -30,7 +31,6 @@ const GET_SONGS = 'GET_SONGS';
 const SET_CURSONG = 'SET_CURSONG';
 const SET_CURSONGLENGTH = 'SET_CURSONGLENGTH';
 const GET_LRC = 'GET_LRC';
-const SET_VOLUME = 'SET_VOLUME';
 const SET_THEME = 'SET_THEME';
 const SET_GRAMMAR = 'SET_GRAMMAR';
 const SET_AUTH = 'SET_AUTH';
@@ -50,7 +50,7 @@ export const endLoading = () => (dispatch) => {
 };
 
 export const getSongs = () => (dispatch) => {
-  axios.get(`${CORS_PROXY}/https://${process.env.CLOUDFRONT_URL}/${SONGLIST}`, config())
+  axios.get(`${CORS_PROXY}/https://${CLOUDFRONT_URL}/${SONGLIST}`, config())
     .then((res) => {
       const data = res.data.split('\n').filter((line) => line);
       data.shift();
@@ -124,7 +124,7 @@ const parseLrc = ({ lrc, delay, grammar } = {}) => (dispatch) => {
 
 export const getLrc = ({ song, grammar } = {}) => (dispatch) => {
   dispatch(startLoading());
-  axios.get(`${CORS_PROXY}/https://${process.env.CLOUDFRONT_URL}/${song.key}.lrc`, config())
+  axios.get(`${CORS_PROXY}/https://${CLOUDFRONT_URL}/${song.key}.lrc`, config())
     .then((res) => {
       dispatch({
         type: GET_LRC,
@@ -137,13 +137,6 @@ export const getLrc = ({ song, grammar } = {}) => (dispatch) => {
       dispatch(endLoading());
     })
     .catch((err) => console.log(err));
-};
-
-export const setVolume = (volume) => (dispatch) => {
-  dispatch({
-    type: SET_VOLUME,
-    payload: volume,
-  });
 };
 
 export const setTheme = (theme) => (dispatch) => {
@@ -203,8 +196,6 @@ const reducer = (state = initialState, action) => {
       return { ...state, auth: action.payload };
     case SET_MODE:
       return { ...state, mode: action.payload };
-    case SET_VOLUME:
-      return { ...state, volume: action.payload };
     case SET_THEME:
       return { ...state, theme: action.payload };
     case START_LOADING:
