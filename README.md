@@ -54,8 +54,10 @@
 - [:fire: Documentation](#fire-documentation)
 - [:earth_africa: Roadmap](#earth_africa-roadmap)
 - [:wink: Contributing](#wink-contributing)
+  - [Code](#code)
+  - [Expanding the Library](#expanding-the-library)
+  - [Feedback](#feedback)
 - [:memo: License](#memo-license)
-- [:email: Contact](#️email-contact)
 - [:loudspeaker: Acknowledgements](#loudspeaker-acknowledgements)
 - [:dollar: Donations](#dollar-donations)
 
@@ -195,7 +197,7 @@ Contributions are what make the open source community such an amazing place to b
 5. Open a Pull Request
 
 
-### Expanding the library
+### Expanding the Library
 If you want a particular song in the library but it's not there, fill out this [google form](https://forms.gle/MmVSgiA4KZdCG23J7). Please try to make the information as accurate as possible! Due to low manpower, it will most likely be reviewed once more and then added within a few days.
 
 
