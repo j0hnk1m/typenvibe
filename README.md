@@ -185,6 +185,7 @@ See the [open issues](https://github.com/j0hnk1m/typenvibe/issues) for a list of
 <!-- CONTRIBUTING -->
 ## :wink: Contributing
 
+### Code
 Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
 1. Fork the Project
@@ -193,6 +194,13 @@ Contributions are what make the open source community such an amazing place to b
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
+
+### Expanding the library
+If you want a particular song in the library but it's not there, fill out this [google form](https://forms.gle/MmVSgiA4KZdCG23J7). Please try to make the information as accurate as possible! Due to low manpower, it will most likely be reviewed once more and then added within a few days.
+
+
+### Feedback
+Any feedback would be appreciated! Here is the [link](https://forms.gle/MmVSgiA4KZdCG23J7) to the google form.
 
 
 <!-- LICENSE -->
