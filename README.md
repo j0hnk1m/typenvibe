@@ -47,7 +47,7 @@
 
 - [:zap: About](#zap-about)
   - [Overview](#overview)
-  - [How to...](#how-to...)
+  - [How to...](#how-to)
   - [Built With](#built-with)
   - [Infrastructure](#infrastructure)
 - [:rocket: Getting Started](#rocket-getting-started)
