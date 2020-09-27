@@ -1,19 +1,6 @@
 #!/bin/bash
 
-printf "Title: "
-read -r title
-
-printf "Artist: "
-read -r artist
-
-title_key=$(echo $title | sed 's/.*/\L&/; s/[a-z]*/\u&/g')
-artist_key=$(echo ${artist//[[:blank:]]/} | sed 's/^[A-Z]/\L&/')
-title_key=$(echo ${title_key//[[:blank:]]/} | sed 's/^[A-Z]/\L&/')
-artist_key=$(echo $artist_key | sed 's/.*/\L&/; s/[a-z]*/\u&/g')
-key="${title_key}_${artist_key}"
-echo $key
-
-printf "Spotify Track ID (ex: spotify:track:0VjIjW4GlUZAMYd2vXMi3b): "
+printf "Spotify Track ID: "
 read -r spotify_track_id
 
 printf "Lrc file is ahead by ??? s: "
@@ -40,7 +27,7 @@ do
     esac
 done
 
-touch $key/$key.lrc
+touch $spotify_track_id.lrc
 
-songlist=$(ls | grep "^songlist")
-echo -e "${title},${artist},${key},${spotify_track_id},${delay},${difficulty}" >> $songlist
+songs=$(ls | grep "^songs")
+echo -e "${spotify_track_id},${delay},${difficulty}" >> $songs

@@ -59,12 +59,15 @@ const Home = () => {
   const auth = useSelector((state) => state.app.auth);
 
   const dispatch = useDispatch();
-  dispatch(getSongs());
+  const spotifyAuthToken = Cookies.get('spotifyAuthToken');
+  dispatch(getSongs(spotifyAuthToken));
 
+  // removes access token + other params in url
   const url = typeof window !== 'undefined' ? window.location.href : '';
-  if (process.env.NODE_ENV === 'development' && url.substring('http://localhost:8000/'.length, url.length) !== '') navigate('/');
+  const baseUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:8000/' : 'https://typenvibe.com/'
+  if (url.substring(baseUrl.length, url.length) !== '') navigate('/');
 
-  // first time = modal
+  // first time = show welcome modal
   const [modal, showModal] = useState(false);
 
   useEffect(() => {

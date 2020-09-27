@@ -2,14 +2,14 @@ import axios from 'axios';
 import lrcParser from 'lrc-parser';
 
 // constants
-const CLOUDFRONT_URL = 'darjms2fiq11j.cloudfront.net';
+const CLOUDFRONT_URL = 'https://darjms2fiq11j.cloudfront.net';
+const SPOTIFY_URL = 'https://api.spotify.com/v1/tracks';
 const CORS_PROXY = 'https://cors-anywhere.herokuapp.com';
-const SONGLIST = 'songlist.csv';
+const SONGLIST = 'songs.csv';
 
 const initialState = {
   songs: {},
   curSong: null,
-  curSongLength: 0,
   mode: 'default',
   grammar: 'basic',
   lrc: [],
@@ -18,9 +18,11 @@ const initialState = {
   auth: null,
 };
 
-const config = () => (
+const config = (spotifyAuthToken) => (
   {
-    headers: {},
+    headers: {
+      Authorization: `Bearer ${spotifyAuthToken}`,
+    },
   }
 );
 
@@ -28,8 +30,8 @@ const config = () => (
 const START_LOADING = 'START_LOADING';
 const END_LOADING = 'END_LOADING';
 const GET_SONGS = 'GET_SONGS';
+const GET_TRACK_INFO = 'GET_TRACK_INFO';
 const SET_CURSONG = 'SET_CURSONG';
-const SET_CURSONGLENGTH = 'SET_CURSONGLENGTH';
 const GET_LRC = 'GET_LRC';
 const SET_THEME = 'SET_THEME';
 const SET_GRAMMAR = 'SET_GRAMMAR';
@@ -49,18 +51,38 @@ export const endLoading = () => (dispatch) => {
   });
 };
 
-export const getSongs = () => (dispatch) => {
-  axios.get(`${CORS_PROXY}/https://${CLOUDFRONT_URL}/${SONGLIST}`, config())
+export const getTrackInfo = (spotifyTrackId, spotifyAuthToken) => (dispatch) => {
+  axios.get(`${CORS_PROXY}/${SPOTIFY_URL}/${spotifyTrackId}`, config(spotifyAuthToken))
+    .then((res) => {
+      const trackInfo = {
+        id: res.data.id,
+        name: res.data.name,
+        artists: res.data.artists.map((artist) => artist.name),
+        duration: res.data.duration_ms / 1000,
+        previewUrl: res.data.preview_url,
+      };
+
+      dispatch({
+        type: GET_TRACK_INFO,
+        payload: { ...trackInfo },
+      });
+    })
+    .catch((err) => console.log(err));
+};
+
+export const getSongs = (spotifyAuthToken) => (dispatch) => {
+  axios.get(`${CORS_PROXY}/${CLOUDFRONT_URL}/${SONGLIST}`)
     .then((res) => {
       const data = res.data.split('\n').filter((line) => line);
       data.shift();
       const songs = data.filter((line) => line).map((song) => {
         const parts = song.split(',');
-        const [title, artist, key, spotifyTrackId, delay, difficulty] = parts || {};
+        const [spotifyTrackId, delay, difficulty] = parts || {};
+
+        // axios is async, so this independently edits the state
+        dispatch(getTrackInfo(spotifyTrackId, spotifyAuthToken));
+
         return {
-          title,
-          artist,
-          key,
           spotifyTrackId,
           delay,
           difficulty: difficulty.trim(),
@@ -75,21 +97,12 @@ export const getSongs = () => (dispatch) => {
     .catch((err) => console.log(err));
 };
 
-export const setCurSongLength = (curSongLength) => (dispatch) => {
-  dispatch({
-    type: SET_CURSONGLENGTH,
-    payload: curSongLength,
-  });
-};
-
-// Parses the LRC file received from action GET_LRC and sets curSongLength, lrc, and lrcPunc
+// parses the LRC file received from action GET_LRC
 const parseLrc = ({ lrc, delay, grammar } = {}) => (dispatch) => {
   const data = lrcParser(lrc.toString('utf8'));
 
   if (data) {
-    const length = data.scripts[data.scripts.length - 1].end;
     const offset = delay ? Number(delay) : 0;
-    dispatch(setCurSongLength(length));
 
     // trims garbage if LRC file is from RentAnAdviser.com
     let cleaned = data.scripts.filter((line) => !line.text.includes('RentAnAdviser'));
@@ -122,15 +135,15 @@ const parseLrc = ({ lrc, delay, grammar } = {}) => (dispatch) => {
   return null;
 };
 
-export const getLrc = ({ song, grammar } = {}) => (dispatch) => {
+export const getLrc = ({ spotifyTrackId, delay, grammar } = {}) => (dispatch) => {
   dispatch(startLoading());
-  axios.get(`${CORS_PROXY}/https://${CLOUDFRONT_URL}/${song.key}.lrc`, config())
+  axios.get(`${CORS_PROXY}/${CLOUDFRONT_URL}/${spotifyTrackId}.lrc`, config())
     .then((res) => {
       dispatch({
         type: GET_LRC,
         payload: dispatch(parseLrc({
           lrc: res.data,
-          delay: song.delay,
+          delay,
           grammar,
         })),
       });
@@ -184,12 +197,14 @@ const reducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_SONGS:
       return { ...state, songs: action.payload };
+    case GET_TRACK_INFO:
+      const updated = Object.keys(state.songs).find((i) => state.songs[i].spotifyTrackId === action.payload.id);
+      const { id, ...rest } = action.payload;
+      return { ...state, songs: { ...state.songs, [updated]: { ...state.songs[updated], ...rest } } };
     case GET_LRC:
       return { ...state, lrc: action.payload };
     case SET_CURSONG:
       return { ...state, curSong: action.payload };
-    case SET_CURSONGLENGTH:
-      return { ...state, curSongLength: action.payload };
     case SET_GRAMMAR:
       return { ...state, grammar: action.payload };
     case SET_AUTH:

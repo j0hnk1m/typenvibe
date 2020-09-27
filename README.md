@@ -46,6 +46,8 @@
 ## Table Of Contents <!-- omit in toc -->
 
 - [:zap: About](#zap-about)
+  - [Overview](#overview)
+  - [How to...](#how-to...)
   - [Built With](#built-with)
   - [Infrastructure](#infrastructure)
 - [:rocket: Getting Started](#rocket-getting-started)
@@ -66,25 +68,56 @@
   <a href="https://typenvibe.netlify.app">
     <img src="figures/website.png">
   </a>
-  <p align="center">typenvibe</p>
+  <p align="center">main page</p>
 </p>
 <br />
 
-The objective of the game is to type the lyrics in rythm to the song. The lyrics you can type will be constantly updating based on the line that the artist is currently on. If the line changes while you are typing, never fear, you have the option to type either:
+
+### Overview
+The objective of the game is to type the lyrics in rythm to the song. The line that you can type will automatically change in accordance to the timing of the song (unless you are in "chill" mode, which you can configure in settings).
+
+
+### How to...
+1) Choose music service (available: Spotify, coming 
+  soon: Youtube, Apple Music, SoundCloud), to use.
+
+2) After being authorized, select choice from the 
+  list of songs.
+
+3) Click the typing input box. Now, just type any 
+  key to start the song! You will only be allowed 
+  to type when the artist is on the same timeframe, 
+  meaning that input is disabled well before and 
+  after the artist has sung that line. Note: starting 
+  the song by clicking the play button will mess up 
+  the sync between the audio and lyrics!
+
+
+### What happens on a line change?
+If the line changes while you are typing, never fear, you have the option to type either:
 
 <p class="image" align="center">
-  <img src="figures/line_change_mechanism_1.gif" width=500>
+  <img src="figures/line_change_1.gif" width=500>
   <p align="center">1) the word you were going to type before</p>
 </p>
 
 <br />
 
 <p class="image" align="center">
-  <img src="figures/line_change_mechanism_2.gif" width=500>
+  <img src="figures/line_change_2.gif" width=500>
   <p align="center">... or 2) the new word</p>
 </p>
 
 Notice above that the accuracy stays at 100% in both cases. In case you still type wrong, something called the Levenshtein distance is computed for both possibilities in order to determine what you were trying to type. Now type n vibe away!
+
+
+### Settings
+- color themes (most are inspired by GMK keycap sets)
+- "chill" mode
+  - If you don't want to feel the pressure of typing the lyrics in a time crunch, that's perfectly fine! Enabling chill mode gives the freedom of when you can type back to you, and the lyrics will not automatically change. 
+- uppercase (includes uppercase letters in the lyrics)
+- punctuation (includes punctuation in the lyrics)
+
 
 ### Built With
 <p align="center">
@@ -104,8 +137,9 @@ Notice above that the accuracy stays at 100% in both cases. In case you still ty
 * Tailwindcss
 * a lot of coffee and thai tea
 
+
 ### Data
-Currently the data for the lyrics and audio exist as files in a private S3 bucket. As there may be copyright issues with this method, we are currently adding support for Youtube links and Spotify's Web Playback SDK (which is unforunately still in beta). Until then, only a few approved songs will be available to try out - sorry about that!
+Currently, the lyrics (lrc) files are stored in a private S3 bucket. As for audio, we initially started out with mp3 files, then moved over to youtube links. Since there were bound to be copyright issues, we have moved over and integrated our site with Spotify.
 
 <!-- GETTING STARTED -->
 ## :rocket: Getting Started
@@ -166,13 +200,8 @@ Contributions are what make the open source community such an amazing place to b
 
 Distributed under the MIT License. See `LICENSE` for more information.
 
-
-
-<!-- CONTACT -->
-## :email: Contact
-
-John Kim - kim.john228@gmail.com  
-Rishi Gundakaram - rishi.gundakaram@gmail.com
+For music licensing, we are able to use Spotify's Web Playback SDK and Web API since this project is noncommercial. We also include 
+lyrics in the form of an .lrc file gathered from various sources (such as RentAnAdviser and Megalobiz)
 
 
 
@@ -182,6 +211,7 @@ Rishi Gundakaram - rishi.gundakaram@gmail.com
 * [GitHub Emoji Cheat Sheet](https://www.webpagefx.com/tools/emoji-cheat-sheet)
 * [Img Shields](https://shields.io)
 * Base logo vector made by [Freepik from Flaticon](https://www.flaticon.com/authors/freepik)
+* Lyric data sources (RentAnAdviser, Megalobiz, etc)
 
 
 

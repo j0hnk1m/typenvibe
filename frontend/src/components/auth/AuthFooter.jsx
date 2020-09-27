@@ -24,7 +24,7 @@ const AuthFooter = () => {
     dispatch(endLoading());
   };
 
-  if (!Cookies.get('spotifyAuthToken')) dispatch(setAuth(null));
+  if (!Cookies.get('spotifyAuthToken')) logout();
 
   return (
     <>
