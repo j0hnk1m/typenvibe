@@ -66,7 +66,12 @@ const Settings = () => {
             </div>
             <div className="grid grid-cols-2 gap-3">
               {THEMES.map((choice) => (
-                <button key={choice} type="submit" className={`w-full h-16 border-2 rounded-lg transition duration-300 ease-in-out bg-white transform hover:scale-110 py-2 px-2 theme-${choice} bg-primary border-primary`} onClick={() => setTheme_(choice)}>
+                <button
+                  key={choice}
+                  type="button"
+                  className={`w-full h-16 border-2 rounded-lg transition duration-300 ease-in-out bg-white transform hover:scale-110 py-2 px-2 theme-${choice} bg-primary border-primary`}
+                  onClick={() => setTheme_(choice)}
+                >
                   <p className="text-display truncate">{choice}</p>
                 </button>
               ))}

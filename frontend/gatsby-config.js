@@ -14,6 +14,7 @@ module.exports = {
     description: 'a web app to practice typing in rythm with your favorite songs',
     siteUrl: 'https://typenvibe.com',
     author: 'John Kim, Rishi Gundakaram',
+    keywords: ['typenvibe', 'typen vibe', 'type nvibe', 'practice typing', 'typing', 'vibe', 'type n vibe', 'type vibe'],
   },
   plugins: [
     {

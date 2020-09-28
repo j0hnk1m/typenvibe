@@ -30,7 +30,13 @@ const AuthFooter = () => {
     <>
       <div className="flex-col justify-center items-center w-56 text-center">
         <p className="text-inverse">authorized with {auth}</p>
-        <button className="text-green-500 border-2 rounded-lg transition duration-300 ease-in-out transform hover:scale-110 p-1 mt-2" type="submit" onClick={logout}>logout</button>
+        <button
+          className="text-green-500 border-2 rounded-lg transition duration-300 ease-in-out transform hover:scale-110 p-1 mt-2 focus:outline-none"
+          type="button"
+          onClick={logout}
+        >
+          logout
+        </button>
       </div>
     </>
   );

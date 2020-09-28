@@ -350,7 +350,7 @@ const Typing = () => {
             autoCapitalize="off"
             ref={input}
           />
-          <button className="transition duration-300 ease-in-out bg-redo transform hover:scale-110 py-2 px-2 rounded-lg text-redo" type="submit" onClick={reset}>
+          <button className="transition duration-300 ease-in-out bg-redo transform hover:scale-110 p-2 rounded-lg text-redo" type="submit" onClick={reset}>
             redo
           </button>
         </div>

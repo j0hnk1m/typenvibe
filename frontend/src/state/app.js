@@ -2,8 +2,8 @@ import axios from 'axios';
 import lrcParser from 'lrc-parser';
 
 // constants
-const CLOUDFRONT_URL = 'https://darjms2fiq11j.cloudfront.net';
-const SPOTIFY_URL = 'https://api.spotify.com/v1/tracks';
+const CLOUDFRONT = 'https://darjms2fiq11j.cloudfront.net';
+const SPOTIFY_API = 'https://api.spotify.com/v1';
 const CORS_PROXY = 'https://cors-anywhere.herokuapp.com';
 const SONGLIST = 'songs.csv';
 
@@ -16,6 +16,9 @@ const initialState = {
   theme: 'light',
   loading: false,
   auth: null,
+  modal: null,
+  songLibrarySort: 'difficulty',
+  songLibraryView: 'grid',
 };
 
 const config = (spotifyAuthToken) => (
@@ -31,12 +34,16 @@ const START_LOADING = 'START_LOADING';
 const END_LOADING = 'END_LOADING';
 const GET_SONGS = 'GET_SONGS';
 const GET_TRACK_INFO = 'GET_TRACK_INFO';
+const GET_ALBUM_INFO = 'GET_ALBUM_INFO';
 const SET_CURSONG = 'SET_CURSONG';
 const GET_LRC = 'GET_LRC';
 const SET_THEME = 'SET_THEME';
 const SET_GRAMMAR = 'SET_GRAMMAR';
 const SET_AUTH = 'SET_AUTH';
 const SET_MODE = 'SET_MODE';
+const SET_MODAL = 'SET_MODAL';
+const SET_SONGLIBRARYSORT = 'SET_SONGLIBRARYSORT';
+const SET_SONGLIBRARYVIEW = 'SET_SONGLIBRARYVIEW';
 const RESET = 'RESET';
 
 export const startLoading = () => (dispatch) => {
@@ -51,16 +58,39 @@ export const endLoading = () => (dispatch) => {
   });
 };
 
-export const getTrackInfo = (spotifyTrackId, spotifyAuthToken) => (dispatch) => {
-  axios.get(`${CORS_PROXY}/${SPOTIFY_URL}/${spotifyTrackId}`, config(spotifyAuthToken))
+export const getAlbumInfo = (spotifyAlbumId, spotifyAuthToken) => (dispatch) => {
+  axios.get(`${CORS_PROXY}/${SPOTIFY_API}/albums/${spotifyAlbumId}`, config(spotifyAuthToken))
     .then((res) => {
+      // https://developer.spotify.com/documentation/web-api/reference/object-model/#album-object-simplified
+      const albumInfo = {
+        spotifyAlbumId: res.data.id,
+        coverArt: res.data.images[res.data.images.length - 1],
+      };
+
+      dispatch({
+        type: GET_ALBUM_INFO,
+        payload: { ...albumInfo },
+      });
+    })
+    .catch((err) => console.log(err));
+};
+
+export const getTrackInfo = (spotifyTrackId, spotifyAuthToken) => (dispatch) => {
+  axios.get(`${CORS_PROXY}/${SPOTIFY_API}/tracks/${spotifyTrackId}`, config(spotifyAuthToken))
+    .then((res) => {
+      // https://developer.spotify.com/documentation/web-api/reference/tracks/get-track/
       const trackInfo = {
-        id: res.data.id,
+        spotifyTrackId: res.data.id,
         name: res.data.name,
         artists: res.data.artists.map((artist) => artist.name),
+        popularity: res.data.popularity,
         duration: res.data.duration_ms / 1000,
         previewUrl: res.data.preview_url,
+        spotifyAlbumId: res.data.album.id,
       };
+
+      // axios is async, so this independently edits the state
+      dispatch(getAlbumInfo(trackInfo.spotifyAlbumId, spotifyAuthToken));
 
       dispatch({
         type: GET_TRACK_INFO,
@@ -71,7 +101,7 @@ export const getTrackInfo = (spotifyTrackId, spotifyAuthToken) => (dispatch) => 
 };
 
 export const getSongs = (spotifyAuthToken) => (dispatch) => {
-  axios.get(`${CORS_PROXY}/${CLOUDFRONT_URL}/${SONGLIST}`)
+  axios.get(`${CORS_PROXY}/${CLOUDFRONT}/${SONGLIST}`)
     .then((res) => {
       const data = res.data.split('\n').filter((line) => line);
       data.shift();
@@ -98,7 +128,7 @@ export const getSongs = (spotifyAuthToken) => (dispatch) => {
 };
 
 // parses the LRC file received from action GET_LRC
-const parseLrc = ({ lrc, delay, grammar } = {}) => (dispatch) => {
+const parseLrc = ({ lrc, delay, grammar } = {}) => {
   const data = lrcParser(lrc.toString('utf8'));
 
   if (data) {
@@ -137,15 +167,15 @@ const parseLrc = ({ lrc, delay, grammar } = {}) => (dispatch) => {
 
 export const getLrc = ({ spotifyTrackId, delay, grammar } = {}) => (dispatch) => {
   dispatch(startLoading());
-  axios.get(`${CORS_PROXY}/${CLOUDFRONT_URL}/${spotifyTrackId}.lrc`, config())
+  axios.get(`${CORS_PROXY}/${CLOUDFRONT}/${spotifyTrackId}.lrc`, config())
     .then((res) => {
       dispatch({
         type: GET_LRC,
-        payload: dispatch(parseLrc({
+        payload: parseLrc({
           lrc: res.data,
           delay,
           grammar,
-        })),
+        }),
       });
       dispatch(endLoading());
     })
@@ -180,6 +210,27 @@ export const setMode = (mode) => (dispatch) => {
   });
 };
 
+export const setModal = (modal) => (dispatch) => {
+  dispatch({
+    type: SET_MODAL,
+    payload: modal,
+  });
+};
+
+export const setSongLibrarySort = (sort) => (dispatch) => {
+  dispatch({
+    type: SET_SONGLIBRARYSORT,
+    payload: sort,
+  });
+};
+
+export const setSongLibraryView = (view) => (dispatch) => {
+  dispatch({
+    type: SET_SONGLIBRARYVIEW,
+    payload: view,
+  });
+};
+
 export const setCurSong = (curSong) => (dispatch) => {
   dispatch({
     type: SET_CURSONG,
@@ -197,10 +248,16 @@ const reducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_SONGS:
       return { ...state, songs: action.payload };
-    case GET_TRACK_INFO:
-      const updated = Object.keys(state.songs).find((i) => state.songs[i].spotifyTrackId === action.payload.id);
+    case GET_TRACK_INFO: {
+      const updated = Object.keys(state.songs).find((i) => state.songs[i].spotifyTrackId === action.payload.spotifyTrackId);
       const { id, ...rest } = action.payload;
       return { ...state, songs: { ...state.songs, [updated]: { ...state.songs[updated], ...rest } } };
+    }
+    case GET_ALBUM_INFO: {
+      const updated = Object.keys(state.songs).find((i) => state.songs[i].spotifyAlbumId === action.payload.spotifyAlbumId);
+      const { id, ...rest } = action.payload;
+      return { ...state, songs: { ...state.songs, [updated]: { ...state.songs[updated], ...rest } } };
+    }
     case GET_LRC:
       return { ...state, lrc: action.payload };
     case SET_CURSONG:
@@ -211,8 +268,14 @@ const reducer = (state = initialState, action) => {
       return { ...state, auth: action.payload };
     case SET_MODE:
       return { ...state, mode: action.payload };
+    case SET_MODAL:
+      return { ...state, modal: action.payload };
     case SET_THEME:
       return { ...state, theme: action.payload };
+    case SET_SONGLIBRARYSORT:
+      return { ...state, songLibrarySort: action.payload };
+    case SET_SONGLIBRARYVIEW:
+      return { ...state, songLibraryView: action.payload };
     case START_LOADING:
       return { ...state, loading: true };
     case END_LOADING:

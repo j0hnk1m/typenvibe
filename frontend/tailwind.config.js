@@ -9,6 +9,10 @@ module.exports = {
   },
   theme: {
     extend: {
+      spacing: {
+        96: '24rem',
+        128: '30rem',
+      },
       backgroundColor: {
         primary: 'var(--color-bg-primary)',
         typing: 'var(--color-bg-typing)',

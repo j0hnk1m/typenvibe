@@ -12,6 +12,7 @@ const SEO = ({ title }) => {
           description
           siteUrl
           author
+          keywords
         }
       }
     }
@@ -20,7 +21,9 @@ const SEO = ({ title }) => {
   return (
     <Helmet defer={false}>
       <html lang="en" />
-      <meta charSet="utf-8" name="description" content={query.site.siteMetadata.description} />
+      <meta name="charSet" content="utf-8" />
+      <meta name="description" content={query.site.siteMetadata.description} />
+      <meta name="keywords" content={query.site.siteMetadata.keywords.join(', ')} />
       {
         title === undefined
           ? <title>{query.site.siteMetadata.title}</title>
