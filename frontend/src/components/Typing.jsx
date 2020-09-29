@@ -1,9 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import SpotifyPlayer from 'react-spotify-web-playback';
-import Cookies, { set } from 'js-cookie';
+import Cookies from 'js-cookie';
 import AudioSpectrum from 'react-audio-spectrum';
-import { Line } from 'rc-progress';
 import Stats from './Stats';
 
 // levenshtein distance
@@ -59,8 +58,6 @@ const Typing = () => {
   const [linePos, setLinePos] = useState(0);
   const [wordPos, setWordPos] = useState(0);
   const [lineJustChanged, setLineJustChanged] = useState(false);
-  const [wordList, setWordList] = useState([]);
-  const [nextWordList, setNextWordList] = useState([]);
   const [wordListStatus, setWordListStatus] = useState([]);
   const [correctWordCount, setCorrectWordCount] = useState(0);
   const [typedWordCount, setTypedWordCount] = useState(0);
@@ -71,6 +68,21 @@ const Typing = () => {
   const [score, setScore] = useState(0);
   const [playerKey, setPlayerKey] = useState(0);
 
+  let wordList;
+  let nextWordList;
+  switch (mode) {
+    case 'default':
+      wordList = lrc[linePos].text.split(' ');
+      nextWordList = (linePos <= lrc.length - 2) ? lrc[linePos + 1].text.split(' ') : [];
+      break;
+    case 'chill':
+      const wordsStr = lrc.map((line) => line.text).join(' ');
+      wordList = wordsStr.slice(0, Math.floor(wordsStr.length / 2)).split(' ').filter((word) => word);
+      nextWordList = wordsStr.slice(Math.floor(wordsStr.length / 2), wordsStr.length).split(' ').filter((word) => word);
+      break;
+    default:
+  }
+
   // spotify web playback
   const [status, setStatus] = useState('');
   const handleSpotifyCallback = (state) => {
@@ -79,7 +91,7 @@ const Typing = () => {
   };
   const spotifyStyles = {
     bgColor: '',
-    color: '#000',
+    color: '#fff',
     loaderColor: '#a0aec0',
     sliderColor: '#4fd1c5',
     savedColor: '#1DB954',
@@ -92,7 +104,7 @@ const Typing = () => {
     case 'carbon':
     case 'dots':
     case 'dark':
-      spotifyStyles.color = '#fff';
+      spotifyStyles.color = '#000';
       spotifyStyles.trackNameColor = '#fff';
       break;
     default:
@@ -103,8 +115,6 @@ const Typing = () => {
     setSeconds(0);
     setLinePos(0);
     setWordPos(0);
-    setWordList([]);
-    setNextWordList([]);
     setWordListStatus([]);
     setLineJustChanged(false);
     setCorrectWordCount(0);
@@ -142,18 +152,6 @@ const Typing = () => {
   // since change in curSong results in delayed change in lrc, lrc is dependency
   useEffect(() => {
     reset();
-    switch (mode) {
-      case 'default':
-        setWordList(lrc[linePos].text.split(' '));
-        setNextWordList((linePos <= lrc.length - 2) ? lrc[linePos + 1].text.split(' ') : []);
-        break;
-      case 'chill':
-        const wordsStr = lrc.map((line) => line.text).join(' ');
-        setWordList(wordsStr.slice(0, Math.floor(wordsStr.length / 2)).split(' ').filter((word) => word));
-        setNextWordList(wordsStr.slice(Math.floor(wordsStr.length / 2), wordsStr.length).split(' ').filter((word) => word));
-        break;
-      default:
-    }
   }, [lrc]);
 
   useEffect(() => {
@@ -223,8 +221,6 @@ const Typing = () => {
           reset();
         } else {
           setWordListStatus([]);
-          setWordList(nextWordList);
-          setNextWordList(linePos + 1 < lrc.length ? lrc[linePos + 1].text.split(' ') : []);
         }
         break;
       case 'chill':
@@ -253,8 +249,6 @@ const Typing = () => {
           if (wordPos >= wordList.length && nextWordList) {
             setWordPos(0);
             setWordListStatus([]);
-            setWordList(nextWordList);
-            setNextWordList([]);
           }
           break;
         default:
@@ -291,8 +285,7 @@ const Typing = () => {
         />
       </div>
 
-      <div className="flex flex-col col-span-2 h-12 items-center justify-center">
-        {/* <Line strokeWidth="1" percent={seconds > curSongLength ? 100 : (seconds / curSongLength) * 100} /> */}
+      <div className="flex flex-col col-span-2 h-12 items-center justify-center pointer-events-none">
         <SpotifyPlayer
           token={Cookies.get('spotifyAuthToken')}
           uris={`spotify:track:${songs[curSong].spotifyTrackId}`}

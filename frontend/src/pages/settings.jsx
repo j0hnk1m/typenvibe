@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Switch from 'react-switch';
 import ReactTooltip from 'react-tooltip';
+import Cookies from 'js-cookie';
 import Layout from 'components/layout/Layout';
 import { setTheme, setGrammar, setMode } from 'state/app';
 
@@ -37,6 +38,11 @@ const Settings = () => {
   const [punc, togglePunc] = useState((grammar && (grammar === 'punc' || grammar === 'proper')));
   const [mode_, toggleMode] = useState(mode === 'chill');
   const [theme_, setTheme_] = useState(theme);
+
+  const clearSiteData = () => {
+    localStorage.clear();
+    Cookies.remove('spotifyAuthToken');
+  };
 
   useEffect(() => {
     let grammar_;
@@ -109,6 +115,15 @@ const Settings = () => {
                   <p>punctuation (,.!?*"-') will show up as you type</p>
                 </ReactTooltip>
               </div>
+            </div>
+            <div className="flex justify-center items-center mt-6">
+              <button
+                type="button"
+                className="border-2 rounded-lg text-inverse p-1 w-30 outline-none focus:outline-none transition duration-300 ease-in-out transform hover:scale-110 overflow-hidden"
+                onClick={clearSiteData}
+              >
+                clear site data
+              </button>
             </div>
           </div>
         </div>

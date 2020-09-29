@@ -38,12 +38,6 @@ module.exports = {
       },
     },
     'gatsby-plugin-sitemap',
-    {
-      resolve: 'gatsby-plugin-google-analytics',
-      options: {
-        trackingId: process.env.GA_TRACKING_ID,
-      },
-    },
     'gatsby-plugin-robots-txt',
     'gatsby-plugin-postcss',
     'gatsby-plugin-offline',

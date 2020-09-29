@@ -1,7 +1,7 @@
 import React from 'react';
 import Layout from 'components/layout/Layout';
-import lineChange1 from 'static/line_change_mechanism_1.gif'
-import lineChange2 from 'static/line_change_mechanism_2.gif'
+import lineChange1 from 'static/line_change_1.gif'
+import lineChange2 from 'static/line_change_2.gif'
 
 const About = () => (
   <>

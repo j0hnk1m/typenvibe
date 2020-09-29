@@ -32,9 +32,9 @@ const config = (spotifyAuthToken) => (
 // Action Types
 const START_LOADING = 'START_LOADING';
 const END_LOADING = 'END_LOADING';
-const GET_SONGS = 'GET_SONGS';
-const GET_TRACK_INFO = 'GET_TRACK_INFO';
-const GET_ALBUM_INFO = 'GET_ALBUM_INFO';
+const SET_SONGS = 'SET_SONGS';
+const SET_TRACK_INFO = 'SET_TRACK_INFO';
+const SET_ALBUM_INFO = 'SET_ALBUM_INFO';
 const SET_CURSONG = 'SET_CURSONG';
 const GET_LRC = 'GET_LRC';
 const SET_THEME = 'SET_THEME';
@@ -68,7 +68,7 @@ export const getAlbumInfo = (spotifyAlbumId, spotifyAuthToken) => (dispatch) => 
       };
 
       dispatch({
-        type: GET_ALBUM_INFO,
+        type: SET_ALBUM_INFO,
         payload: { ...albumInfo },
       });
     })
@@ -83,7 +83,6 @@ export const getTrackInfo = (spotifyTrackId, spotifyAuthToken) => (dispatch) => 
         spotifyTrackId: res.data.id,
         name: res.data.name,
         artists: res.data.artists.map((artist) => artist.name),
-        popularity: res.data.popularity,
         duration: res.data.duration_ms / 1000,
         previewUrl: res.data.preview_url,
         spotifyAlbumId: res.data.album.id,
@@ -93,38 +92,47 @@ export const getTrackInfo = (spotifyTrackId, spotifyAuthToken) => (dispatch) => 
       dispatch(getAlbumInfo(trackInfo.spotifyAlbumId, spotifyAuthToken));
 
       dispatch({
-        type: GET_TRACK_INFO,
+        type: SET_TRACK_INFO,
         payload: { ...trackInfo },
       });
     })
     .catch((err) => console.log(err));
 };
 
+export const setTrackInfo = (trackInfo) => (dispatch) => {
+  dispatch({
+    type: SET_TRACK_INFO,
+    payload: { ...trackInfo },
+  });
+};
+
 export const getSongs = (spotifyAuthToken) => (dispatch) => {
-  axios.get(`${CORS_PROXY}/${CLOUDFRONT}/${SONGLIST}`)
-    .then((res) => {
-      const data = res.data.split('\n').filter((line) => line);
-      data.shift();
-      const songs = data.filter((line) => line).map((song) => {
-        const parts = song.split(',');
-        const [spotifyTrackId, delay, difficulty] = parts || {};
+  if (spotifyAuthToken) {
+    axios.get(`${CORS_PROXY}/${CLOUDFRONT}/${SONGLIST}`)
+      .then((res) => {
+        const data = res.data.split('\n').filter((line) => line);
+        data.shift();
+        const songs = data.filter((line) => line).map((song) => {
+          const parts = song.split(',');
+          const [spotifyTrackId, delay, difficulty] = parts || {};
 
-        // axios is async, so this independently edits the state
-        dispatch(getTrackInfo(spotifyTrackId, spotifyAuthToken));
+          // axios is async, so this independently edits the state
+          dispatch(getTrackInfo(spotifyTrackId, spotifyAuthToken));
 
-        return {
-          spotifyTrackId,
-          delay,
-          difficulty: difficulty.trim(),
-        };
-      });
+          return {
+            spotifyTrackId,
+            delay,
+            difficulty: difficulty.trim(),
+          };
+        });
 
-      dispatch({
-        type: GET_SONGS,
-        payload: { ...songs },
-      });
-    })
-    .catch((err) => console.log(err));
+        dispatch({
+          type: SET_SONGS,
+          payload: { ...songs },
+        });
+      })
+      .catch((err) => console.log(err));
+  }
 };
 
 // parses the LRC file received from action GET_LRC
@@ -246,14 +254,14 @@ export const reset = () => (dispatch) => {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case GET_SONGS:
+    case SET_SONGS:
       return { ...state, songs: action.payload };
-    case GET_TRACK_INFO: {
+    case SET_TRACK_INFO: {
       const updated = Object.keys(state.songs).find((i) => state.songs[i].spotifyTrackId === action.payload.spotifyTrackId);
       const { id, ...rest } = action.payload;
       return { ...state, songs: { ...state.songs, [updated]: { ...state.songs[updated], ...rest } } };
     }
-    case GET_ALBUM_INFO: {
+    case SET_ALBUM_INFO: {
       const updated = Object.keys(state.songs).find((i) => state.songs[i].spotifyAlbumId === action.payload.spotifyAlbumId);
       const { id, ...rest } = action.payload;
       return { ...state, songs: { ...state.songs, [updated]: { ...state.songs[updated], ...rest } } };

@@ -1,13 +1,26 @@
-import React from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { setModal } from 'state/app';
 
 const WelcomeModal = () => {
   const dispatch = useDispatch();
 
+  // close modal if esc key is pressed
+  const escFunction = useCallback((event) => {
+    if (event.keyCode === 27) {
+      dispatch(setModal(null));
+    }
+  }, []);
+  useEffect(() => {
+    document.addEventListener('keydown', escFunction, false);
+    return () => {
+      document.removeEventListener('keydown', escFunction, false);
+    };
+  }, []);
+
   return (
     <>
-      <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none" onClick={() => dispatch(setModal(null))}>
+      <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
         <div className="relative w-auto my-6 mx-auto max-w-3xl">
           <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
             {/*header*/}
@@ -20,7 +33,7 @@ const WelcomeModal = () => {
                 onClick={() => dispatch(setModal(null))}
                 type="button"
               >
-                <span className="bg-transparent text-gray-700 opacity-50 h-6 w-6 text-2xl block outline-none focus:outline-none hover:font-bold">×</span>
+                <span className="bg-transparent text-inverse opacity-50 h-6 w-6 text-2xl block outline-none focus:outline-none hover:font-bold">×</span>
               </button>
             </div>
 

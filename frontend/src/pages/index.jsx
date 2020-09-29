@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { navigate } from 'gatsby';
 import { useDispatch, useSelector } from 'react-redux';
-import { SpotifyApiContext } from 'react-spotify-api';
 import Cookies from 'js-cookie';
 import Layout from 'components/layout/Layout';
 import Typing from 'components/Typing';
@@ -16,6 +15,7 @@ const Content = () => {
   const curSong = useSelector((state) => state.app.curSong);
   const auth = useSelector((state) => state.app.auth);
   const lrc = useSelector((state) => state.app.lrc);
+  const loading = useSelector((state) => state.app.loading);
   const dispatch = useDispatch();
 
   if (auth && auth !== 'logged out') {
@@ -23,6 +23,7 @@ const Content = () => {
       // AUTHORIZED + SONG SELECTED VIEW
       return (
         <>
+          {loading && <Spinner />}
           <div className="grid grid-cols-2 gap-4">
             <div className="flex col-span-1 items-center justify-center">
               <button
@@ -78,7 +79,6 @@ const Content = () => {
 };
 
 const Home = () => {
-  const loading = useSelector((state) => state.app.loading);
   const dispatch = useDispatch();
 
   const spotifyAuthToken = Cookies.get('spotifyAuthToken');
@@ -86,7 +86,7 @@ const Home = () => {
 
   // removes access token + other params in url
   const url = typeof window !== 'undefined' ? window.location.href : '';
-  const baseUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:8000/' : 'https://typenvibe.com/'
+  const baseUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:8000/' : 'https://typenvibe.com/';
   if (url.substring(baseUrl.length, url.length) !== '') navigate('/');
 
   useEffect(() => {
@@ -100,13 +100,10 @@ const Home = () => {
 
   return (
     <>
-      <SpotifyApiContext.Provider value={Cookies.get('spotifyAuthToken')}>
-        <Layout>
-          {loading && <Spinner />}
-          <Modal />
-          <Content />
-        </Layout>
-      </SpotifyApiContext.Provider>
+      <Layout>
+        <Modal />
+        <Content />
+      </Layout>
     </>
   );
 };
